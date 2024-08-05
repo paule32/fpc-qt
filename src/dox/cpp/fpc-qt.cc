@@ -16,14 +16,13 @@ std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 void
-Iaddsymbol(const std::wstring& p_sname, int value)
-{
-    if (value == 1) {
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
-    }   else if (value == 2) {
-        auto * qc = new QChar();
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-    }
+addSymbol(
+    const std::wstring& p_sname,
+    symbolVariantEnum   e_value) {
+    symbol_map[p_sname] =
+        std::make_unique<TypeTypes>(
+        symbolVariantEnum(e_value)
+        );
 }
 
 /**
@@ -34,7 +33,7 @@ Iaddsymbol(const std::wstring& p_sname, int value)
  * \return bool - ein Boolscher Wert => False oder True.
  */
 bool
-Igetsymbol(std::wstring&& p_sname) {
+getSymbol(std::wstring&& p_sname) {
     auto it = symbol_map.find(p_sname);
     if (it != symbol_map.end()) {
         const auto& value = it->second->value;
@@ -44,44 +43,21 @@ Igetsymbol(std::wstring&& p_sname) {
             if constexpr (std::is_same_v<T, int>) {
                 std::wcout << L"Integer: " << arg << std::endl;
                 return true;
-            }   else if constexpr (std::is_same_v<T, float>) {
+            } else if constexpr (std::is_same_v<T, float>) {
                 std::wcout << L"Float: " << arg << std::endl;
                 return true;
-            }   else if constexpr (std::is_same_v<T, std::wstring>) {
+            } else if constexpr (std::is_same_v<T, std::wstring>) {
                 std::wcout << L"String: " << arg << std::endl;
-                return true;
-            }   else if constexpr (std::is_same_v<T, QChar>) {
                 return true;
             }
         }, value);
-        
-        return false;
     }   else {
-        std::wstring part1 = L"Symbol not found: ";
-        std::wstring part2 = p_sname;
-        std::wstring title = L"Inforamtion";
-        
-        std::wstring&& part2_rvalue = std::move(part2);
-        std::wstring   result       = std::wstring(part1) + part2_rvalue;
-        
-        int res = MessageBoxW(
-            NULL,
-            result.c_str(),
-            title .c_str(),
-            MB_OK | MB_ICONINFORMATION
-        );
-        
+        std::wcout << L"Symbol not found: " << p_sname << std::endl;
         return false;
-    }   return false;
+    }
 }
 
 extern "C" {
-DLL_EXPORT void*
-ctor_CreateQChar(wchar_t* p_name)
-{
-    Iaddsymbol(p_name, 2);
-    return qc;
-}
 /**
  * \brief   Intern genutzte Funktion zum hinzufügen eines Symbols zu der internen
  *          Symboltabelle.
@@ -92,10 +68,9 @@ ctor_CreateQChar(wchar_t* p_name)
  * \see addSymbol(), getSymbol()
  */
 DLL_EXPORT void
-addsymbol(wchar_t* p_name, uint32_t cc)
-{
-    Iaddsymbol(p_name, 1);
-    Igetsymbol(p_name);
+addInternalSymbol(wchar_t* p_name, size_t cc) {
+    addSymbol(p_name);
+    getSymbol(p_name);
 }
 };
 

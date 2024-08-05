@@ -12,14 +12,19 @@ GCC_32 = $(WIN_PATH)/mingw32/bin/i686-w64-mingw32-gcc.exe
 GPP_64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-g++.exe
 GCC_64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-gcc.exe
 
-GCC_32_REL_FLAGS = -m32 -O2 -wno-write-strings -fPIC -shared
-GCC_64_REL_FLAGS = -m64 -O2 -wno-write-strings -fPIC -shared
+QT_632_INC =\
+    -I./cpp \
+    -I$(WIN_PATH)/mingw64/include
 
-GCC_32_DEB_FLAGS = $(GCC_32_REL_FLAGS) -g gdb
-GCC_64_DEB_FLAGS = $(GCC_32_REL_FLAGS) -g gdb
+GCC_32_REL_FLAGS  = -m32 -O2 -wno-write-strings -fPIC -shared
+GCC_64_REL_FLAGS  = -m64 -O2 -wno-write-strings -fPIC -shared
 
-GPP_32_REL_FLAGS = -m32 -O2 -Wno-write-strings -fPIC -shared -std=c++17
-GPP_64_REL_FLAGS = -m64 -O2 -Wno-write-strings -fPIC -shared -std=c++17
+GCC_32_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
+GCC_64_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
+
+GPP_XX_REL_FLAGS = -O2 -Wno-write-strings -fPIC -shared -std=c++17
+GPP_32_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m32 $(INCLUDES)
+GPP_64_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m64 $(INCLUDES)
 
 GPP_32_DEB_FLAGS = $(GPP_32_REL_FLAGS) -g gdb
 GPP_64_DEB_FLAGS = $(GPP_64_REL_FLAGS) -g gdb
