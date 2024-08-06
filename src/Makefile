@@ -22,7 +22,7 @@ GCC_64_REL_FLAGS  = -m64 -O2 -wno-write-strings -fPIC -shared
 GCC_32_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
 GCC_64_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
 
-GPP_XX_REL_FLAGS = -O2 -Wno-write-strings -fPIC -shared -std=c++17
+GPP_XX_REL_FLAGS = -O2 -Wno-write-strings -fPIC -shared -std=c++20
 GPP_32_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m32 $(INCLUDES)
 GPP_64_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m64 $(INCLUDES)
 
@@ -52,16 +52,16 @@ OBJS = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
 # ---------------------------------------------------------------------------
 # start file
 # ---------------------------------------------------------------------------
-all: $(TARGET_REL_64)
+all: presteps $(TARGET_REL_64)
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
 # ---------------------------------------------------------------------------
 $(TARGET_REL_64): $(OBJS)
-	$(GPP_64) $(GPP_64_REL_FLAGS) -o $@ $^
+	$(GPP_64) $(GPP_64_REL_FLAGS) -o $@ $^  -lQt5Core
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
-	$(GPP_64) $(GPP_64_REL_FLAGS) -c -o $@ $<
+	$(GPP_64) $(GPP_64_REL_FLAGS) -o $@ -c $<
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
@@ -74,4 +74,7 @@ clean:
 
 rebuild: clean all
 
+presteps:
+	mkdir -p ./obj
+    
 .PHONY: all clean rebuild

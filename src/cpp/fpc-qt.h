@@ -12,6 +12,7 @@
 # include <string>
 # include <variant>
 # include <map>
+# include <vector>
 # include <memory>
 # include <cwchar>
 
@@ -78,7 +79,7 @@ struct TypeTypes
     int,
     float,
     std::wstring,
-    QChar> value;
+    QChar*> value;
     
     /// repräsentiert einen Integer Wert
     TypeTypes(int v) : value(v) {}
@@ -86,7 +87,7 @@ struct TypeTypes
     TypeTypes(float v) : value(v) {}
     /// repräsentiert einen WideString
     TypeTypes(const std::wstring& v) : value(v) {}
-    TypeTypes(const QChar& v): value(v) { }
+    TypeTypes(QChar* v): value(v) { }
 };
 
 /**

@@ -8,6 +8,9 @@
 namespace qvc {
 std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
 
+uint64_t current_ptr = 0;
+std::vector< QChar* > map_QChar;
+
 /**
  * \brief  Fügt ein neues Symbol, das mit p_name angegeben wurde, zu der intern
  *         genutzten Symbol-Table hinzu.
@@ -21,7 +24,8 @@ Iaddsymbol(const std::wstring& p_sname, int value)
     if (value == 1) {
         symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
     }   else if (value == 2) {
-        auto * qc = new QChar();
+        QChar* qc = new QChar();
+        map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
     }
 }
@@ -50,7 +54,8 @@ Igetsymbol(std::wstring&& p_sname) {
             }   else if constexpr (std::is_same_v<T, std::wstring>) {
                 std::wcout << L"String: " << arg << std::endl;
                 return true;
-            }   else if constexpr (std::is_same_v<T, QChar>) {
+            }   else if constexpr (std::is_same_v<T, QChar*>) {
+                current_ptr = reinterpret_cast<uint64_t>(&arg);
                 return true;
             }
         }, value);
@@ -76,11 +81,36 @@ Igetsymbol(std::wstring&& p_sname) {
 }
 
 extern "C" {
-DLL_EXPORT void*
-ctor_CreateQChar(wchar_t* p_name)
+DLL_EXPORT uint64_t
+ctor_QChar(wchar_t* p_name)
 {
     Iaddsymbol(p_name, 2);
-    return qc;
+    Igetsymbol(p_name);
+    
+    std::wcout
+    << L"create: QChar: 0x" << std::hex
+    << current_ptr
+    << std::endl;
+    
+    return current_ptr;
+}
+DLL_EXPORT void
+dtor_QChar(uint64_t addr)
+{
+    QChar* objptr = reinterpret_cast<QChar*>(addr);
+    delete objptr;
+    std::wcout << L"delete: QChar" << std::endl;
+}
+DLL_EXPORT bool
+isDigit_QChar(uint64_t addr)
+{
+    bool   result = false;
+    QChar* objptr = reinterpret_cast<QChar*>(addr);
+
+    if (objptr->isDigit())
+    result = true;
+
+    return result;
 }
 /**
  * \brief   Intern genutzte Funktion zum hinzufügen eines Symbols zu der internen

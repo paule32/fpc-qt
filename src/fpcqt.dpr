@@ -3,32 +3,60 @@ program fpcqt;
 
 uses Windows, SysUtils;
 
+const DLLname = 'fpc-qt.dll';
 var
   DLLHandle: HMODULE;
 
-type
-  TMyFunction = procedure(s: PChar; v: DWORD); cdecl;
-  TCTOR_CreateQChar = function(s: PChar): Pointer; cdecl;
-var
-  MyFunction: TMyFunction;
-  ptr: Pointer;
-  CTOR_CreateQChar: TCTOR_CreateQChar;
+function  ctor_QChar(s: PChar): uint64; cdecl; external dllname;
+procedure dtor_QChar(v: uint64); cdecl; external dllname;
+function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
 
 type
-  QtExample = class
+  QChar = class
+  private
+    ptr_cc: uint64;
   public
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; override;
+    function isDigit: Boolean;
   end;
 
-constructor QtExample.Create;
-begin
+var
+  myQChar: QChar;
 
+constructor QChar.Create;
+begin
+  inherited Create;
+  ptr_cc := ctor_QChar(PChar('ctor_QChar'));
 end;
 
-destructor QtExample.Destroy;
+destructor QChar.Destroy;
 begin
+  if ptr_cc = 0 then
+  begin
+    MessageBoxW(0,
+      PChar('Error: QChar not constructed.'),
+      PChar('Error'),
+      MB_OK);
+    ExitProcess(1);
+  end;
+  dtor_QChar(ptr_cc);
+  ptr_cc := 0;
+  inherited Destroy;
+end;
 
+function QChar.isDigit: Boolean;
+var
+  res: Boolean;
+begin
+  result := isDigit_QChar(ptr_cc);
+  if result = true then
+  begin
+    WriteLn('digit ok');
+  end else
+  begin
+    WriteLn('digit not ok');
+  end;
 end;
 
 begin
@@ -39,21 +67,10 @@ begin
     ExitProcess(1);
   end;
   try
-    @MyFunction := GetProcAddress(DLLHandle, 'addsymbol');
-    @CTOR_CreateQChar := GetProcAddress(DLLHandle, 'ctor_CreateQChar');
-    if @CTOR_CreateQChar = nil then
-    begin
-      MessageBox(0, 'Error: CTOR for QChar not found in DLL.', 'Error',0);
-      ExitProcess(1);
-    end;
-    if @MyFunction = nil then
-    begin
-      MessageBox(0, 'Error: TestFunction not found in DLL.', 'Error', 0);
-      ExitProcess(1);
-    end;
-    MyFunction(PChar('jukel'), 2);
-    ptr := CTOR_CreateQChar(PChar('mopsi'));
-    WriteLn(Format('PTR := 0x%08x', [ptr]));
+    myQChar := QChar.Create;
+    myQChar.isDigit;
+
+    myQChar.Free;
   finally
       FreeLibrary(DLLHandle);
       ExitProcess(0);
