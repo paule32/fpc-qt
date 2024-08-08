@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.821,E:\Projekte\AthensProjekte\1\fpcqt.dproj=E:\Projekte\AthensProjekte\1\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.151,E:\Projekte\AthensProjekte\1\Project1.dproj=C:\Users\Jens Kallup\Documents\Embarcadero\Studio\Projekte\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.151,C:\Users\Jens Kallup\Documents\Embarcadero\Studio\Projekte\Project1.dproj=E:\Projekte\AthensProjekte\1\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.821,E:\Projekte\AthensProjekte\1\Project1.dproj=E:\Projekte\AthensProjekte\1\fpcqt.dproj</Transaction>
   </Transactions>
 </BorlandProject>

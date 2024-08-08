@@ -46,10 +46,10 @@ namespace qvc
  *          Damit jedem Symbol eine Bedeutung zugeordnet werden kann, wird ein
  *          eindeutiger Typ bereit gestellt.
  */
-enum symbolTypeEnum
+enum symbolTypeEnum : uint32_t
 {
     /// Symboltype ist nicht bekannt.
-    stUnknown = -1,
+    stUnknown = 0,
     /// ist eine Funktion
     stFunction = 1,
     /// ist eine Prozedur
@@ -59,7 +59,41 @@ enum symbolTypeEnum
     /// entspricht einen WideChar (2 Byte)
     stWideChar = 4,
     /// Qt Klasse - QChar
-    stQChar = 100
+    stQChar          = 100,
+    stQChar_Char     = 101,
+    stQChar_Byte     = 102,
+    stQChar_AnsiChar = 103,
+    stQChar_WideChar = 104,
+    stQChar_DWord    = 105,
+    stQChar_Word     = 106
+};
+
+class QChar {
+private:
+    std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t> qchar_types;
+public:
+    // constructor
+    QChar(void);
+    QChar(char      c);  // char
+    QChar(uint8_t   c);  // byte/ansichar
+    QChar(uint16_t  c);  // Word
+    QChar(uint32_t  c);  // dword
+    QChar(wchar_t   c);  // widechar
+    
+    // destructor
+    ~QChar(void);
+    
+    bool isDigit();
+    
+    // setter
+    void setType(char     t);
+    void setType(uint8_t  t);
+    void setType(uint16_t t);
+    void setType(uint32_t t);
+    void setType(wchar_t  t);
+    
+    // getter
+    symbolTypeEnum getType(void) const;
 };
 
 /**
@@ -76,18 +110,18 @@ struct TypeTypes
 {
     /** Container für mögliche Typen für ein Symbol */
     std::variant<
-    int,
+    uint32_t,
     float,
     std::wstring,
-    QChar*> value;
+    qvc::QChar*> value;
     
     /// repräsentiert einen Integer Wert
-    TypeTypes(int v) : value(v) {}
+    TypeTypes(uint32_t v) : value(v) {}
     /// repräsentiert eine Fließkomma Zahl
     TypeTypes(float v) : value(v) {}
     /// repräsentiert einen WideString
     TypeTypes(const std::wstring& v) : value(v) {}
-    TypeTypes(QChar* v): value(v) { }
+    TypeTypes(qvc::QChar* v): value(v) { }
 };
 
 /**
@@ -122,8 +156,10 @@ extern "C" {
 /**
  * \ingroup  qcharclass CreateQChar
  * \brief    Erstellt eine Inztanz einer QChar Klasse
+ * \param    p_name - wchar_t* der Name der Klasse
+ * \return   uint64_t - ein 64-Bit Type der die Adresse der erstellten Klasse zurückgibt.
  */
-bool CreateQChar(wchar_t* p_name);
+uint64_t ctor_QChar(wchar_t* p_name, uint32_t sym_type);
 
 
 /**
@@ -135,7 +171,7 @@ bool CreateQChar(wchar_t* p_name);
  * \ingroup  qstringclass CreateQString
  * \brief    Erstellt eine Inztanz einer QString Klasse
  */
-bool CreateQString(wchar_t* p_name);
+bool ctor_QString(wchar_t* p_name);
 /** @} */  // Ende: internFunctions
 
 };      // ectern:    "C"
