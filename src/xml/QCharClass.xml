@@ -70,6 +70,11 @@
     </parameters>
   </function>
   <class name="QChar">
+    <devnotes>
+       <summary>
+        QChar ist eine Beispielklasse
+       </summary>
+    </devnotes>
     <ancestor name="TObject" namespace="System">
       <methodref name="Create" visibility="public" procflags="constructor">
       </methodref>
@@ -156,15 +161,40 @@
       <field name="ptr_cc" type="UInt64" visibility="private" size="8" offset="8" />
       <field name="c_type" type="Variant" visibility="private" size="24" offset="16" />
       <constructor name="Create" visibility="public">
+        <devnotes>
+<!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->
+        </devnotes>
         <parameters>
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+            Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+           </summary>
+           <param name="c">
+            Ein Byte für das Zeichen.
+           </param>
+           <remarks>
+             Dies ist der Standardkonstruktors.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="Byte" />
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+            Erstellt eine Instanz von AnsiChar mit einen Byte als Parameter.
+           </summary>
+           <param name="c">
+            Ein AnsiChar für das Zeichen.
+           </param>
+           <remarks>
+             Dies ist der AnsiChar Konstruktor
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="AnsiChar" />
         </parameters>

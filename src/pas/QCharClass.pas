@@ -33,17 +33,43 @@ function  ctor_QChar(s: PChar; t: symbolType): uint64; cdecl; external dllname;
 procedure dtor_QChar(v: uint64); cdecl; external dllname;
 function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
 
-// ---------------------------------------------------------------------------
-// Qt5 - QChar
-// ---------------------------------------------------------------------------
 type
+  /// <summary>
+  ///  QChar ist eine Beispielklasse
+  /// </summary>
   QChar = class
   private
     ptr_cc: uint64;
     c_type: Variant;
   public
+    /// <summary>
+    ///  Erstellt eine Instanz von QChar ohne Parameter.
+    /// </summary>
+    /// <remarks>
+    ///   Dies ist der Standardkonstruktor.
+    /// </remarks>
     constructor Create; overload;
+
+    /// <summary>
+    ///  Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+    /// </summary>
+    /// <param name="c">
+    ///  Ein Byte für das Zeichen.
+    /// </param>
+    /// <remarks>
+    ///   Dies ist der Standardkonstruktors.
+    /// </remarks>
     constructor Create(c: Byte); overload;
+
+    /// <summary>
+    ///  Erstellt eine Instanz von AnsiChar mit einen Byte als Parameter.
+    /// </summary>
+    /// <param name="c">
+    ///  Ein AnsiChar für das Zeichen.
+    /// </param>
+    /// <remarks>
+    ///   Dies ist der AnsiChar Konstruktor
+    /// </remarks>
     constructor Create(c: AnsiChar); overload;
     constructor Create(c: WideChar); overload;
     constructor Create(c: DWORD); overload;
@@ -56,18 +82,37 @@ var
   myQChar: QChar;
 implementation
 
+{ QChar }
+
+/// <summary>
+///  Erstellt eine Instanz von QChar ohne Parameter.
+/// </summary>
 constructor QChar.Create;
 begin
   inherited Create;
   ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar);
   c_type := 'A';
 end;
+
+/// <summary>
+///  Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+/// </summary>
+/// <param name="c">
+///  Ein Byte für das Zeichen.
+/// </param>
 constructor QChar.Create(c: Byte);
 begin
   inherited Create;
   ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), stQChar_Byte);
   c_type := c;
 end;
+
+/// <summary>
+///  Erstellt eine Instanz von QChar mit einen AnsiChar als Parameter.
+/// </summary>
+/// <param name="c">
+///  Ein AnsiChar für das Zeichen.
+/// </param>
 constructor QChar.Create(c: AnsiChar);
 begin
   inherited Create;

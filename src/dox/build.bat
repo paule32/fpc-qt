@@ -1,4 +1,3 @@
-mkdir cpp
 xcopy ..\cpp .\cpp /E /I /Y
 E:\doxygen\bin\doxygen.exe -v
 E:\doxygen\bin\doxygen.exe
