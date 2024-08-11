@@ -8,20 +8,20 @@ File_5=TSourceModule,'E:\Projekte\AthensProjekte\webview\Demos\Main Demos\demoun
 File_6=TSourceModule,'E:\Projekte\AthensProjekte\webview\source\vwPrint.pas',0,1,293,68,329,0,0,,
 
 [Modules]
-Module0=E:\Projekte\AthensProjekte\1\fpcqt.dproj
-Module1=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
+Module0=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
+Module1=E:\Projekte\AthensProjekte\1\fpcqt.dproj
 Count=2
 EditWindowCount=1
-
-[E:\Projekte\AthensProjekte\1\fpcqt.dproj]
-ModuleType=TBaseProject
 
 [E:\Projekte\AthensProjekte\1\pas\QCharClass.pas]
 ModuleType=TSourceModule
 
+[E:\Projekte\AthensProjekte\1\fpcqt.dproj]
+ModuleType=TBaseProject
+
 [EditWindow0]
 ViewCount=2
-CurrentEditView=E:\Projekte\AthensProjekte\1\fpcqt.dpr
+CurrentEditView=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
 View0=0
 View1=1
 PercentageSizes=1
@@ -60,7 +60,7 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\Projekte\AthensProjekte\1\fpcqt.dpr
-CursorX=9
+CursorX=11
 CursorY=10
 TopLine=1
 LeftCol=1
@@ -71,9 +71,9 @@ EditViewName=E:\Projekte\AthensProjekte\1\fpcqt.dpr
 [View1]
 CustomEditViewType=TEditView
 Module=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
-CursorX=1
-CursorY=1
-TopLine=64
+CursorX=98
+CursorY=49
+TopLine=37
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -209,7 +209,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=1308
-TBDockHeight=9012
+TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -665,7 +665,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=2209
-TBDockHeight=4147
+TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -689,7 +689,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=2781
-TBDockHeight=4147
+TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0

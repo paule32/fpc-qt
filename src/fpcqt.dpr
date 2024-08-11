@@ -10,6 +10,9 @@ uses
   Windows,
   QCharClass;
 
+var
+  myQChar: QChar;
+
 begin
   DLLHandle := LoadLibrary('fpc-qt.dll');
   if DLLHandle = 0 then
@@ -23,7 +26,7 @@ begin
     if myQChar.isDigit then
     WriteLn('ok') else
     WriteLn('not ok');
-
+    Readln;
     myQChar.Free;
   finally
       FreeLibrary(DLLHandle);

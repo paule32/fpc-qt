@@ -65,12 +65,14 @@ enum symbolTypeEnum : uint32_t
     stQChar_AnsiChar = 103,
     stQChar_WideChar = 104,
     stQChar_DWord    = 105,
-    stQChar_Word     = 106
+    stQChar_Word     = 106,
+    stQChar_ShortInt = 107
 };
 
 class QChar {
 private:
-    std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t> qchar_types;
+    std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t, short> qchar_types;
+    ::QChar* origin_obj;
 public:
     // constructor
     QChar(void);
@@ -79,11 +81,21 @@ public:
     QChar(uint16_t  c);  // Word
     QChar(uint32_t  c);  // dword
     QChar(wchar_t   c);  // widechar
+    QChar(short     c);  // short
     
     // destructor
     ~QChar(void);
     
-    bool isDigit();
+    bool isDigit () const;
+    bool isLetter() const;
+    bool isLetterOrNumber() const;
+    bool isLower () const;
+    bool isNull  () const;
+    
+       char toLatin1   () const;
+    ::QChar toLower    () const;
+    ::QChar toTitleCase() const;
+    ::QChar toUpper    () const;
     
     // setter
     void setType(char     t);
@@ -91,9 +103,11 @@ public:
     void setType(uint16_t t);
     void setType(uint32_t t);
     void setType(wchar_t  t);
+    void setType(short    t);
     
     // getter
-    symbolTypeEnum getType(void) const;
+    symbolTypeEnum getType  (void) const;
+    ::QChar *      getOrigin(void) const;
 };
 
 /**
@@ -130,6 +144,11 @@ struct TypeTypes
  *          festgelegt. Für jedes Symbol kann immer nur ein Typ vergeben werden.
  */
 extern std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
+
+extern void Iaddsymbol(const std::wstring&  p_sname, uint32_t value);
+extern bool Igetsymbol(      std::wstring&& p_sname);
+
+extern uint64_t current_ptr;
 
 /**
  * \class   symbolHandler

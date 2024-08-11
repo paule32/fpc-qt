@@ -2,4 +2,5 @@
 <namespace name="fpcqt" platform="Win64">
   <contains name="QCharClass" />
   <contains name="SysInit" />
+  <variable name="myQChar" type="QChar" />
 </namespace>

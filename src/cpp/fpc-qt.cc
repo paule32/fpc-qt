@@ -49,6 +49,12 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value)
         qc->setType(ch);
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
+    }   else if (value == symbolTypeEnum::stQChar_ShortInt) {
+        short ch = 32;
+        qvc::QChar* qc = new qvc::QChar((short)ch);
+        qc->setType(ch);
+        map_QChar.push_back(qc);
+        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
     }
 }
 
@@ -102,83 +108,7 @@ Igetsymbol(std::wstring&& p_sname) {
     }   return false;
 }
 
-qvc::QChar::QChar(void      ) { }
-qvc::QChar::QChar(char     t) { }
-qvc::QChar::QChar(uint8_t  t) { }
-qvc::QChar::QChar(uint16_t t) { }
-qvc::QChar::QChar(uint32_t t) { }
-qvc::QChar::QChar(wchar_t  t) { }
-
-void qvc::QChar::setType(char     t) { qchar_types = static_cast<char    >( t ); }
-void qvc::QChar::setType(uint8_t  t) { qchar_types = static_cast<uint8_t >( t ); }
-void qvc::QChar::setType(uint16_t t) { qchar_types = static_cast<uint16_t>( t ); }
-void qvc::QChar::setType(uint32_t t) { qchar_types = static_cast<uint32_t>( t ); }
-void qvc::QChar::setType(wchar_t  t) { qchar_types = static_cast<wchar_t >( t ); }
-
-symbolTypeEnum
-qvc::QChar::getType(void) const
-{
-    symbolTypeEnum result = stUnknown;
-    
-    if (std::holds_alternative<char    >(qchar_types)) result = stQChar_Char; else
-    if (std::holds_alternative<uint8_t >(qchar_types)) result = stQChar_Char; else
-    if (std::holds_alternative<uint16_t>(qchar_types)) result = stQChar_Char; else
-    if (std::holds_alternative<uint32_t>(qchar_types)) result = stQChar_Char; else
-    if (std::holds_alternative<wchar_t >(qchar_types)) result = stQChar_Char; else {
-        MessageBoxW(
-            NULL,
-            L"Error: type out of bounds.",
-            L"Error",
-            MB_ICONINFORMATION | MB_OK
-        );
-        ExitProcess(1);
-    }
-    return result;
-}
-
-bool
-qvc::QChar::isDigit()
-{
-    bool result = true;
-    return result;
-}
-
-qvc::QChar::~QChar(void) {
-    std::wcout << L"dtor: QChar" << std::endl;
-}
-
 extern "C" {
-DLL_EXPORT uint64_t
-ctor_QChar(wchar_t* p_name, uint32_t sym_type)
-{
-    Iaddsymbol(p_name, sym_type);
-    Igetsymbol(p_name);
-    
-    std::wcout
-    << L"create: QChar: 0x" << std::hex
-    << current_ptr
-    << std::endl;
-    
-    return current_ptr;
-}
-DLL_EXPORT void
-dtor_QChar(uint64_t addr)
-{
-    QChar* objptr = reinterpret_cast<QChar*>(addr);
-    delete objptr;
-}
-
-DLL_EXPORT bool
-isDigit_QChar(uint64_t addr)
-{
-    bool   result = false;
-    QChar* objptr = reinterpret_cast<QChar*>(addr);
-
-    if (objptr->isDigit())
-    result = true;
-
-    return result;
-}
 /**
  * \brief   Intern genutzte Funktion zum hinzufügen eines Symbols zu der internen
  *          Symboltabelle.

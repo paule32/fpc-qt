@@ -39,17 +39,23 @@
       stQChar_Word
     </value>
   </const>
+  <const name="stQChar_SmallInt" type="symbolType">
+    <value>
+      stQChar_SmallInt
+    </value>
+  </const>
   <enum name="symbolType">
     <element value="100" name="stQChar">
       <devnotes>
          Qt Klasse - QChar
       </devnotes>
     </element>
-    <element value="101" name="stQChar_Byte" />
-    <element value="102" name="stQChar_AnsiChar" />
-    <element value="103" name="stQChar_WideChar" />
-    <element value="104" name="stQChar_DWord" />
-    <element value="105" name="stQChar_Word" />
+    <element value="102" name="stQChar_Byte" />
+    <element value="103" name="stQChar_AnsiChar" />
+    <element value="104" name="stQChar_WideChar" />
+    <element value="105" name="stQChar_DWord" />
+    <element value="106" name="stQChar_Word" />
+    <element value="107" name="stQChar_SmallInt" />
   </enum>
   <function name="ctor_QChar" visibility="external public" callconv="cdecl">
     <parameters>
@@ -66,6 +72,30 @@
   <function name="isDigit_QChar" visibility="external public" callconv="cdecl">
     <parameters>
       <parameter name="v" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isLetter_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="w" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isLetterOrNumber_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="w" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isLower_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="w" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isNull_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="w" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
@@ -158,8 +188,9 @@
       </propertyref>
     </ancestor>
     <members>
-      <field name="ptr_cc" type="UInt64" visibility="private" size="8" offset="8" />
-      <field name="c_type" type="Variant" visibility="private" size="24" offset="16" />
+      <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" />
+      <field name="ptr_cc" type="UInt64" visibility="private" size="8" offset="16" />
+      <field name="c_type" type="Variant" visibility="private" size="24" offset="24" />
       <constructor name="Create" visibility="public">
         <devnotes>
 <!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->
@@ -214,7 +245,17 @@
           <parameter name="c" type="Word" />
         </parameters>
       </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="c" type="SmallInt" />
+        </parameters>
+      </constructor>
       <destructor name="Destroy" visibility="public">
+        <devnotes>
+           <summary>
+            Bereinigt eine Instanz der Klasse QChar.
+           </summary>
+        </devnotes>
         <parameters>
         </parameters>
       </destructor>
@@ -223,7 +264,31 @@
           <retval type="Boolean" />
         </parameters>
       </function>
+      <function name="isLetter" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isLetterOrNumber" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isLower" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isNull" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="getOrigin" visibility="public">
+        <parameters>
+          <retval type="UInt64" />
+        </parameters>
+      </function>
     </members>
   </class>
-  <variable name="myQChar" type="QChar" />
 </namespace>
