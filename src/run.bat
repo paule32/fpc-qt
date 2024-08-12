@@ -9,4 +9,5 @@
 @SET PLATFORM=
 @SET PlatformSDK=
 
-.\win64\Release\fpcqt.exe
+cd .\win64\Debug
+fpcqt.exe

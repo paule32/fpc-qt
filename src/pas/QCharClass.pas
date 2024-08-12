@@ -243,7 +243,7 @@ end;
 destructor QChar.Destroy;
 begin
   dtor_QChar(ptr_cc);
-//  ptr_cc := 0;
+  ptr_cc := 0;
     WriteLn('11212');
   inherited Destroy;
 end;
