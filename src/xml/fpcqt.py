@@ -4,12 +4,20 @@ import os
 # Liste der XML-Dateien, die verarbeitet werden sollen
 xml_files = ['QCharClass.xml']  # Füge hier weitere Dateien hinzu
 
-# Lade die XSLT-Datei
+# Lade die Haupt-XSLT-Datei
 try:
-    xslt_doc = ET.parse('fpcqt.xslt')
-    transform = ET.XSLT(xslt_doc)
+    xslt_main_doc = ET.parse('fpcqt.xslt')
+    transform_main = ET.XSLT(xslt_main_doc)
 except ET.XMLSyntaxError as e:
     print(f"XSLT-Datei konnte nicht geladen werden: {e}")
+    exit()
+
+# Lade die XSLT-Datei für enums
+try:
+    xslt_enum_doc = ET.parse('fpcqt_enum.xslt')
+    transform_enum = ET.XSLT(xslt_enum_doc)
+except ET.XMLSyntaxError as e:
+    print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
     exit()
 
 # Verarbeite jede XML-Datei in der Liste
@@ -24,18 +32,31 @@ for xml_file in xml_files:
         print(f"Die XML-Datei '{xml_file}' wurde nicht gefunden.")
         continue
 
-    # Führe die Transformation durch
+    # Führe die Transformation für die Hauptdatei durch
     try:
-        result = transform(xml_doc)
-        if result is None:
+        result_main = transform_main(xml_doc)
+        if result_main is None:
             raise ValueError(f"Die Transformation der Datei '{xml_file}' hat kein Ergebnis zurückgegeben.")
     except (ET.XSLTApplyError, ValueError) as e:
         print(f"Fehler bei der Transformation der Datei '{xml_file}': {e}")
         continue
 
-    # Speichere das Ergebnis als HTML
-    output_file_path = os.path.splitext(xml_file)[0] + '.html'
-    with open(output_file_path, 'wb') as f:
-        f.write(ET.tostring(result, pretty_print=True))
+    # Speichere die Haupt-HTML-Datei
+    output_file_path_main = os.path.splitext(xml_file)[0] + '.html'
+    with open(output_file_path_main, 'wb') as f:
+        f.write(ET.tostring(result_main, pretty_print=True))
 
-    print(f"Die HTML-Datei wurde erfolgreich erstellt: {output_file_path}")
+    print(f"Die Haupt-HTML-Datei wurde erfolgreich erstellt: {output_file_path_main}")
+
+    # Extrahiere und speichere die enum-Elemente in eine separate Datei
+    enums = xml_doc.xpath('//enum')
+    for enum in enums:
+        enum_name = enum.get('name')
+        output_file_path_enum = f"{enum_name}_enums.html"
+        try:
+            result_enum = transform_enum(enum)
+            with open(output_file_path_enum, 'wb') as f:
+                f.write(ET.tostring(result_enum, pretty_print=True))
+            print(f"Die enum-HTML-Datei wurde erfolgreich erstellt: {output_file_path_enum}")
+        except ET.XSLTApplyError as e:
+            print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_enum}': {e}")

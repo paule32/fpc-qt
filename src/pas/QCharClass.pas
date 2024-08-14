@@ -3,6 +3,8 @@
 // \author     (c) 2024 Jens Kallup - paule32
 // \copyright  Alle Rechte vorbehalten.
 // ---------------------------------------------------------------------------
+{$define DEBUG}
+{$M+}
 unit QCharClass;
 
 interface
@@ -40,6 +42,53 @@ function isLower_QChar(w: uint64): Boolean; cdecl; external dllname;
 function isNull_QChar(w: uint64): Boolean; cdecl; external dllname;
 
 type
+  /// <enum>
+  /// Dieser Aufzählungs katalogisiert die Unicode Zeichen Kategorie
+  /// Die folgenden Zeichen entsprechen den bestehenden Richtlinien
+  /// </enum>
+  QCharCategory = (
+    Mark_NonSpacing       =  0,
+    Mark_SpacingCombining =  1,
+    Mark_Enclosing        =  2,
+    Number_DecimalDigit   =  3,
+    Number_Letter         =  4,
+    Number_Other          =  5,
+    Separator_Space       =  6,
+    Separator_Line        =  7,
+    Separator_Paragraph   =  8,
+    Other_Control         =  9,
+    Other_Format          = 10,
+    Other_Surrogate       = 11,
+    Other_PrivateUse      = 12,
+    Other_NotAssigned     = 13
+  );
+
+  /// <enum>
+  /// Dieser Aufzählungs-Typ definiert die Unicode decompositon Attribute
+  /// Schauen Sie sich den Unicode Standard an, um die Beschreibung der
+  /// einzelnen Werte zu erhalten.
+  /// </enum>
+  QCharDecomposition = (
+    NoDecomposition =  0,
+    Canonical       =  1,
+    Circle          =  8,
+    Compat          = 16,
+    Final           =  6,
+    Font            =  2,
+    Fraction        = 17,
+    Initial         =  4,
+    Isolated        =  7,
+    Medial          =  9,
+    Narrow          = 13,
+    NoBreak         =  8,
+    Small           = 14,
+    Square          = 15,
+    Sub             = 10,
+    Super           =  9,
+    Vertical        = 11,
+    Wide            = 12
+  );
+
   /// <summary>
   ///  QChar ist eine Beispielklasse
   /// </summary>
@@ -48,49 +97,117 @@ type
     ClassName: PChar;
     ptr_cc: uint64;
     c_type: Variant;
+  private
+    FCategory: QCharCategory;
   public
     /// <summary>
-    ///  Erstellt eine Instanz von QChar ohne Parameter.
+    /// Erstellt eine Instanz von QChar ohne Parameter.
     /// </summary>
     /// <remarks>
-    ///   Dies ist der Standardkonstruktor.
+    /// Dies ist der Standardkonstruktor.
     /// </remarks>
     constructor Create; overload;
 
     /// <summary>
-    ///  Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+    /// Erstellt eine Instanz von QChar mit einen Byte als Parameter.
     /// </summary>
     /// <param name="c">
-    ///  Ein Byte für das Zeichen.
+    /// Ein Byte für das Zeichen.
     /// </param>
     /// <remarks>
-    ///   Dies ist der Standardkonstruktors.
+    /// Dies ist der Standardkonstruktors für QChar.
     /// </remarks>
     constructor Create(c: Byte); overload;
 
     /// <summary>
-    ///  Erstellt eine Instanz von AnsiChar mit einen Byte als Parameter.
+    /// Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
     /// </summary>
     /// <param name="c">
-    ///  Ein AnsiChar für das Zeichen.
+    /// Ein AnsiChar für das Zeichen.
     /// </param>
     /// <remarks>
-    ///   Dies ist der AnsiChar Konstruktor
+    /// Dies ist der AnsiChar Konstruktor für QChar.
     /// </remarks>
     constructor Create(c: AnsiChar); overload;
+
+    /// <summary>
+    /// Erstellt eine Instanz für einen WideChar als Parameter.
+    /// </summary>
+    /// <param name="c">
+    /// Ein WideChar für das Zeichen.
+    /// </param>
+    /// <remarks>
+    /// Dies ist der WideChar Konstruktor für QChar.
+    /// </remarks>
     constructor Create(c: WideChar); overload;
+
+    /// <summary>
+    /// Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
+    /// </summary>
+    /// <param name="c">
+    /// Ein DWORD für das Zeichen.
+    /// </param>
+    /// <remarks>
+    /// Dies ist der DWORD Konstruktor für QChar.
+    /// </remarks>
     constructor Create(c: DWORD); overload;
+
+    /// <summary>
+    /// Erstellt eine Instanz für ein WORD Zeichen mit WORD als Parameter.
+    /// </summary>
+    /// <param name="c">
+    /// Ein WORD für das Zeichen.
+    /// </param>
+    /// <remarks>
+    /// Dies ist der WORD Konstruktor für QChar.
+    /// </remarks>
     constructor Create(c: Word); overload;
+
+    /// <summary>
+    /// Erstellt eine Instanz für ein SmallInt Zeichen mit Parameter.
+    /// </summary>
+    /// <param name="c">
+    /// Ein SmallInt für das Zeichen.
+    /// </param>
+    /// <remarks>
+    /// Dies ist der SmallInt Konstruktor für QChar.
+    /// </remarks>
     constructor Create(c: SmallInt) overload;
     destructor Destroy; override;
 
+    /// <summary>
+    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
+    /// Objekt entspricht.
+    /// </summary>
     function isDigit: Boolean;
+
+    /// <summary>
+    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+    /// entspricht.
+    /// </summary>
     function isLetter: Boolean;
+
+    /// <summary>
+    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+    /// oder ein einzelnes mathematisches Objekt entspricht.
+    /// </summary>
     function isLetterOrNumber: Boolean;
+
+    /// <summary>
+    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
+    /// Schriftzeichen entspricht.
+    /// </summary>
     function isLower: Boolean;
+
+    /// <summary>
+    /// prüft, ob das gepeicherte QChar Zeichen null entspricht.
+    /// </summary>
     function isNull: Boolean;
 
     function getOrigin: uint64;
+
+  published
+    property Category: QCharCategory read FCategory default Other_NotAssigned;
   end;
 
 implementation
@@ -244,7 +361,7 @@ destructor QChar.Destroy;
 begin
   dtor_QChar(ptr_cc);
   ptr_cc := 0;
-    WriteLn('11212');
+  WriteLn('pas: QChar: dtor...');
   inherited Destroy;
 end;
 

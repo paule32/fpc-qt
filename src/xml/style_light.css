@@ -1,0 +1,35 @@
+body {
+font-family: Arial, sans-serif;
+margin: 10px;
+background-color: #FFFFFF;
+color: black;
+}
+h1 { color: #2c3e50; }
+h2 { color: #2980b9; }
+table {
+    width: 40%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+    color: black;
+    font-weight: bold;
+}
+td.value-cell {
+    width: 20%;
+    text-align: left;
+}
+td.name-cell {
+    width: 20%;
+    text-align: left;
+}
+
+.namespace { margin-bottom: 10px; }
+.namespace h2 { margin-top: 0; }
+.const { margin-left: 10px; }

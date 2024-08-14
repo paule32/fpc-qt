@@ -15,6 +15,7 @@
 # include <vector>
 # include <memory>
 # include <cwchar>
+# include <exception>
 
 #ifdef _WIN64
 # define DLL_EXPORT __declspec(dllexport)

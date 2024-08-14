@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <namespace name="QCharClass" platform="Win64">
-  <const name="DLLname" type="string">
+  <const name="DLLname" type="string" file="QCharClass.pas" line="16">
     <value>
       fpc-qt.dll
     </value>
   </const>
-  <variable name="DLLHandle" type="UInt64" />
-  <const name="stQChar" type="symbolType">
+  <variable name="DLLHandle" type="UInt64" file="QCharClass.pas" line="18" />
+  <const name="stQChar" type="symbolType" file="QCharClass.pas" line="23">
     <devnotes>
        Qt Klasse - QChar
     </devnotes>
@@ -14,92 +14,301 @@
       stQChar
     </value>
   </const>
-  <const name="stQChar_Byte" type="symbolType">
+  <const name="stQChar_Byte" type="symbolType" file="QCharClass.pas" line="24">
     <value>
       stQChar_Byte
     </value>
   </const>
-  <const name="stQChar_AnsiChar" type="symbolType">
+  <const name="stQChar_AnsiChar" type="symbolType" file="QCharClass.pas" line="25">
     <value>
       stQChar_AnsiChar
     </value>
   </const>
-  <const name="stQChar_WideChar" type="symbolType">
+  <const name="stQChar_WideChar" type="symbolType" file="QCharClass.pas" line="26">
     <value>
       stQChar_WideChar
     </value>
   </const>
-  <const name="stQChar_DWord" type="symbolType">
+  <const name="stQChar_DWord" type="symbolType" file="QCharClass.pas" line="27">
     <value>
       stQChar_DWord
     </value>
   </const>
-  <const name="stQChar_Word" type="symbolType">
+  <const name="stQChar_Word" type="symbolType" file="QCharClass.pas" line="28">
     <value>
       stQChar_Word
     </value>
   </const>
-  <const name="stQChar_SmallInt" type="symbolType">
+  <const name="stQChar_SmallInt" type="symbolType" file="QCharClass.pas" line="29">
     <value>
       stQChar_SmallInt
     </value>
   </const>
-  <enum name="symbolType">
-    <element value="100" name="stQChar">
+  <enum name="symbolType" file="QCharClass.pas" line="21">
+    <element value="100" name="stQChar" file="QCharClass.pas" line="23">
       <devnotes>
          Qt Klasse - QChar
       </devnotes>
     </element>
-    <element value="102" name="stQChar_Byte" />
-    <element value="103" name="stQChar_AnsiChar" />
-    <element value="104" name="stQChar_WideChar" />
-    <element value="105" name="stQChar_DWord" />
-    <element value="106" name="stQChar_Word" />
-    <element value="107" name="stQChar_SmallInt" />
+    <element value="102" name="stQChar_Byte" file="QCharClass.pas" line="24" />
+    <element value="103" name="stQChar_AnsiChar" file="QCharClass.pas" line="25" />
+    <element value="104" name="stQChar_WideChar" file="QCharClass.pas" line="26" />
+    <element value="105" name="stQChar_DWord" file="QCharClass.pas" line="27" />
+    <element value="106" name="stQChar_Word" file="QCharClass.pas" line="28" />
+    <element value="107" name="stQChar_SmallInt" file="QCharClass.pas" line="29" />
   </enum>
-  <function name="ctor_QChar" visibility="external public" callconv="cdecl">
+  <function name="ctor_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="35">
     <parameters>
       <parameter name="s" type="PWideChar" />
       <parameter name="t" type="symbolType" />
       <retval type="UInt64" />
     </parameters>
   </function>
-  <procedure name="dtor_QChar" visibility="external public" callconv="cdecl">
+  <procedure name="dtor_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="36">
     <parameters>
       <parameter name="v" type="UInt64" />
     </parameters>
   </procedure>
-  <function name="isDigit_QChar" visibility="external public" callconv="cdecl">
+  <function name="isDigit_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="38">
     <parameters>
       <parameter name="v" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
-  <function name="isLetter_QChar" visibility="external public" callconv="cdecl">
+  <function name="isLetter_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="39">
     <parameters>
       <parameter name="w" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
-  <function name="isLetterOrNumber_QChar" visibility="external public" callconv="cdecl">
+  <function name="isLetterOrNumber_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="40">
     <parameters>
       <parameter name="w" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
-  <function name="isLower_QChar" visibility="external public" callconv="cdecl">
+  <function name="isLower_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="41">
     <parameters>
       <parameter name="w" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
-  <function name="isNull_QChar" visibility="external public" callconv="cdecl">
+  <function name="isNull_QChar" visibility="external public" callconv="cdecl" file="QCharClass.pas" line="42">
     <parameters>
       <parameter name="w" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
-  <class name="QChar">
+  <const name="Mark_NonSpacing" type="QCharCategory" file="QCharClass.pas" line="50">
+    <value>
+      Mark_NonSpacing
+    </value>
+  </const>
+  <const name="Mark_SpacingCombining" type="QCharCategory" file="QCharClass.pas" line="51">
+    <value>
+      Mark_SpacingCombining
+    </value>
+  </const>
+  <const name="Mark_Enclosing" type="QCharCategory" file="QCharClass.pas" line="52">
+    <value>
+      Mark_Enclosing
+    </value>
+  </const>
+  <const name="Number_DecimalDigit" type="QCharCategory" file="QCharClass.pas" line="53">
+    <value>
+      Number_DecimalDigit
+    </value>
+  </const>
+  <const name="Number_Letter" type="QCharCategory" file="QCharClass.pas" line="54">
+    <value>
+      Number_Letter
+    </value>
+  </const>
+  <const name="Number_Other" type="QCharCategory" file="QCharClass.pas" line="55">
+    <value>
+      Number_Other
+    </value>
+  </const>
+  <const name="Separator_Space" type="QCharCategory" file="QCharClass.pas" line="56">
+    <value>
+      Separator_Space
+    </value>
+  </const>
+  <const name="Separator_Line" type="QCharCategory" file="QCharClass.pas" line="57">
+    <value>
+      Separator_Line
+    </value>
+  </const>
+  <const name="Separator_Paragraph" type="QCharCategory" file="QCharClass.pas" line="58">
+    <value>
+      Separator_Paragraph
+    </value>
+  </const>
+  <const name="Other_Control" type="QCharCategory" file="QCharClass.pas" line="59">
+    <value>
+      Other_Control
+    </value>
+  </const>
+  <const name="Other_Format" type="QCharCategory" file="QCharClass.pas" line="60">
+    <value>
+      Other_Format
+    </value>
+  </const>
+  <const name="Other_Surrogate" type="QCharCategory" file="QCharClass.pas" line="61">
+    <value>
+      Other_Surrogate
+    </value>
+  </const>
+  <const name="Other_PrivateUse" type="QCharCategory" file="QCharClass.pas" line="62">
+    <value>
+      Other_PrivateUse
+    </value>
+  </const>
+  <const name="Other_NotAssigned" type="QCharCategory" file="QCharClass.pas" line="63">
+    <value>
+      Other_NotAssigned
+    </value>
+  </const>
+  <const name="NoDecomposition" type="QCharDecomposition" file="QCharClass.pas" line="72">
+    <value>
+      NoDecomposition
+    </value>
+  </const>
+  <const name="Canonical" type="QCharDecomposition" file="QCharClass.pas" line="73">
+    <value>
+      Canonical
+    </value>
+  </const>
+  <const name="Circle" type="QCharDecomposition" file="QCharClass.pas" line="74">
+    <value>
+      Circle
+    </value>
+  </const>
+  <const name="Compat" type="QCharDecomposition" file="QCharClass.pas" line="75">
+    <value>
+      Compat
+    </value>
+  </const>
+  <const name="Final" type="QCharDecomposition" file="QCharClass.pas" line="76">
+    <value>
+      Final
+    </value>
+  </const>
+  <const name="Font" type="QCharDecomposition" file="QCharClass.pas" line="77">
+    <value>
+      Font
+    </value>
+  </const>
+  <const name="Fraction" type="QCharDecomposition" file="QCharClass.pas" line="78">
+    <value>
+      Fraction
+    </value>
+  </const>
+  <const name="Initial" type="QCharDecomposition" file="QCharClass.pas" line="79">
+    <value>
+      Initial
+    </value>
+  </const>
+  <const name="Isolated" type="QCharDecomposition" file="QCharClass.pas" line="80">
+    <value>
+      Isolated
+    </value>
+  </const>
+  <const name="Medial" type="QCharDecomposition" file="QCharClass.pas" line="81">
+    <value>
+      Medial
+    </value>
+  </const>
+  <const name="Narrow" type="QCharDecomposition" file="QCharClass.pas" line="82">
+    <value>
+      Narrow
+    </value>
+  </const>
+  <const name="NoBreak" type="QCharDecomposition" file="QCharClass.pas" line="83">
+    <value>
+      Circle
+    </value>
+  </const>
+  <const name="Small" type="QCharDecomposition" file="QCharClass.pas" line="84">
+    <value>
+      Small
+    </value>
+  </const>
+  <const name="Square" type="QCharDecomposition" file="QCharClass.pas" line="85">
+    <value>
+      Square
+    </value>
+  </const>
+  <const name="Sub" type="QCharDecomposition" file="QCharClass.pas" line="86">
+    <value>
+      Sub
+    </value>
+  </const>
+  <const name="Super" type="QCharDecomposition" file="QCharClass.pas" line="87">
+    <value>
+      Medial
+    </value>
+  </const>
+  <const name="Vertical" type="QCharDecomposition" file="QCharClass.pas" line="88">
+    <value>
+      Vertical
+    </value>
+  </const>
+  <const name="Wide" type="QCharDecomposition" file="QCharClass.pas" line="89">
+    <value>
+      Wide
+    </value>
+  </const>
+  <enum name="QCharCategory" file="QCharClass.pas" line="49">
+    <devnotes>
+       <enum>
+       Dieser Aufzählungs katalogisiert die Unicode Zeichen Kategorie
+       Die folgenden Zeichen entsprechen den bestehenden Richtlinien
+       </enum>
+    </devnotes>
+    <element value="0" name="Mark_NonSpacing" file="QCharClass.pas" line="50" />
+    <element value="1" name="Mark_SpacingCombining" file="QCharClass.pas" line="51" />
+    <element value="2" name="Mark_Enclosing" file="QCharClass.pas" line="52" />
+    <element value="3" name="Number_DecimalDigit" file="QCharClass.pas" line="53" />
+    <element value="4" name="Number_Letter" file="QCharClass.pas" line="54" />
+    <element value="5" name="Number_Other" file="QCharClass.pas" line="55" />
+    <element value="6" name="Separator_Space" file="QCharClass.pas" line="56" />
+    <element value="7" name="Separator_Line" file="QCharClass.pas" line="57" />
+    <element value="8" name="Separator_Paragraph" file="QCharClass.pas" line="58" />
+    <element value="9" name="Other_Control" file="QCharClass.pas" line="59" />
+    <element value="10" name="Other_Format" file="QCharClass.pas" line="60" />
+    <element value="11" name="Other_Surrogate" file="QCharClass.pas" line="61" />
+    <element value="12" name="Other_PrivateUse" file="QCharClass.pas" line="62" />
+    <element value="13" name="Other_NotAssigned" file="QCharClass.pas" line="63" />
+  </enum>
+  <enum name="QCharDecomposition" file="QCharClass.pas" line="71">
+    <devnotes>
+       <enum>
+       Dieser Aufzählungs-Typ definiert die Unicode decompositon Attribute
+       Schauen Sie sich den Unicode Standard an, um die Beschreibung der
+       einzelnen Werte zu erhalten.
+       </enum>
+    </devnotes>
+    <element value="0" name="NoDecomposition" file="QCharClass.pas" line="72" />
+    <element value="1" name="Canonical" file="QCharClass.pas" line="73" />
+    <element value="8" name="Circle" file="QCharClass.pas" line="74" />
+    <element value="16" name="Compat" file="QCharClass.pas" line="75" />
+    <element value="6" name="Final" file="QCharClass.pas" line="76" />
+    <element value="2" name="Font" file="QCharClass.pas" line="77" />
+    <element value="17" name="Fraction" file="QCharClass.pas" line="78" />
+    <element value="4" name="Initial" file="QCharClass.pas" line="79" />
+    <element value="7" name="Isolated" file="QCharClass.pas" line="80" />
+    <element value="9" name="Medial" file="QCharClass.pas" line="81" />
+    <element value="13" name="Narrow" file="QCharClass.pas" line="82" />
+    <element value="8" name="NoBreak" file="QCharClass.pas" line="83" />
+    <element value="14" name="Small" file="QCharClass.pas" line="84" />
+    <element value="15" name="Square" file="QCharClass.pas" line="85" />
+    <element value="10" name="Sub" file="QCharClass.pas" line="86" />
+    <element value="9" name="Super" file="QCharClass.pas" line="87" />
+    <element value="11" name="Vertical" file="QCharClass.pas" line="88" />
+    <element value="12" name="Wide" file="QCharClass.pas" line="89" />
+  </enum>
+  <class name="QChar" file="QCharClass.pas" line="95">
     <devnotes>
        <summary>
         QChar ist eine Beispielklasse
@@ -188,69 +397,114 @@
       </propertyref>
     </ancestor>
     <members>
-      <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" />
-      <field name="ptr_cc" type="UInt64" visibility="private" size="8" offset="16" />
-      <field name="c_type" type="Variant" visibility="private" size="24" offset="24" />
-      <constructor name="Create" visibility="public">
+      <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" file="QCharClass.pas" line="97" />
+      <field name="ptr_cc" type="UInt64" visibility="private" size="8" offset="16" file="QCharClass.pas" line="98" />
+      <field name="c_type" type="Variant" visibility="private" size="24" offset="24" file="QCharClass.pas" line="99" />
+      <field name="FCategory" type="QCharCategory" visibility="private" size="1" offset="48" file="QCharClass.pas" line="101" />
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="109">
         <devnotes>
 <!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->
         </devnotes>
         <parameters>
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="120">
         <devnotes>
            <summary>
-            Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+           Erstellt eine Instanz von QChar mit einen Byte als Parameter.
            </summary>
            <param name="c">
-            Ein Byte für das Zeichen.
+           Ein Byte für das Zeichen.
            </param>
            <remarks>
-             Dies ist der Standardkonstruktors.
+           Dies ist der Standardkonstruktors für QChar.
            </remarks>
         </devnotes>
         <parameters>
           <parameter name="c" type="Byte" />
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="131">
         <devnotes>
            <summary>
-            Erstellt eine Instanz von AnsiChar mit einen Byte als Parameter.
+           Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
            </summary>
            <param name="c">
-            Ein AnsiChar für das Zeichen.
+           Ein AnsiChar für das Zeichen.
            </param>
            <remarks>
-             Dies ist der AnsiChar Konstruktor
+           Dies ist der AnsiChar Konstruktor für QChar.
            </remarks>
         </devnotes>
         <parameters>
           <parameter name="c" type="AnsiChar" />
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="142">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für einen WideChar als Parameter.
+           </summary>
+           <param name="c">
+           Ein WideChar für das Zeichen.
+           </param>
+           <remarks>
+           Dies ist der WideChar Konstruktor für QChar.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="Char" />
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="153">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
+           </summary>
+           <param name="c">
+           Ein DWORD für das Zeichen.
+           </param>
+           <remarks>
+           Dies ist der DWORD Konstruktor für QChar.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="Cardinal" />
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="164">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für ein WORD Zeichen mit WORD als Parameter.
+           </summary>
+           <param name="c">
+           Ein WORD für das Zeichen.
+           </param>
+           <remarks>
+           Dies ist der WORD Konstruktor für QChar.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="Word" />
         </parameters>
       </constructor>
-      <constructor name="Create" visibility="public">
+      <constructor name="Create" visibility="public" file="QCharClass.pas" line="175">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für ein SmallInt Zeichen mit Parameter.
+           </summary>
+           <param name="c">
+           Ein SmallInt für das Zeichen.
+           </param>
+           <remarks>
+           Dies ist der SmallInt Konstruktor für QChar.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c" type="SmallInt" />
         </parameters>
       </constructor>
-      <destructor name="Destroy" visibility="public">
+      <destructor name="Destroy" visibility="public" file="QCharClass.pas" line="176">
         <devnotes>
            <summary>
             Bereinigt eine Instanz der Klasse QChar.
@@ -259,36 +513,66 @@
         <parameters>
         </parameters>
       </destructor>
-      <function name="isDigit" visibility="public">
+      <function name="isDigit" visibility="public" file="QCharClass.pas" line="182">
+        <devnotes>
+           <summary>
+           prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
+           Objekt entspricht.
+           </summary>
+        </devnotes>
         <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>
-      <function name="isLetter" visibility="public">
+      <function name="isLetter" visibility="public" file="QCharClass.pas" line="188">
+        <devnotes>
+           <summary>
+           prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+           entspricht.
+           </summary>
+        </devnotes>
         <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>
-      <function name="isLetterOrNumber" visibility="public">
+      <function name="isLetterOrNumber" visibility="public" file="QCharClass.pas" line="194">
+        <devnotes>
+           <summary>
+           prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+           oder ein einzelnes mathematisches Objekt entspricht.
+           </summary>
+        </devnotes>
         <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>
-      <function name="isLower" visibility="public">
+      <function name="isLower" visibility="public" file="QCharClass.pas" line="200">
+        <devnotes>
+           <summary>
+           prüft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
+           Schriftzeichen entspricht.
+           </summary>
+        </devnotes>
         <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>
-      <function name="isNull" visibility="public">
+      <function name="isNull" visibility="public" file="QCharClass.pas" line="205">
+        <devnotes>
+           <summary>
+           prüft, ob das gepeicherte QChar Zeichen null entspricht.
+           </summary>
+        </devnotes>
         <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>
-      <function name="getOrigin" visibility="public">
+      <function name="getOrigin" visibility="public" file="QCharClass.pas" line="207">
         <parameters>
           <retval type="UInt64" />
         </parameters>
       </function>
+      <property name="Category" visibility="published" read="FCategory" type="QCharCategory" default="13" file="QCharClass.pas" line="210" />
     </members>
   </class>
 </namespace>

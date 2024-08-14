@@ -60,9 +60,19 @@ qvc::QChar::getOrigin(void) const { return origin_obj; }
 
 qvc::QChar::~QChar(void)
 {
-    std::wcout << L"dtor: QChar" << std::endl;
-    if (nullptr != static_cast<::QChar*>(origin_obj))
-        delete static_cast<::QChar*>(origin_obj);
+    #ifdef DEBUG
+    std::wcout << L"cpp: QChar: dtor..." << std::endl;
+    #endif
+    try {
+        if (nullptr != origin_obj) {
+            std::wcout << L"not null" << std::endl;
+            delete origin_obj;
+        }
+    }
+    catch (std::exception &e) {
+        std::wcout << L"Exception: ";
+        std::wcout << e.what() << std::endl;
+    }
 }
 
 bool
@@ -96,10 +106,6 @@ DLL_EXPORT void
 dtor_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    
-    //std::wcout << L"zuzu"  << std::endl;
-    //std::wcout << std::hex << addr   << std::endl;
-    //std::wcout << std::hex << objptr << std::endl;
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     delete objptr;

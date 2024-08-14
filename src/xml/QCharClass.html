@@ -2,49 +2,7 @@
   <head>
     <title>
                 Delphi Dokumentation f&#252;r Projekt: QCharClass</title>
-    <style>
-            body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            background-color: #000000;
-            color: white;
-            }
-            h1 { color: #2c3e50; }
-            h2 { color: #2980b9; }
-            table {
-                width: 40%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
-            }
-            th, td {
-                padding: 8px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-            th {
-                background-color: gray;
-                color: white;
-                font-weight: bold;
-            }
-            td.value-cell {
-                width: 20%;
-                text-align: left;
-            }
-            td.name-cell {
-                width: 20%;
-                text-align: left;
-            }
-            .constructor_div {
-                width: 50%;
-                padding: 8px;
-                background-color: #505050;
-                color: white;
-            }
-        
-            .namespace { margin-bottom: 10px; }
-            .namespace h2 { margin-top: 0; }
-            .const { margin-left: 10px; }
-        </style>
+    <link rel="stylesheet" type="text/css" href="style_dark.css"/>
   </head>
   <body>
     <h1>
@@ -64,23 +22,182 @@
         </tr>
         <tr>
           <td class="name-cell">stQChar_Byte</td>
-          <td class="value-cell">101</td>
-        </tr>
-        <tr>
-          <td class="name-cell">stQChar_AnsiChar</td>
           <td class="value-cell">102</td>
         </tr>
         <tr>
-          <td class="name-cell">stQChar_WideChar</td>
+          <td class="name-cell">stQChar_AnsiChar</td>
           <td class="value-cell">103</td>
         </tr>
         <tr>
-          <td class="name-cell">stQChar_DWord</td>
+          <td class="name-cell">stQChar_WideChar</td>
           <td class="value-cell">104</td>
         </tr>
         <tr>
-          <td class="name-cell">stQChar_Word</td>
+          <td class="name-cell">stQChar_DWord</td>
           <td class="value-cell">105</td>
+        </tr>
+        <tr>
+          <td class="name-cell">stQChar_Word</td>
+          <td class="value-cell">106</td>
+        </tr>
+        <tr>
+          <td class="name-cell">stQChar_SmallInt</td>
+          <td class="value-cell">107</td>
+        </tr>
+      </table>
+      <h2>Aufz&#228;hlung: QCharCategory</h2>
+      <p>
+        <div class="devnotes"><strong>Hinweise:</strong><br/>
+       Dieser Aufz&#228;hlungs katalogisiert die Unicode Zeichen Kategorie
+       Die folgenden Zeichen entsprechen den bestehenden Richtlinien
+       </div>
+      </p>
+      <table>
+        <tr>
+          <th>Konstante</th>
+          <th>Wert</th>
+        </tr>
+        <tr>
+          <td class="name-cell">Mark_NonSpacing</td>
+          <td class="value-cell">0</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Mark_SpacingCombining</td>
+          <td class="value-cell">1</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Mark_Enclosing</td>
+          <td class="value-cell">2</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Number_DecimalDigit</td>
+          <td class="value-cell">3</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Number_Letter</td>
+          <td class="value-cell">4</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Number_Other</td>
+          <td class="value-cell">5</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Separator_Space</td>
+          <td class="value-cell">6</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Separator_Line</td>
+          <td class="value-cell">7</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Separator_Paragraph</td>
+          <td class="value-cell">8</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Other_Control</td>
+          <td class="value-cell">9</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Other_Format</td>
+          <td class="value-cell">10</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Other_Surrogate</td>
+          <td class="value-cell">11</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Other_PrivateUse</td>
+          <td class="value-cell">12</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Other_NotAssigned</td>
+          <td class="value-cell">13</td>
+        </tr>
+      </table>
+      <h2>Aufz&#228;hlung: QCharDecomposition</h2>
+      <p>
+        <div class="devnotes"><strong>Hinweise:</strong><br/>
+       Dieser Aufz&#228;hlungs-Typ definiert die Unicode decompositon Attribute
+       Schauen Sie sich den Unicode Standard an, um die Beschreibung der
+       einzelnen Werte zu erhalten.
+       </div>
+      </p>
+      <table>
+        <tr>
+          <th>Konstante</th>
+          <th>Wert</th>
+        </tr>
+        <tr>
+          <td class="name-cell">NoDecomposition</td>
+          <td class="value-cell">0</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Canonical</td>
+          <td class="value-cell">1</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Circle</td>
+          <td class="value-cell">8</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Compat</td>
+          <td class="value-cell">16</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Final</td>
+          <td class="value-cell">6</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Font</td>
+          <td class="value-cell">2</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Fraction</td>
+          <td class="value-cell">17</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Initial</td>
+          <td class="value-cell">4</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Isolated</td>
+          <td class="value-cell">7</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Medial</td>
+          <td class="value-cell">9</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Narrow</td>
+          <td class="value-cell">13</td>
+        </tr>
+        <tr>
+          <td class="name-cell">NoBreak</td>
+          <td class="value-cell">8</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Small</td>
+          <td class="value-cell">14</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Square</td>
+          <td class="value-cell">15</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Sub</td>
+          <td class="value-cell">10</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Super</td>
+          <td class="value-cell">9</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Vertical</td>
+          <td class="value-cell">11</td>
+        </tr>
+        <tr>
+          <td class="name-cell">Wide</td>
+          <td class="value-cell">12</td>
         </tr>
       </table>
       <h2>Klasse: QChar</h2>
@@ -111,61 +228,257 @@
           <td>Create</td>
           <td>c: Byte</td>
           <td>
-            Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+           Erstellt eine Instanz von QChar mit einen Byte als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
         </tr>
         <tr>
           <td>Create</td>
           <td>c: AnsiChar</td>
           <td>
-            Erstellt eine Instanz von AnsiChar mit einen Byte als Parameter.
+           Erstellt eine Instanz f&#252;r ein AnsiChar mit einen Byte als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
         </tr>
         <tr>
           <td>Create</td>
           <td>c: Char</td>
-          <td/>
+          <td>
+           Erstellt eine Instanz f&#252;r einen WideChar als Parameter.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
         </tr>
         <tr>
           <td>Create</td>
           <td>c: Cardinal</td>
-          <td/>
+          <td>
+           Erstellt eine Instanz f&#252;r ein DWORD Zeichen mit DWORD als Parameter.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
         </tr>
         <tr>
           <td>Create</td>
           <td>c: Word</td>
-          <td/>
+          <td>
+           Erstellt eine Instanz f&#252;r ein WORD Zeichen mit WORD als Parameter.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+        </tr>
+        <tr>
+          <td>Create</td>
+          <td>c: SmallInt</td>
+          <td>
+           Erstellt eine Instanz f&#252;r ein SmallInt Zeichen mit Parameter.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
         </tr>
       </table>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-                        no param
-                        <div style="background-color: black;">ss</div></div>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>c: Byte</div>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">no param</div>
+        </div>
+        <p/>
+      </div>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Byte</span></li>
+          </div>
+        </div>
+      </div>
       <a name="remarks-Create"/>
-      <p class="remarks"><strong>Remarks:</strong>
-             Dies ist der Standardkonstruktors.
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der Standardkonstruktors f&#252;r QChar.
            </p>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>c: AnsiChar</div>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">AnsiChar</span></li>
+          </div>
+        </div>
+      </div>
       <a name="remarks-Create"/>
-      <p class="remarks"><strong>Remarks:</strong>
-             Dies ist der AnsiChar Konstruktor
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der AnsiChar Konstruktor f&#252;r QChar.
            </p>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>c: Char</div>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>c: Cardinal</div>
-      <div><div class="constructor_div"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>c: Word</div>
-      <h3>Functions</h3>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Char</span></li>
+          </div>
+        </div>
+      </div>
+      <a name="remarks-Create"/>
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der WideChar Konstruktor f&#252;r QChar.
+           </p>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Cardinal</span></li>
+          </div>
+        </div>
+      </div>
+      <a name="remarks-Create"/>
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der DWORD Konstruktor f&#252;r QChar.
+           </p>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Word</span></li>
+          </div>
+        </div>
+      </div>
+      <a name="remarks-Create"/>
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der WORD Konstruktor f&#252;r QChar.
+           </p>
+      <div>
+        <div class="constructor_div">
+          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+          <div class="ctor_right">
+                        Pascal
+                    </div>
+        </div>
+        <div class="ctor_container">
+          <div class="param_div">
+            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">SmallInt</span></li>
+          </div>
+        </div>
+      </div>
+      <a name="remarks-Create"/>
+      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+           Dies ist der SmallInt Konstruktor f&#252;r QChar.
+           </p>
+      <h3>Funktionen</h3>
       <table>
         <tr>
           <th>R&#252;ckgabetyp</th>
           <th>Funktion-Name</th>
           <th>Kurzbeschreibung</th>
-          <th>Parameter</th>
         </tr>
         <tr>
           <td>Boolean</td>
           <td>isDigit</td>
+          <td>
+           pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
+           Objekt entspricht.
+           </td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isLetter</td>
+          <td>
+           pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+           entspricht.
+           </td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isLetterOrNumber</td>
+          <td>
+           pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+           oder ein einzelnes mathematisches Objekt entspricht.
+           </td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isLower</td>
+          <td>
+           pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
+           Schriftzeichen entspricht.
+           </td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isNull</td>
+          <td>
+           pr&#252;ft, ob das gepeicherte QChar Zeichen null entspricht.
+           </td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>UInt64</td>
+          <td>getOrigin</td>
           <td/>
-          <td/>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Parameter:</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="addi_td">&#160;&#160;&#160;&#160;</div>
+          </td>
         </tr>
       </table>
     </div>

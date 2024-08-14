@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <namespace name="fpcqt" platform="Win64">
+  <contains name="System.Variants" />
+  <contains name="System.VarUtils" />
+  <contains name="System.SysUtils" />
+  <contains name="System.Internal.ExcUtils" />
+  <contains name="System.Character" />
+  <contains name="System.RTLConsts" />
+  <contains name="Winapi.PsAPI" />
+  <contains name="Winapi.SHFolder" />
+  <contains name="Winapi.ImageHlp" />
+  <contains name="System.SysConst" />
+  <contains name="Winapi.Windows.PkgHelper" />
+  <contains name="System.UITypes" />
+  <contains name="System.Types" />
   <contains name="QCharClass" />
+  <contains name="Winapi.Windows" />
   <contains name="SysInit" />
-  <variable name="myQChar" type="QChar" />
+  <contains name="System" />
+  <variable name="myQChar" type="QChar" file="fpcqt.dpr" line="14" />
 </namespace>

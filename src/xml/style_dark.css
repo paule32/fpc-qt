@@ -1,0 +1,84 @@
+body {
+font-family: Arial, sans-serif;
+margin: 10px;
+background-color: #000000;
+color: white;
+}
+.more-link {
+    text-decoration: none;
+    color: lime;
+}
+.more-link:visited {
+    color: yellow;
+    font-weight: bold;
+}
+h1 { color: #2c3e50; }
+h2 { color: #2980b9; }
+table {
+    width: 40%;
+    border-collapse: collapse;
+    border-color: blue;
+    margin-bottom: 20px;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #000080;
+}
+th {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
+td.value-cell {
+    width: 20%;
+    border-color: #000080;
+    text-align: left;
+}
+td.name-cell {
+    width: 20%;
+    border-color: #000080;
+    text-align: left;
+}
+.constructor_div {
+    width: calc(40% - 16px);
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #505050;
+    color: white;
+}
+.ctor_left {
+    text-align: left;
+}
+.ctor_right {
+    text-align: right;
+}
+.param_div {
+    background-color: #202020;
+    padding: 8px;
+    color: gray;
+}
+.parameter {
+    color: orange;
+}
+.parameter_name {
+    color: lightblue;
+    font-weight: bold;
+}
+.no_params {
+    color: orange;
+}
+.ctor_container {
+    width: 40%;
+}
+.devnotes {
+    width: 40%;
+}
+.addi_td {
+    background-color: #202020;
+}
+
+.namespace { margin-bottom: 10px; }
+.namespace h2 { margin-top: 0; }
+.const { margin-left: 10px; }
