@@ -389,6 +389,9 @@ begin
   result := isLower_QChar(ptr_cc);
 end;
 
+/// <summary>
+/// testung
+/// </summary>
 function QChar.isNull: Boolean;
 begin
   result := isNull_QChar(ptr_cc);

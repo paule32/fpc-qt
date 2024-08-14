@@ -1,5 +1,6 @@
 import lxml.etree as ET
 import os
+import sys
 
 # Liste der XML-Dateien, die verarbeitet werden sollen
 xml_files = ['QCharClass.xml']  # Füge hier weitere Dateien hinzu
@@ -14,8 +15,16 @@ except ET.XMLSyntaxError as e:
 
 # Lade die XSLT-Datei für enums
 try:
-    xslt_enum_doc = ET.parse('fpcqt_enum.xslt')
+    xslt_enum_doc = ET.parse('fpcqt_enum.xsl')
     transform_enum = ET.XSLT(xslt_enum_doc)
+except ET.XMLSyntaxError as e:
+    print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
+    exit()
+
+# Lade die XSLT-Datei für enums
+try:
+    xslt_function_doc  = ET.parse('fpcqt.xslt')
+    transform_function = ET.XSLT(xslt_function_doc)
 except ET.XMLSyntaxError as e:
     print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
     exit()
@@ -60,3 +69,16 @@ for xml_file in xml_files:
             print(f"Die enum-HTML-Datei wurde erfolgreich erstellt: {output_file_path_enum}")
         except ET.XSLTApplyError as e:
             print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_enum}': {e}")
+    
+    # Extrahiere und speichere die enum-Elemente in eine separate Datei
+    functions = xml_doc.xpath('//members/function')
+    for function in functions:
+        function_name = function.get('name')
+        output_file_path_function = f"{function_name}_functions.html"
+        try:
+            result_function = transform_function(function)
+            with open(output_file_path_function, 'wb') as f:
+                f.write(ET.tostring(result_function, pretty_print=True))
+            print(f"Die enum-HTML-Datei wurde erfolgreich erstellt: {output_file_path_function}")
+        except ET.XSLTApplyError as e:
+            print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_function}': {e}")

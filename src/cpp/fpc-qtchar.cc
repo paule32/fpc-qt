@@ -63,16 +63,6 @@ qvc::QChar::~QChar(void)
     #ifdef DEBUG
     std::wcout << L"cpp: QChar: dtor..." << std::endl;
     #endif
-    try {
-        if (nullptr != origin_obj) {
-            std::wcout << L"not null" << std::endl;
-            delete origin_obj;
-        }
-    }
-    catch (std::exception &e) {
-        std::wcout << L"Exception: ";
-        std::wcout << e.what() << std::endl;
-    }
 }
 
 bool

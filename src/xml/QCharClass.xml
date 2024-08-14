@@ -560,7 +560,7 @@
       <function name="isNull" visibility="public" file="QCharClass.pas" line="205">
         <devnotes>
            <summary>
-           prüft, ob das gepeicherte QChar Zeichen null entspricht.
+           testung
            </summary>
         </devnotes>
         <parameters>
