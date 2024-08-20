@@ -9,13 +9,13 @@ unit QCharClass;
 
 interface
 uses
-  Windows,
-  System.SysUtils,
-  System.Character;
+    Windows,
+    System.SysUtils,
+    System.Character;
 
 const DLLname = 'fpc-qt.dll';
 var
-  DLLHandle: HMODULE;
+    DLLHandle: HMODULE;
 
 type
 symbolType = (
@@ -35,180 +35,241 @@ symbolType = (
 function  ctor_QChar(s: PChar; t: symbolType): uint64; cdecl; external dllname;
 procedure dtor_QChar(v: uint64); cdecl; external dllname;
 
+function isAscii_QChar(v: int64): Boolean; cdecl; external dllname;
 function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
-function isLetter_QChar(w: uint64): Boolean; cdecl; external dllname;
-function isLetterOrNumber_QChar(w: uint64): Boolean; cdecl; external dllname;
-function isLower_QChar(w: uint64): Boolean; cdecl; external dllname;
-function isNull_QChar(w: uint64): Boolean; cdecl; external dllname;
+function isLetter_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isLetterOrNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isLower_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isMark_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isNonCharacter(v: uint64): Boolean; cdecl; external dllname;
+function isNull_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isPrint_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isPunct_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isSpace_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isSurrogate(v: uint64): Boolean; cdecl; external dllname;
+function isSymbol(v: uint64): Boolean; cdecl; external dllname;
+function isTitleCase(v: uint64): Boolean; cdecl; external dllname;
+function isUpper_QChar(v: uint64): Boolean; cdecl; external dllname;
+
+function toLatin1(v: uint64): uint64; cdecl; external dllname;
+function toLower(v: uint64): uint64; cdecl; external dllname;
+function toTitleCase(v: uint64): uint64; cdecl; external dllname;
+function toUpper(v: uint64): uint64; cdecl; external dllname;
 
 type
-  /// <enum>
-  /// Dieser Aufzählungs katalogisiert die Unicode Zeichen Kategorie
-  /// Die folgenden Zeichen entsprechen den bestehenden Richtlinien
-  /// </enum>
-  QCharCategory = (
-    Mark_NonSpacing       =  0,
-    Mark_SpacingCombining =  1,
-    Mark_Enclosing        =  2,
-    Number_DecimalDigit   =  3,
-    Number_Letter         =  4,
-    Number_Other          =  5,
-    Separator_Space       =  6,
-    Separator_Line        =  7,
-    Separator_Paragraph   =  8,
-    Other_Control         =  9,
-    Other_Format          = 10,
-    Other_Surrogate       = 11,
-    Other_PrivateUse      = 12,
-    Other_NotAssigned     = 13
-  );
-
-  /// <enum>
-  /// Dieser Aufzählungs-Typ definiert die Unicode decompositon Attribute
-  /// Schauen Sie sich den Unicode Standard an, um die Beschreibung der
-  /// einzelnen Werte zu erhalten.
-  /// </enum>
-  QCharDecomposition = (
-    NoDecomposition =  0,
-    Canonical       =  1,
-    Circle          =  8,
-    Compat          = 16,
-    Final           =  6,
-    Font            =  2,
-    Fraction        = 17,
-    Initial         =  4,
-    Isolated        =  7,
-    Medial          =  9,
-    Narrow          = 13,
-    NoBreak         =  8,
-    Small           = 14,
-    Square          = 15,
-    Sub             = 10,
-    Super           =  9,
-    Vertical        = 11,
-    Wide            = 12
-  );
-
-  /// <summary>
-  ///  QChar ist eine Beispielklasse
-  /// </summary>
-  QChar = class
-  private
-    ClassName: PChar;
-    ptr_cc: uint64;
-    c_type: Variant;
-  private
-    FCategory: QCharCategory;
-  public
     /// <summary>
-    /// Erstellt eine Instanz von QChar ohne Parameter.
+    ///  QChar ist eine Beispielklasse
     /// </summary>
-    /// <remarks>
-    /// Dies ist der Standardkonstruktor.
-    /// </remarks>
-    constructor Create; overload;
+    QChar = class
+    public
+        type
+        /// <enum>
+        /// Dieser Aufzählungs katalogisiert die Unicode Zeichen Kategorie
+        /// Die folgenden Zeichen entsprechen den bestehenden Richtlinien
+        /// </enum>
+        QChar_Category = (
+            Mark_NonSpacing       =  0,
+            Mark_SpacingCombining =  1,
+            Mark_Enclosing        =  2,
+            Number_DecimalDigit   =  3,
+            Number_Letter         =  4,
+            Number_Other          =  5,
+            Separator_Space       =  6,
+            Separator_Line        =  7,
+            Separator_Paragraph   =  8,
+            Other_Control         =  9,
+            Other_Format          = 10,
+            Other_Surrogate       = 11,
+            Other_PrivateUse      = 12,
+            Other_NotAssigned     = 13
+        );
 
-    /// <summary>
-    /// Erstellt eine Instanz von QChar mit einen Byte als Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein Byte für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der Standardkonstruktors für QChar.
-    /// </remarks>
-    constructor Create(c: Byte); overload;
+        /// <enum>
+        /// Dieser Aufzählungs-Typ definiert die Unicode decompositon Attribute
+        /// Schauen Sie sich den Unicode Standard an, um die Beschreibung der
+        /// einzelnen Werte zu erhalten.
+        /// </enum>
+        QChar_Decomposition = (
+            NoDecomposition =  0,
+            Canonical       =  1,
+            Circle          =  8,
+            Compat          = 16,
+            Final           =  6,
+            Font            =  2,
+            Fraction        = 17,
+            Initial         =  4,
+            Isolated        =  7,
+            Medial          =  9,
+            Narrow          = 13,
+            NoBreak         =  8,
+            Small           = 14,
+            Square          = 15,
+            Sub             = 10,
+            Super           =  9,
+            Vertical        = 11,
+            Wide            = 12
+        );
+        /// <enum>
+        /// This enum type defines the Unicode direction attributes.
+        /// See the Unicode Standard for a description of the values.
+        /// <p>
+        /// In order to conform to C/C++ naming conventions "Dir" is prepended
+        /// to the codes used in the Unicode Standard.
+        //  </p>
+        /// </enum>
+        QChar_Direction = (
+            DirAL  = 13,
+            DirAN  =  5,
+            DirB   =  7,
+            DirBN  = 18,
+            DirCS  =  6,
+            DirEN  =  2,
+            DirES  =  3,
+            DirET  =  4,
+            DirFSI = 21,
+            DirL   =  0,
+            DirLRE = 11,
+            DirLRI = 19,
+            DirLRO = 12,
+            DirNSM = 17,
+            DirON  = 10,
+            DirPDF = 16,
+            DirPDI = 22,
+            DirR   =  1,
+            DirRLE = 14,
+            DirRLI = 20,
+            DirRLO = 15,
+            DirS   =  8,
+            DirWS  =  9
+        );
+    private
+        ClassName: PChar;
+        ptr_cc: uint64;
+        c_type: Variant;
+    private
+        FCategory:      QChar_Category;
+        FDecomposition: QChar_Decomposition;
+        FDirection:     QChar_Direction;
+    public
+        /// <summary>
+        /// Erstellt eine Instanz von QChar ohne Parameter.
+        /// </summary>
+        /// <remarks>
+        /// Dies ist der Standardkonstruktor.
+        /// </remarks>
+        constructor Create; overload;
 
-    /// <summary>
-    /// Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein AnsiChar für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der AnsiChar Konstruktor für QChar.
-    /// </remarks>
-    constructor Create(c: AnsiChar); overload;
+        /// <summary>
+        /// Erstellt eine Instanz von QChar mit einen Byte als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein Byte für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der Standardkonstruktors für QChar.
+        /// </remarks>
+        constructor Create(c: Byte); overload;
 
-    /// <summary>
-    /// Erstellt eine Instanz für einen WideChar als Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein WideChar für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der WideChar Konstruktor für QChar.
-    /// </remarks>
-    constructor Create(c: WideChar); overload;
+        /// <summary>
+        /// Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein AnsiChar für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der AnsiChar Konstruktor für QChar.
+        /// </remarks>
+        constructor Create(c: AnsiChar); overload;
 
-    /// <summary>
-    /// Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein DWORD für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der DWORD Konstruktor für QChar.
-    /// </remarks>
-    constructor Create(c: DWORD); overload;
+        /// <summary>
+        /// Erstellt eine Instanz für einen WideChar als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein WideChar für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der WideChar Konstruktor für QChar.
+        /// </remarks>
+        constructor Create(c: WideChar); overload;
 
-    /// <summary>
-    /// Erstellt eine Instanz für ein WORD Zeichen mit WORD als Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein WORD für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der WORD Konstruktor für QChar.
-    /// </remarks>
-    constructor Create(c: Word); overload;
+        /// <summary>
+        /// Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein DWORD für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der DWORD Konstruktor für QChar.
+        /// </remarks>
+        constructor Create(c: DWORD); overload;
 
-    /// <summary>
-    /// Erstellt eine Instanz für ein SmallInt Zeichen mit Parameter.
-    /// </summary>
-    /// <param name="c">
-    /// Ein SmallInt für das Zeichen.
-    /// </param>
-    /// <remarks>
-    /// Dies ist der SmallInt Konstruktor für QChar.
-    /// </remarks>
-    constructor Create(c: SmallInt) overload;
-    destructor Destroy; override;
+        /// <summary>
+        /// Erstellt eine Instanz für ein WORD Zeichen mit WORD als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein WORD für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der WORD Konstruktor für QChar.
+        /// </remarks>
+        constructor Create(c: Word); overload;
 
-    /// <summary>
-    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
-    /// Objekt entspricht.
-    /// </summary>
-    function isDigit: Boolean;
+        /// <summary>
+        /// Erstellt eine Instanz für ein SmallInt Zeichen mit Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein SmallInt für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der SmallInt Konstruktor für QChar.
+        /// </remarks>
+        constructor Create(c: SmallInt) overload;
+        destructor Destroy; override;
 
-    /// <summary>
-    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
-    /// entspricht.
-    /// </summary>
-    function isLetter: Boolean;
+        function isAscii: Boolean;
 
-    /// <summary>
-    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
-    /// oder ein einzelnes mathematisches Objekt entspricht.
-    /// </summary>
-    function isLetterOrNumber: Boolean;
+        /// <summary>
+        /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
+        /// Objekt entspricht.
+        /// </summary>
+        function isDigit: Boolean;
 
-    /// <summary>
-    /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
-    /// Schriftzeichen entspricht.
-    /// </summary>
-    function isLower: Boolean;
+        /// <summary>
+        /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+        /// entspricht.
+        /// </summary>
+        function isLetter: Boolean;
 
-    /// <summary>
-    /// prüft, ob das gepeicherte QChar Zeichen null entspricht.
-    /// </summary>
-    function isNull: Boolean;
+        /// <summary>
+        /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
+        /// oder ein einzelnes mathematisches Objekt entspricht.
+        /// </summary>
+        function isLetterOrNumber: Boolean;
 
-    function getOrigin: uint64;
+        /// <summary>
+        /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
+        /// Schriftzeichen entspricht.
+        /// </summary>
+        function isLower: Boolean;
 
-  published
-    property Category: QCharCategory read FCategory default Other_NotAssigned;
-  end;
+        /// <summary>
+        /// prüft, ob das gepeicherte QChar Zeichen null entspricht.
+        /// </summary>
+        function isNull: Boolean;
+
+        function isNumber: Boolean;
+        function isUpper: Boolean;
+
+        class operator Equal(const A, B: QChar): Boolean;
+    protected
+        function getOrigin: uint64;
+
+    published
+        property Category:      QChar_Category      read FCategory      default Other_NotAssigned;
+        property Decomposition: QChar_Decomposition read FDecomposition default NoDeComposition;
+        property Direction:     QChar_Direction     read FDirection     default DirEN;
+    end;
 
 implementation
 
@@ -365,10 +426,21 @@ begin
   inherited Destroy;
 end;
 
+class operator QChar.Equal(const A, B: QChar): Boolean;
+begin
+  result := (A.c_type = B.c_type);
+end;
+
 function QChar.getOrigin: uint64;
 begin
   result := ptr_cc;
 end;
+
+function QChar.isAscii: Boolean;
+begin
+    result := isAscii_QChar(ptr_cc);
+end;
+
 function QChar.isDigit: Boolean;
 begin
   result := isDigit_QChar(ptr_cc);
@@ -397,4 +469,13 @@ begin
   result := isNull_QChar(ptr_cc);
 end;
 
+function QChar.isNumber: Boolean;
+begin
+    result := isNumber_QChar(ptr_cc);
+end;
+
+function QChar.isUpper: Boolean;
+begin
+    result := isUpper_QChar(ptr_cc);
+end;
 end.
