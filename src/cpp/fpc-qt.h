@@ -87,16 +87,28 @@ public:
     // destructor
     ~QChar(void);
     
-    bool isDigit () const;
-    bool isLetter() const;
-    bool isLetterOrNumber() const;
-    bool isLower () const;
-    bool isNull  () const;
+    bool isAscii          () const;
+    bool isDigit          () const;
+    bool isLetter         () const;
+    bool isLetterOrNumber () const;
+    bool isLower          () const;
+    bool isMark           () const;
+    bool isNonCharacter   () const;
+    bool isNull           () const;
+    bool isNumber         () const;
+    bool isPrint          () const;
+    bool isPunct          () const;
+    bool isSpace          () const;
+    bool isSymbol         () const;
+    bool isTitleCase      () const;
+    bool isUpper          () const;
     
-       char toLatin1   () const;
-    ::QChar toLower    () const;
-    ::QChar toTitleCase() const;
-    ::QChar toUpper    () const;
+    char toAscii  () const;
+    char toLatin1 () const;
+       
+    uint16_t toLower      () const;
+    uint16_t toTitleCase  () const;
+    uint16_t toUpper      () const;
     
     // setter
     void setType(char     t);

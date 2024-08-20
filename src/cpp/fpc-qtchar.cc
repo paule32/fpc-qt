@@ -44,19 +44,31 @@ qvc::QChar::getType(void) const
     return result;
 }
 
-bool qvc::QChar::isDigit () const         { return getOrigin()->isDigit ();         }
-bool qvc::QChar::isLetter() const         { return getOrigin()->isLetter();         }
-bool qvc::QChar::isLetterOrNumber() const { return getOrigin()->isLetterOrNumber(); }
-bool qvc::QChar::isLower () const         { return getOrigin()->isLower ();         }
-bool qvc::QChar::isNull  () const         { return getOrigin()->isNull  ();         }
+bool qvc::QChar::isAscii          () const { return getOrigin()->isAscii          (); }
+bool qvc::QChar::isDigit          () const { return getOrigin()->isDigit          (); }
+bool qvc::QChar::isLetter         () const { return getOrigin()->isLetter         (); }
+bool qvc::QChar::isLetterOrNumber () const { return getOrigin()->isLetterOrNumber (); }
+bool qvc::QChar::isLower          () const { return getOrigin()->isLower          (); }
+bool qvc::QChar::isMark           () const { return getOrigin()->isMark           (); }
+bool qvc::QChar::isNonCharacter   () const { return getOrigin()->isNonCharacter   (); }
+bool qvc::QChar::isNull           () const { return getOrigin()->isNull           (); }
+bool qvc::QChar::isNumber         () const { return getOrigin()->isNumber         (); }
+bool qvc::QChar::isPrint          () const { return getOrigin()->isPrint          (); }
+bool qvc::QChar::isPunct          () const { return getOrigin()->isPunct          (); }
+bool qvc::QChar::isSpace          () const { return getOrigin()->isSpace          (); }
+bool qvc::QChar::isSymbol         () const { return getOrigin()->isSymbol         (); }
+bool qvc::QChar::isTitleCase      () const { return getOrigin()->isTitleCase      (); }
+bool qvc::QChar::isUpper          () const { return getOrigin()->isUpper          (); }
 
    ::QChar *
 qvc::QChar::getOrigin(void) const { return origin_obj; }
 
-   char qvc::QChar::toLatin1   () const { return getOrigin()->toLatin1   (); }
-::QChar qvc::QChar::toLower    () const { return getOrigin()->toLower    (); }
-::QChar qvc::QChar::toUpper    () const { return getOrigin()->toUpper    (); }
-::QChar qvc::QChar::toTitleCase() const { return getOrigin()->toTitleCase(); }
+uint8_t qvc::QChar::toAscii      () const { return getOrigin()->toLatin1    (); }
+uint8_t qvc::QChar::toLatin1     () const { return getOrigin()->toLatin1    (); }
+
+uint16_t qvc::QChar::toLower     () const { return getOrigin()->toLower     (); }
+uint16_t qvc::QChar::toTitleCase () const { return getOrigin()->toTitleCase (); }
+uint16_t qvc::QChar::toUpper     () const { return getOrigin()->toUpper     (); }
 
 qvc::QChar::~QChar(void)
 {
@@ -108,7 +120,7 @@ isDigit_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->isDigit())
+    if (objptr->getOrigin()->isDigit())
     result = true;
     return result;
 }
@@ -120,7 +132,7 @@ isLetter_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->isLetter())
+    if (objptr->getOrigin()->isLetter())
     result = true;
     return result;
 }
@@ -132,7 +144,7 @@ isLetterOrNumber_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->isLetterOrNumber())
+    if (objptr->getOrigin()->isLetterOrNumber())
     result = true;
     return result;
 }
@@ -144,7 +156,7 @@ isLower_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->isLower())
+    if (objptr->getOrigin()->isLower())
     result = true;
     return result;
 }
@@ -156,55 +168,61 @@ isNull_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->isNull())
+    if (objptr->getOrigin()->isNull())
     result = true;
     return result;
 }
 
-DLL_EXPORT uint64_t
+DLL_EXPORT uint8_t
+toAscii_QChar(uint64_t addr)
+{
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
+    
+    return objptr->getOrigin()->toAscii();
+}
+
+DLL_EXPORT uint8_t
 toLatin1_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
     
-    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    objptr->toLatin1();
-    
-    return addr;
+    return objptr->getOrigin()->toLatin1();
 }
 
-DLL_EXPORT uint64_t
+DLL_EXPORT uint16_t
 toLower_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    objptr->toLower();
+    objptr->getOrigin()->toLower();
     
     return addr;
 }
 
-DLL_EXPORT uint64_t
-toUpper_QChar(uint64_t addr)
-{
-    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    
-    check_pointer(addr, reinterpret_cast<uint64_t>(&objptr));
-    objptr->toUpper();
-    
-    return addr;
-}
-
-DLL_EXPORT uint64_t
+DLL_EXPORT uint16_t
 toTitleCase_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    objptr->toTitleCase();
+    objptr->getOrigin()->toTitleCase();
     
     return addr;
 }
 
+DLL_EXPORT uint16_t
+toUpper_QChar(uint64_t addr)
+{
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    
+    check_pointer(addr, reinterpret_cast<uint64_t>(&objptr));
+    objptr->getOrigin()->toUpper();
+    
+    return addr;
+}
 
 };  // extern "C"
 }   // namespace: qvc
