@@ -1,6 +1,9 @@
 #!/bin/bash
 pathdir="/E/Projekte/AthensProjekte/1"
 
+echo "create linux fpcqt.so"
+make
+exit
 echo "compile: server.cc"
 cd $pathdir
 cd server

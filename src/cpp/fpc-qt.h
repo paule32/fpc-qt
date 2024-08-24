@@ -27,6 +27,8 @@
  * \brief  Diese Bibliothek nutzt das grafische Qt5 GUI-Framework.
  */
 # include <QtCore/QChar>
+# include <QtWidgets/QApplication>
+# include <QtWidgets/QMessageBox>
 
 /**
  * \namespace qvc
@@ -73,7 +75,6 @@ enum symbolTypeEnum : uint32_t
 class QChar {
 private:
     std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t, short> qchar_types;
-    ::QChar* origin_obj;
 public:
     // constructor
     QChar(void);
@@ -99,6 +100,7 @@ public:
     bool isPrint          () const;
     bool isPunct          () const;
     bool isSpace          () const;
+    bool isSurrogate      () const;
     bool isSymbol         () const;
     bool isTitleCase      () const;
     bool isUpper          () const;
@@ -106,9 +108,9 @@ public:
     char toAscii  () const;
     char toLatin1 () const;
        
-    uint16_t toLower      () const;
-    uint16_t toTitleCase  () const;
-    uint16_t toUpper      () const;
+    ::QChar toLower      () const;
+    ::QChar toTitleCase  () const;
+    ::QChar toUpper      () const;
     
     // setter
     void setType(char     t);
@@ -121,6 +123,7 @@ public:
     // getter
     symbolTypeEnum getType  (void) const;
     ::QChar *      getOrigin(void) const;
+    ::QChar *      origin;
 };
 
 /**
@@ -180,6 +183,7 @@ extern "C" {
  * \defgroup internFunctions interne Funktionen
  * @{
  */
+extern void ErrorMessage(QString text);
 /**
  * \defgroup qcharclass QChar
  * \ingroup  internFunctions

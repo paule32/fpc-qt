@@ -3,24 +3,25 @@
 // \author     (c) 2024 Jens Kallup - paule32
 // \copyright  Alle Rechte vorbehalten.
 // ---------------------------------------------------------------------------
-
-{$APPTYPE CONSOLE}
+{$ifdef FPC}
+    {$mode delphi}{$H+}
+{$else}
+    {$APPTYPE CONSOLE}
+{$endif}
 program fpcqt;
 uses
+  {$ifdef win64}
   Windows,
-  QCharClass;
+  {$endif }
+  appsettings in 'pas/appsettings.pas',
+  misc in 'pas/misc.pas',
+  fpcmain in 'pas/fpcmain.pas',
+  QCharClass in 'pas/QCharClass.pas';
 
+procedure EntryPoint(argc: Integer; argv: Array of String);
 var
-  myQChar: QChar;
-
+    myQChar: QChar;
 begin
-  DLLHandle := LoadLibrary('fpc-qt.dll');
-  if DLLHandle = 0 then
-  begin
-    MessageBox(0,'Error: DLL could not be loaded.','Error',0);
-    ExitProcess(1);
-  end;
-  try
     myQChar := QChar.Create;
 
     if myQChar.isDigit then
@@ -28,10 +29,9 @@ begin
     WriteLn('not ok');
     Readln;
     myQChar.Free;
-  finally
-      FreeLibrary(DLLHandle);
-      ReadLn;
-      ExitProcess(0);
-  end;
+end;
+
+begin
+    InitLibrary( EntryPoint );
 end.
 

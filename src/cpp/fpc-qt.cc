@@ -24,8 +24,8 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value)
     if (value == 1) {
         symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
     }   else if (value == symbolTypeEnum::stQChar) {
-        //char ch = 32;
-        qvc::QChar* qc = new qvc::QChar();
+        char ch = 32;
+        qvc::QChar* qc = new qvc::QChar(ch);
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
     }   else if (value == symbolTypeEnum::stQChar_Byte) {
@@ -82,7 +82,7 @@ Igetsymbol(std::wstring&& p_sname) {
             }   else if constexpr (std::is_same_v<T, std::wstring>) {
                 std::wcout << L"String: " << arg << std::endl;
                 return true;
-            }   else if constexpr (std::is_same_v<T, QChar*>) {
+            }   else if constexpr (std::is_same_v<T, qvc::QChar*>) {
                 current_ptr = reinterpret_cast<uint64_t>(&arg);
                 return true;
             }

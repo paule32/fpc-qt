@@ -7,13 +7,13 @@
 
 namespace qvc {
 
-qvc::QChar::QChar(void      ) { origin_obj = new ::QChar( ); }
-qvc::QChar::QChar(char     t) { origin_obj = new ::QChar(t); }
-qvc::QChar::QChar(uint8_t  t) { origin_obj = new ::QChar(t); }
-qvc::QChar::QChar(uint16_t t) { origin_obj = new ::QChar(t); }
-qvc::QChar::QChar(uint32_t t) { origin_obj = new ::QChar(t); }
-qvc::QChar::QChar(wchar_t  t) { origin_obj = new ::QChar(t); }
-qvc::QChar::QChar(short    t) { origin_obj = new ::QChar(t); }
+qvc::QChar::QChar(void      ) { origin = new ::QChar( ); }
+qvc::QChar::QChar(char     t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(uint8_t  t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(uint16_t t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(uint32_t t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(wchar_t  t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(short    t) { origin = new ::QChar(t); }
 
 void qvc::QChar::setType(char     t) { qchar_types = static_cast<char    >( t ); }
 void qvc::QChar::setType(uint8_t  t) { qchar_types = static_cast<uint8_t >( t ); }
@@ -33,96 +33,216 @@ qvc::QChar::getType(void) const
     if (std::holds_alternative<uint32_t>(qchar_types)) result = stQChar_DWord;    else
     if (std::holds_alternative<wchar_t >(qchar_types)) result = stQChar_Word;     else
     if (std::holds_alternative<short   >(qchar_types)) result = stQChar_ShortInt; else {
-        MessageBoxW(
-            NULL,
-            L"Error: type out of bounds.",
-            L"Error",
-            MB_ICONINFORMATION | MB_OK
-        );
-        ExitProcess(1);
+        ErrorMessage("Error: type out of bounds.");
+        exit(1);
     }
     return result;
 }
 
-bool qvc::QChar::isAscii          () const { return getOrigin()->isAscii          (); }
-bool qvc::QChar::isDigit          () const { return getOrigin()->isDigit          (); }
-bool qvc::QChar::isLetter         () const { return getOrigin()->isLetter         (); }
-bool qvc::QChar::isLetterOrNumber () const { return getOrigin()->isLetterOrNumber (); }
-bool qvc::QChar::isLower          () const { return getOrigin()->isLower          (); }
-bool qvc::QChar::isMark           () const { return getOrigin()->isMark           (); }
-bool qvc::QChar::isNonCharacter   () const { return getOrigin()->isNonCharacter   (); }
-bool qvc::QChar::isNull           () const { return getOrigin()->isNull           (); }
-bool qvc::QChar::isNumber         () const { return getOrigin()->isNumber         (); }
-bool qvc::QChar::isPrint          () const { return getOrigin()->isPrint          (); }
-bool qvc::QChar::isPunct          () const { return getOrigin()->isPunct          (); }
-bool qvc::QChar::isSpace          () const { return getOrigin()->isSpace          (); }
-bool qvc::QChar::isSymbol         () const { return getOrigin()->isSymbol         (); }
-bool qvc::QChar::isTitleCase      () const { return getOrigin()->isTitleCase      (); }
-bool qvc::QChar::isUpper          () const { return getOrigin()->isUpper          (); }
-
-   ::QChar *
-qvc::QChar::getOrigin(void) const { return origin_obj; }
-
-uint8_t qvc::QChar::toAscii      () const { return getOrigin()->toLatin1    (); }
-uint8_t qvc::QChar::toLatin1     () const { return getOrigin()->toLatin1    (); }
-
-uint16_t qvc::QChar::toLower     () const { return getOrigin()->toLower     (); }
-uint16_t qvc::QChar::toTitleCase () const { return getOrigin()->toTitleCase (); }
-uint16_t qvc::QChar::toUpper     () const { return getOrigin()->toUpper     (); }
-
-qvc::QChar::~QChar(void)
-{
-    #ifdef DEBUG
-    std::wcout << L"cpp: QChar: dtor..." << std::endl;
-    #endif
+bool
+qvc::QChar::isAscii() const {
+    bool result = false;
+    symbolTypeEnum resultype = getType();
+    if (resultype == stQChar_Char) {
+        char c = std::holds_alternative<char>(qchar_types);
+        if (std::isalpha(c)) {
+            result = true;
+        }   else {
+            result = false;
+        }
+    }   else {
+        ErrorMessage("QChar is not a CHAR");
+    }   return result;
 }
 
 bool
-check_pointer(uint64_t addr, uint64_t ptr) {
-    if ((addr == 0) || (ptr == 0) || (addr != ptr)) {
-        MessageBoxW(
-            NULL,
-            L"Error: QChar Objekt not handled by ctor.",
-            L"Error",
-            MB_ICONINFORMATION | MB_OK
-        );
-        ExitProcess(1);
-        return false;
-    }   return true ;
+qvc::QChar::isDigit() const {
+    if (nullptr != origin)
+    return origin->isDigit();
+    return false;
 }
+
+bool
+qvc::QChar::isLetter() const {
+    if (nullptr != origin)
+    return origin->isLetter();
+    return false;
+}
+
+bool
+qvc::QChar::isLetterOrNumber() const {
+    if (nullptr != origin)
+    return origin->isLetterOrNumber();
+    return false;
+}
+
+bool
+qvc::QChar::isLower() const {
+    if (nullptr != origin)
+    return origin->isLower();
+    return false;
+}
+
+bool
+qvc::QChar::isMark() const {
+    if (nullptr != origin)
+    return origin->isMark();
+    return false;
+}
+
+bool
+qvc::QChar::isNonCharacter() const {
+    if (nullptr != origin)
+    return origin->isNonCharacter();
+    return false;
+}
+
+bool
+qvc::QChar::isNull() const {
+    if (nullptr != origin)
+    return origin->isNull();
+    return false;
+}
+
+bool
+qvc::QChar::isNumber() const {
+    if (nullptr != origin)
+    return origin->isNumber();
+    return false;
+}
+
+bool
+qvc::QChar::isPrint() const {
+    if (nullptr != origin)
+    return origin->isPrint();
+    return false;
+}
+
+bool
+qvc::QChar::isPunct() const {
+    if (nullptr != origin)
+    return origin->isPunct();
+    return false;
+}
+
+bool
+qvc::QChar::isSpace() const {
+    if (nullptr != origin)
+    return origin->isSpace();
+    return false;
+}
+
+bool
+qvc::QChar::isSurrogate() const {
+    if (nullptr != origin)
+    return origin->isSurrogate();
+    return false;
+}
+
+bool
+qvc::QChar::isSymbol() const {
+    if (nullptr != origin)
+    return origin->isSymbol();
+    return false;
+}
+
+bool
+qvc::QChar::isTitleCase() const {
+    if (nullptr != origin)
+    return origin->isTitleCase();
+    return false;
+}
+
+bool
+qvc::QChar::isUpper() const {
+    if (nullptr != origin)
+    return origin->isUpper();
+    return false;
+}
+
+   ::QChar *
+qvc::QChar::getOrigin(void) const { return origin; }
+
+char
+qvc::QChar::toAscii() const {
+    return origin->toLatin1();
+}
+
+char
+qvc::QChar::toLatin1() const {
+    return origin->toLatin1();
+}
+
+::QChar
+qvc::QChar::toLower() const {
+    return origin->toLower();
+}
+
+::QChar
+qvc::QChar::toTitleCase() const {
+    return origin->toTitleCase();
+}
+
+::QChar
+qvc::QChar::toUpper() const {
+    return origin->toUpper();
+}
+
+qvc::QChar::~QChar(void)
+{
+}
+
+bool
+check_pointer(uint64_t addr, uint64_t ptr)
+{
+    if ((addr == 0) || (ptr == 0) || (addr != ptr)) {
+        ErrorMessage("Error: QChar Objekt not handled by ctor.");
+        exit(1);
+        return false;
+    }
+    return true ;
+}
+
 extern "C" {
+
 DLL_EXPORT uint64_t
 ctor_QChar(wchar_t* p_name, uint32_t sym_type)
 {
     Iaddsymbol(p_name, sym_type);
     Igetsymbol(p_name);
     
-    std::wcout
-    << L"create: QChar: 0x" << std::hex
-    << current_ptr
-    << std::endl;
-    
     return current_ptr;
 }
+
 DLL_EXPORT void
 dtor_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    delete objptr;
+    if (nullptr != objptr->origin)
+    delete objptr->origin;
 }
 
 DLL_EXPORT bool
-isDigit_QChar(uint64_t addr)
+isAscii_QChar(uint64_t addr)
 {
     bool   result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->getOrigin()->isDigit())
+    if (objptr->isAscii())
     result = true;
     return result;
+}
+
+DLL_EXPORT bool
+isDigit_QChar(uint64_t addr)
+{
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    return objptr->isDigit();
 }
 
 DLL_EXPORT bool
@@ -132,7 +252,7 @@ isLetter_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->getOrigin()->isLetter())
+    if (objptr->isLetter())
     result = true;
     return result;
 }
@@ -144,7 +264,7 @@ isLetterOrNumber_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->getOrigin()->isLetterOrNumber())
+    if (objptr->isLetterOrNumber())
     result = true;
     return result;
 }
@@ -156,7 +276,31 @@ isLower_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->getOrigin()->isLower())
+    if (objptr->isLower())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isMark_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isMark())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isNonCharacter_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isNonCharacter())
     result = true;
     return result;
 }
@@ -168,27 +312,116 @@ isNull_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    if (objptr->getOrigin()->isNull())
+    if (objptr->isNull())
     result = true;
     return result;
 }
 
-DLL_EXPORT uint8_t
-toAscii_QChar(uint64_t addr)
+DLL_EXPORT bool
+isNumber_QChar(uint64_t addr)
 {
+    bool   result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isNumber())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isPrint_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isPrint())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isPunct_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isPunct())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isSpace_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
-    return objptr->getOrigin()->toAscii();
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isSpace())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isSurrogate_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isSurrogate())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isSymbol_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isSymbol())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isTitleCase_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isTitleCase())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isUpper_QChar(uint64_t addr)
+{
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isUpper())
+    result = true;
+    return result;
 }
 
 DLL_EXPORT uint8_t
 toLatin1_QChar(uint64_t addr)
 {
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
     
-    return objptr->getOrigin()->toLatin1();
+    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
+    objptr->toLatin1();
+    
+    return reinterpret_cast<uint64_t>(&objptr);
 }
 
 DLL_EXPORT uint16_t
@@ -197,9 +430,9 @@ toLower_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    objptr->getOrigin()->toLower();
+    objptr->toLower();
     
-    return addr;
+    return reinterpret_cast<uint64_t>(&objptr);
 }
 
 DLL_EXPORT uint16_t
@@ -208,9 +441,9 @@ toTitleCase_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    objptr->getOrigin()->toTitleCase();
+    objptr->toTitleCase();
     
-    return addr;
+    return reinterpret_cast<uint64_t>(&objptr);
 }
 
 DLL_EXPORT uint16_t
@@ -219,9 +452,9 @@ toUpper_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(&objptr));
-    objptr->getOrigin()->toUpper();
+    objptr->toUpper();
     
-    return addr;
+    return reinterpret_cast<uint64_t>(&objptr);
 }
 
 };  // extern "C"

@@ -3,19 +3,21 @@
 // \author     (c) 2024 Jens Kallup - paule32
 // \copyright  Alle Rechte vorbehalten.
 // ---------------------------------------------------------------------------
-{$define DEBUG}
-{$M+}
+{$ifdef FPC}
+    {$mode delphi}{$H+}
+{$else}
+    {$if CompilerVersion >= 36}
+    {$M+}
+    {$endif}
+{$endif}
 unit QCharClass;
 
 interface
 uses
+    {$ifdef win64}
     Windows,
-    System.SysUtils,
-    System.Character;
-
-const DLLname = 'fpc-qt.dll';
-var
-    DLLHandle: HMODULE;
+    {$endif}
+    SysUtils, misc, fpcmain;
 
 type
 symbolType = (
@@ -41,21 +43,22 @@ function isLetter_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isLetterOrNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isLower_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isMark_QChar(v: uint64): Boolean; cdecl; external dllname;
-function isNonCharacter(v: uint64): Boolean; cdecl; external dllname;
+function isNonCharacter_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isNull_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isPrint_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isPunct_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isSpace_QChar(v: uint64): Boolean; cdecl; external dllname;
-function isSurrogate(v: uint64): Boolean; cdecl; external dllname;
-function isSymbol(v: uint64): Boolean; cdecl; external dllname;
-function isTitleCase(v: uint64): Boolean; cdecl; external dllname;
+function isSurrogate_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isSymbol_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isTitleCase_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isUpper_QChar(v: uint64): Boolean; cdecl; external dllname;
 
-function toLatin1(v: uint64): uint64; cdecl; external dllname;
-function toLower(v: uint64): uint64; cdecl; external dllname;
-function toTitleCase(v: uint64): uint64; cdecl; external dllname;
-function toUpper(v: uint64): uint64; cdecl; external dllname;
+function toAscii_QChar(v: uint64): uint8; cdecl; external dllname;
+function toLatin1_QChar(v: uint64): uint8; cdecl; external dllname;
+function toLower_QChar(v: uint64): uint16; cdecl; external dllname;
+function toTitleCase_QChar(v: uint64): uint16; cdecl; external dllname;
+function toUpper_QChar(v: uint64): uint16; cdecl; external dllname;
 
 type
     /// <summary>
@@ -93,22 +96,22 @@ type
         QChar_Decomposition = (
             NoDecomposition =  0,
             Canonical       =  1,
-            Circle          =  8,
-            Compat          = 16,
-            Final           =  6,
             Font            =  2,
-            Fraction        = 17,
+            NoBreak         =  3,
             Initial         =  4,
+            Medial          =  5,
+            Final           =  6,
             Isolated        =  7,
-            Medial          =  9,
+            Circle          =  8,
+            Super           =  9,
+            Sub             = 10,
+            Vertical        = 11,
+            Wide            = 12,
             Narrow          = 13,
-            NoBreak         =  8,
             Small           = 14,
             Square          = 15,
-            Sub             = 10,
-            Super           =  9,
-            Vertical        = 11,
-            Wide            = 12
+            Compat          = 16,
+            Fraction        = 17
         );
         /// <enum>
         /// This enum type defines the Unicode direction attributes.
@@ -119,29 +122,29 @@ type
         //  </p>
         /// </enum>
         QChar_Direction = (
-            DirAL  = 13,
-            DirAN  =  5,
-            DirB   =  7,
-            DirBN  = 18,
-            DirCS  =  6,
+            DirL   =  0,
+            DirR   =  1,
             DirEN  =  2,
             DirES  =  3,
             DirET  =  4,
-            DirFSI = 21,
-            DirL   =  0,
-            DirLRE = 11,
-            DirLRI = 19,
-            DirLRO = 12,
-            DirNSM = 17,
-            DirON  = 10,
-            DirPDF = 16,
-            DirPDI = 22,
-            DirR   =  1,
-            DirRLE = 14,
-            DirRLI = 20,
-            DirRLO = 15,
+            DirAN  =  5,
+            DirCS  =  6,
+            DirB   =  7,
             DirS   =  8,
-            DirWS  =  9
+            DirWS  =  9,
+            DirON  = 10,
+            DirLRE = 11,
+            DirLRO = 12,
+            DirAL  = 13,
+            DirRLE = 14,
+            DirRLO = 15,
+            DirPDF = 16,
+            DirNSM = 17,
+            DirBN  = 18,
+            DirLRI = 19,
+            DirRLI = 20,
+            DirFSI = 21,
+            DirPDI = 22
         );
     private
         ClassName: PChar;
@@ -224,8 +227,12 @@ type
         /// <remarks>
         /// Dies ist der SmallInt Konstruktor für QChar.
         /// </remarks>
-        constructor Create(c: SmallInt) overload;
+        constructor Create(c: SmallInt); overload;
         destructor Destroy; override;
+
+        function Lt(const B: QChar): Boolean;
+        function Eq(const B: QChar): Boolean;
+        function Gt(const B: QChar): Boolean;
 
         function isAscii: Boolean;
 
@@ -253,15 +260,27 @@ type
         /// </summary>
         function isLower: Boolean;
 
+        function isMark: Boolean;
+        function isNonCharacter: Boolean;
+
         /// <summary>
         /// prüft, ob das gepeicherte QChar Zeichen null entspricht.
         /// </summary>
         function isNull: Boolean;
 
         function isNumber: Boolean;
+        function isPrint: Boolean;
+        function isPunct: Boolean;
+        function isSpace: Boolean;
+        function isSurrogate: Boolean;
+        function isSymbol: Boolean;
+        function isTitleCase: Boolean;
         function isUpper: Boolean;
 
-        class operator Equal(const A, B: QChar): Boolean;
+        function toLatin1: uint16;
+        function toLower: uint16;
+        function toTitleCase: uint16;
+        function toUpper: uint16;
     protected
         function getOrigin: uint64;
 
@@ -279,15 +298,13 @@ implementation
 /// </summary>
 function check_ptr(name: PChar; ptr: uint64): Boolean;
 begin
-  result := true;
+  result := false;
   if ptr = 0 then
   begin
-    MessageBoxW(0,
-      PChar(Format('Error: %s not constructed.',[name])),
-      PChar('Error'),
-      MB_OK);
-    result := false;
+    ErrorMessage(PChar(Format('Error: %s not constructed.',[name])));
+    exit;
   end;
+  result := true;
 end;
 
 { QChar }
@@ -297,14 +314,17 @@ end;
 /// </summary>
 constructor QChar.Create;
 begin
-  inherited Create;
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar);
+    inherited Create;
+    ClassName := PChar('QChar');
+    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar);
 
-  if not check_ptr(ClassName, getOrigin) then
-  begin Free; exit; end;
+    if not check_ptr(ClassName, getOrigin) then
+    begin
+        Free;
+        exit;
+    end;
 
-  c_type := 'A';
+    c_type := 'A';
 end;
 
 /// <summary>
@@ -426,9 +446,19 @@ begin
   inherited Destroy;
 end;
 
-class operator QChar.Equal(const A, B: QChar): Boolean;
+function QChar.Lt(const B: QChar): Boolean;
 begin
-  result := (A.c_type = B.c_type);
+  result := (c_type < B.c_type);
+end;
+
+function QChar.Eq(const B: QChar): Boolean;
+begin
+  result := (c_type = B.c_type);
+end;
+
+function QChar.Gt(const B: QChar): Boolean;
+begin
+  result := (c_type > B.c_type);
 end;
 
 function QChar.getOrigin: uint64;
@@ -443,6 +473,7 @@ end;
 
 function QChar.isDigit: Boolean;
 begin
+  WriteLn('isDigit: ' + IntToHex(uint64(ptr_cc), 16));
   result := isDigit_QChar(ptr_cc);
 end;
 
@@ -461,6 +492,16 @@ begin
   result := isLower_QChar(ptr_cc);
 end;
 
+function QChar.isMark: Boolean;
+begin
+    result := isLower_QChar(ptr_cc);
+end;
+
+function QChar.isNonCharacter: Boolean;
+begin
+    result := isNonCharacter_QChar(ptr_cc);
+end;
+
 /// <summary>
 /// testung
 /// </summary>
@@ -474,8 +515,60 @@ begin
     result := isNumber_QChar(ptr_cc);
 end;
 
+function QChar.isPrint: Boolean;
+begin
+    result := isPrint_QChar(ptr_cc);
+end;
+
+function QChar.isPunct: Boolean;
+begin
+    result := isPunct_QChar(ptr_cc);
+end;
+
+function QChar.isSpace: Boolean;
+begin
+    result := isSpace_QChar(ptr_cc);
+end;
+
+function QChar.isSurrogate: Boolean;
+begin
+    result := isSurrogate_QChar(ptr_cc);
+end;
+
+function QChar.isSymbol: Boolean;
+begin
+    result := isSymbol_QChar(ptr_cc);
+end;
+
+function QChar.isTitleCase: Boolean;
+begin
+    result := isTitleCase_QChar(ptr_cc);
+end;
+
 function QChar.isUpper: Boolean;
 begin
     result := isUpper_QChar(ptr_cc);
 end;
+
+function QChar.toLatin1: uint16;
+begin
+    result := toLatin1_QChar(ptr_cc);
+end;
+
+function QChar.toLower: uint16;
+begin
+    result := toLower_QChar(ptr_cc);
+end;
+
+function QChar.toTitleCase: uint16;
+begin
+    result := toTitleCase_QChar(ptr_cc);
+end;
+
+function QChar.toUpper: uint16;
+begin
+    result := toUpper_QChar(ptr_cc);
+end;
+
 end.
+
