@@ -6,7 +6,10 @@
 # pragma once
 #ifndef  __FPC_QT_H__
 # define __FPC_QT_H__
+
+#ifdef WINDOWS
 # include <windows.h>
+#endif
 
 # include <iostream>
 # include <string>
@@ -16,6 +19,11 @@
 # include <memory>
 # include <cwchar>
 # include <exception>
+
+#ifndef WINDOWS
+typedef uint16_t WORD;
+typedef uint32_t DWORD;
+#endif
 
 #ifdef _WIN64
 # define DLL_EXPORT __declspec(dllexport)

@@ -4,6 +4,17 @@
 # All rights reserved
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# get operating system, and architecture ...
+# ---------------------------------------------------------------------------
+OS   := $(shell uname -s)
+ARCH := $(shell uname -m)
+
+CPP_DIR = ./cpp
+PAS_DIR = ./pas
+OBJ_DIR = ./obj
+
+ifeq ($(OS),Windows_NT)
 WIN_PATH = 
 FPC_PATH = E:\FPCdeluxe
 
@@ -16,52 +27,72 @@ FPC_64 = $(FPC_PATH)/fpc/bin/i386-win32/ppcrossx64.exe
 GPP_64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-g++.exe
 GCC_64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-gcc.exe
 
+QT_632_INC =\
+    -I./cpp \
+    -I$(WIN_PATH)/mingw64/include
+
 FPC_CROSS = $(FPC_PATH)/bin/i386-win32/gcc.exe
-FPC_LINUX = fpc
-FPC_REL_FLAGS_CROSS_LINUX =\
+
+FPC_REL_FLAGS_LINUX =\
     -Tlinux -dRELEASE -FD$(FPC_PATH)/cross/bin/x86_64-linux \
     -Fu$(FPC_PATH)/fpc/units/x86_64-linux \
     -Fl$(FPC_PATH)/cross/lib/x86_64-linux \
     -Fu./pas -Fu./ \
     -FE./obj \
     -vn- -Mdelphi
-FPC_REL_FLAGS_LINUX =\
-    -Fu./pas -Fu./ \
-    -gl \
-    -FE./obj \
-    -vn- -Mdelphi
 #
-FPC_DEB_FLAGS_CROSS_LINUX =\
+FPC_DEB_FLAGS_LINUX =\
     -Tlinux -dDEBUG   -FD$(FPC_PATH)/cross/bin/x86_64-linux \
     -Fu$(FPC_PATH)/fpc/units/x86_64-linux \
     -Fl$(FPC_PATH)/cross/lib/x86_64-linux \
-    -Fu./pas -Fu./ \
+    -Fu./pas -Fu./ -Fl./obj \
     -gl \
+    -FE./obj \
+    -vn- -Mdelphi
+
+else ifeq ($(OS),Linux)
+GPP_64    = g++
+INCLUDES +=\
+    -I /usr/include/x86_64-linux-gnu/qt5/
+
+FPC_LINUX = fpc
+FPC_REL_FLAGS_LINUX =\
+    -Fu./pas -Fu./ \
+    -gl -Cn  \
     -FE./obj \
     -vn- -Mdelphi
 FPC_DEB_FLAGS_LINUX =\
     -Fu./pas -Fu./ \
-    -gl \
+    -gl -Cn  \
     -FE./obj \
     -vn- -Mdelphi
+endif
 
-QT_632_INC =\
-    -I./cpp \
-    -I$(WIN_PATH)/mingw64/include
+CC_FLAGS = -O2 -Wno-write-strings
 
-GCC_32_REL_FLAGS  = -m32 -O2 -wno-write-strings -fPIC -shared
-GCC_64_REL_FLAGS  = -m64 -O2 -wno-write-strings -fPIC -shared
+GCC_32_REL_FLAGS += -m32 $(CC_FLAGS)
+GPP_32_REL_FLAGS += -m32 $(CC_FLAGS) -fPIC -shared -std=c++2a
+#
+GCC_32_DEB_FLAGS += -m32 $(CC_FLAGS) -g gdb
+GPP_32_DEB_FLAGS += -m32 $(CC_FLAGS) -fPIC -shared -std=c++2a
+###
+GCC_64_REL_FLAGS += -m64 $(CC_FLAGS)
+GPP_64_REL_FLAGS += -m64 $(CC_FLAGS) -fPIC -shared -std=c++2a
+#
+GCC_64_DEB_FLAGS += -m64 $(CC_FLAGS) -g gdb
+GPP_64_DEB_FLAGS += -m64 $(CC_FLAGS) -fPIC -shared -std=c++2a
 
-GCC_32_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
-GCC_64_DEB_FLAGS += $(GCC_32_REL_FLAGS) -g gdb
+GCC_32_REL_FLAGS += $(INCLUDES) -DRELEASE
+GPP_32_REL_FLAGS += $(INCLUDES) -DRELEASE
+GCC_64_REL_FLAGS += $(INCLUDES) -DRELEASE
+GPP_64_REL_FLAGS += $(INCLUDES) -DRELEASE
+#
+GCC_32_DRB_FLAGS += $(INCLUDES) -DDEBUG -g gdb
+GPP_32_DRB_FLAGS += $(INCLUDES) -DDEBUG -g gdb
+GCC_64_DEB_FLAGS += $(INCLUDES) -DDEBUG -g gdb
+GPP_64_DRB_FLAGS += $(INCLUDES) -DDEBUG -g gdb
 
-GPP_XX_REL_FLAGS = -O2 -Wno-write-strings -fPIC -shared -std=c++20
-GPP_32_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m32 $(INCLUDES)
-GPP_64_REL_FLAGS = $(GPP_XX_REL_FLAGS) -m64 $(INCLUDES) -DDEBUG
-
-GPP_32_DEB_FLAGS = $(GPP_32_REL_FLAGS) -g gdb
-GPP_64_DEB_FLAGS = $(GPP_64_REL_FLAGS) -g gdb
-
+ifeq ($(OS),Windows_NT)
 WINDOWS_BIN_REL_32 = ./win32/Release
 WINDOWS_BIN_REL_64 = ./win64/Release
 
@@ -76,9 +107,27 @@ TARGET_REL_64 = $(WINDPWS_BIN_REL_64)/$(TARGET)
 TARGET_DEB_32 = $(WINDOWS_BIN_DEB_32)/$(TARGET)
 TARGET_DEB_64 = $(WINDOWS_BIN_DEB_64)/$(TARGET)
 
-CPP_DIR = ./cpp
-PAS_DIR = ./pas
-OBJ_DIR = ./obj
+GCC_32_REL_FLAGS += -D WINDOWS -D WIN32
+GCC_64_REL_FLAGS += -D WINDOWS -D WIN64
+
+GPP_32_DEB_FLAGS += -D WINDOWS -D WIN32
+GPP_64_DEB_FLAGS += -D WINDOWS -D WIN64
+
+else ifeq ($(OS),Linux)
+TARGET = fpc-qt.so
+
+GCC_32_REL_FLAGS += -D UNIX
+GCC_64_REL_FLAGS += -D UNIX
+
+GPP_32_DEB_FLAGS += -D UNIX
+GPP_64_DEB_FLAGS += -D UNIX
+
+TARGET_REL_32 = $(OBJ_DIR)/$(TARGET)
+TARGET_REL_64 = $(OBJ_DIR)/$(TARGET)
+
+TARGET_DEB_32 = $(OBJ_DIR)/$(TARGET)
+TARGET_DEB_64 = $(OBJ_DIR)/$(TARGET)
+endif
 
 SRCS = $(wildcard $(CPP_DIR)/*.cc)
 OBJS = $(patsubst $(CPP_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
@@ -86,8 +135,11 @@ OBJS = $(patsubst $(CPP_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
 # ---------------------------------------------------------------------------
 # start file
 # ---------------------------------------------------------------------------
-all: linux
-#clean presteps $(TARGET_REL_64)
+ifeq ($(OS),Linux)
+all: clean presteps linux
+else ifeq ($(OS),Windows_NT)
+all: clean presteps windows
+endif
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
@@ -107,11 +159,10 @@ $(TARGET_REL_32): $(OBJS)
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
 # ---------------------------------------------------------------------------
-$(TARGET_LINUX_64): fpcqt.dpr
-	$(FPC_64) $(FPC_REL_FLAGS_LINUX) fpcqt.dpr
-
-linux: fpcqt.dpr
-	echo "compile native under Linux:"
+linux: $(OBJS)
+	echo "compile fpc-qt.so native under Linux:"
+	$(GPP_64) $(GPP_64_REL_FLAGS) -o $(OBJ_DIR)/$(TARGET) $^
+	echo "compile test.app native under Linux:"
 	$(FPC_LINUX) $(FPC_REL_FLAGS_LINUX) fpcqt.dpr
 
 clean:

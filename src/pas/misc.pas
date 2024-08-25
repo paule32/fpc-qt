@@ -18,7 +18,12 @@ uses
     {$endif}
     SysUtils;
 
-const DLLname = 'fpc-qt.dll';
+    {$ifdef win64}
+    const DLLname = 'fpc-qt.dll';
+    {$endif}
+    {$ifdef Unix}
+    const DLLname = 'fpc-qt.so';
+    {$endif}
 type
     TMainCallback = procedure(argc: Integer; argv: Array of String);
 
@@ -31,7 +36,7 @@ uses fpcmain;
 function InitLibrary(Callback: TMainCallback): Boolean;
 begin
   result := False;
-  DLLHandle := LoadLibrary('fpc-qt.dll');
+  DLLHandle := LoadLibrary('fpc-qt.so');
   if DLLHandle = 0 then
   begin
     ErrorMessage('Error: DLL could not be loaded.');
@@ -47,3 +52,4 @@ begin
 end;
 
 end.
+

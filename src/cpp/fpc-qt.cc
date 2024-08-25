@@ -97,13 +97,12 @@ Igetsymbol(std::wstring&& p_sname) {
         std::wstring&& part2_rvalue = std::move(part2);
         std::wstring   result       = std::wstring(part1) + part2_rvalue;
         
-        int res = MessageBoxW(
-            NULL,
+        QString qstr = QString::fromWCharArray(
             result.c_str(),
-            title .c_str(),
-            MB_OK | MB_ICONINFORMATION
+            result.size()
         );
         
+        ErrorMessage(qstr);
         return false;
     }   return false;
 }

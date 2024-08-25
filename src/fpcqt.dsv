@@ -30,9 +30,9 @@ EditViewName=E:\Projekte\AthensProjekte\1\pas\qchar.pas
 
 [ClosedView_RTpcUHJvamVrdGVcQXRoZW5zUHJvamVrdGVcMVxwYXNcUUNoYXJDbGFzcy5wYXM=]
 Module=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
-CursorX=33
-CursorY=476
-TopLine=1
+CursorX=1
+CursorY=40
+TopLine=28
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -60,9 +60,9 @@ EditViewName=E:\Projekte\AthensProjekte\1\fpcmain.pas
 
 [ClosedView_RTpcUHJvamVrdGVcQXRoZW5zUHJvamVrdGVcMVxwYXNcbWlzYy5wYXM=]
 Module=E:\Projekte\AthensProjekte\1\pas\misc.pas
-CursorX=13
-CursorY=17
-TopLine=10
+CursorX=31
+CursorY=1
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -80,8 +80,8 @@ EditViewName=E:\Projekte\AthensProjekte\1\pas\fpcmain.pas
 
 [ClosedView_RTpcUHJvamVrdGVcQXRoZW5zUHJvamVrdGVcMVxwYXNcYXBwc2V0dGluZ3MucGFz]
 Module=E:\Projekte\AthensProjekte\1\pas\appsettings.pas
-CursorX=12
-CursorY=6
+CursorX=15
+CursorY=115
 TopLine=1
 LeftCol=1
 Elisions=
