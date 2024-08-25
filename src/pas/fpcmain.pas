@@ -13,10 +13,10 @@ interface
 var
     DLLHandle: HMODULE;
 {$else}
-uses dynlibs, sysutils;
+//uses dynlibs, sysutils;
 const DLLname = 'fpc-qt.so';
-var
-    DLLHandle: TLibHandle;
+//var
+//    DLLHandle: TLibHandle;
 {$endif}
 
 implementation

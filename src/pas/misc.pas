@@ -22,7 +22,7 @@ uses
     const DLLname = 'fpc-qt.dll';
     {$endif}
     {$ifdef Unix}
-    const DLLname = 'fpc-qt.so';
+    const DLLname = 'fpcso.so';
     {$endif}
 type
     TMainCallback = procedure(argc: Integer; argv: Array of String);
@@ -36,17 +36,17 @@ uses fpcmain;
 function InitLibrary(Callback: TMainCallback): Boolean;
 begin
   result := False;
-  DLLHandle := LoadLibrary('fpc-qt.so');
-  if DLLHandle = 0 then
-  begin
-    ErrorMessage('Error: DLL could not be loaded.');
-    Halt(1);
-  end;
+//  DLLHandle := LoadLibrary('fpc-qt.so');
+//  if DLLHandle = 0 then
+//  begin
+//    ErrorMessage('Error: DLL could not be loaded.');
+//    Halt(1);
+//  end;
   try
     Callback(ParamCount, ParamStr(1));
   finally
-      FreeLibrary(DLLHandle);
-      ReadLn;
+//      FreeLibrary(DLLHandle);
+//      ReadLn;
       Halt(0);
   end;
 end;

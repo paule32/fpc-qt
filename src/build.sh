@@ -1,7 +1,9 @@
 #!/bin/bash
 pathdir="/E/Projekte/AthensProjekte/1"
 
-echo "create linux fpcqt.so"
+dir /lib54
+echo "create Windows fpcqt.dll"
+cd /E/Projekte/AthensProjekte/1
 make
 exit
 echo "compile: server.cc"

@@ -149,7 +149,7 @@ type
     private
         ClassName: PChar;
         ptr_cc: uint64;
-        c_type: Variant;
+        c_type: uint16;
     private
         FCategory:      QChar_Category;
         FDecomposition: QChar_Decomposition;
@@ -324,7 +324,7 @@ begin
         exit;
     end;
 
-    c_type := 'A';
+    c_type := Ord('A');
 end;
 
 /// <summary>
@@ -360,7 +360,7 @@ begin
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
 
-  c_type := c;
+  c_type := Ord(c);
 end;
 
 /// <summary>
@@ -378,7 +378,7 @@ begin
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
 
-  c_type := c;
+  c_type := Ord(c);
 end;
 
 /// <summary>
