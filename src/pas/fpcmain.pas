@@ -14,7 +14,7 @@ var
     DLLHandle: HMODULE;
 {$else}
 //uses dynlibs, sysutils;
-const DLLname = 'fpc-qt.so';
+//const DLLname = 'fpc-qt.so';
 //var
 //    DLLHandle: TLibHandle;
 {$endif}

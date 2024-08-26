@@ -1,7 +1,6 @@
 #!/bin/bash
 pathdir="/E/Projekte/AthensProjekte/1"
 
-dir /lib54
 echo "create Windows fpcqt.dll"
 cd /E/Projekte/AthensProjekte/1
 make

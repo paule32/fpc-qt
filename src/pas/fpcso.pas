@@ -1,3 +1,4 @@
+{$mode delphi}{$H+}
 library fpcso;
 
 begin

@@ -19,7 +19,7 @@ uses
     SysUtils;
 
     {$ifdef win64}
-    const DLLname = 'fpc-qt.dll';
+    const DLLname = 'fpcso.dll';
     {$endif}
     {$ifdef Unix}
     const DLLname = 'fpcso.so';
