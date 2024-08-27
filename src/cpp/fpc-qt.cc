@@ -19,7 +19,7 @@ std::vector< qvc::QChar* > map_QChar;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 void
-Iaddsymbol(const std::wstring& p_sname, uint32_t value)
+Iaddsymbol(const std::wstring& p_sname, uint32_t value, uint64_t addr)
 {
     if (value == 1) {
         symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
@@ -29,7 +29,9 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value)
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
     }   else if (value == symbolTypeEnum::stQChar_Byte) {
-        uint8_t ch = 32;
+        uint8_t ch = '1';
+        std::cout << "memvar: " << std::hex << addr << std::endl;
+        std::cout << "memval: " << std::dec << reinterpret_cast<uint64_t>(addr) << std::endl;
         qvc::QChar* qc = new qvc::QChar(ch);
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
@@ -39,7 +41,10 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value)
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
     }   else if (value == symbolTypeEnum::stQChar_WideChar) {
-        uint16_t ch = 32;
+        uint16_t ch = 0;
+        uint16_t wc;
+        std::wcout << L"wideChar" << std::endl;
+        wc = _wtoi(reinterpret_cast<wchar_t*>(addr));
         qvc::QChar* qc = new qvc::QChar(ch);
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
@@ -120,7 +125,7 @@ extern "C" {
 DLL_EXPORT void
 addsymbol(wchar_t* p_name, uint32_t cc)
 {
-    Iaddsymbol(p_name, 1);
+    Iaddsymbol(p_name, 1, 0);
     Igetsymbol(p_name);
 }
 };

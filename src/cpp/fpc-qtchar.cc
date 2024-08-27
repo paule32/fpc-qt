@@ -206,9 +206,12 @@ check_pointer(uint64_t addr, uint64_t ptr)
 extern "C" {
 
 DLL_EXPORT uint64_t
-ctor_QChar(wchar_t* p_name, uint32_t sym_type)
+ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr)
 {
-    Iaddsymbol(p_name, sym_type);
+    //std::wcout << L"CTOR mem: 0x" << std::hex <<  addr << std::dec << std::endl;
+    //std::wcout << L"CTOR mem:   " << std::dec << reinterpret_cast<wchar_t*>(addr) << std::endl;
+    
+    Iaddsymbol(p_name, sym_type, addr);
     Igetsymbol(p_name);
     
     return current_ptr;

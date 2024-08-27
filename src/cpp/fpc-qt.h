@@ -169,7 +169,7 @@ struct TypeTypes
  */
 extern std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
 
-extern void Iaddsymbol(const std::wstring&  p_sname, uint32_t value);
+extern void Iaddsymbol(const std::wstring&  p_sname, uint32_t value, uint64_t memvar);
 extern bool Igetsymbol(      std::wstring&& p_sname);
 
 extern uint64_t current_ptr;
@@ -203,7 +203,7 @@ extern void ErrorMessage(QString text);
  * \param    p_name - wchar_t* der Name der Klasse
  * \return   uint64_t - ein 64-Bit Type der die Adresse der erstellten Klasse zurückgibt.
  */
-uint64_t ctor_QChar(wchar_t* p_name, uint32_t sym_type);
+uint64_t ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr);
 
 
 /**

@@ -34,7 +34,7 @@ symbolType = (
 // ---------------------------------------------------------------------------
 // QChar ctor/dtor ...
 // ---------------------------------------------------------------------------
-function  ctor_QChar(s: PChar; t: symbolType): uint64; cdecl; external dllname;
+function  ctor_QChar(s: PChar; t: symbolType; memvar: Pointer): uint64; cdecl; external dllname;
 procedure dtor_QChar(v: uint64); cdecl; external dllname;
 
 function isAscii_QChar(v: int64): Boolean; cdecl; external dllname;
@@ -315,8 +315,9 @@ end;
 constructor QChar.Create;
 begin
     inherited Create;
+    WriteLn('create qchar');
     ClassName := PChar('QChar');
-    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar);
+    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar, 0);
 
     if not check_ptr(ClassName, getOrigin) then
     begin
@@ -334,10 +335,17 @@ end;
 ///  Ein Byte für das Zeichen.
 /// </param>
 constructor QChar.Create(c: Byte);
+var
+  memvar: SmallInt;
+  ptr: Pointer;
+  s: String;
 begin
   inherited Create;
+  memvar := c;
+  ptr := @memvar;
+  WriteLn(Format('create byte: 0x%p', [ptr]));
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), stQChar_Byte);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), stQChar_Byte, ptr);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -352,10 +360,18 @@ end;
 ///  Ein AnsiChar für das Zeichen.
 /// </param>
 constructor QChar.Create(c: AnsiChar);
+var
+  memvar: AnsiChar;
+  ptr: Pointer;
 begin
   inherited Create;
+
+  memvar := c;
+  ptr := @memvar;
+  WriteLn(Format('create widechar: 0x%p', [ptr]));
+
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar, ptr);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -370,10 +386,16 @@ end;
 ///  Ein WideChar für das Zeichen.
 /// </param>
 constructor QChar.Create(c: WideChar);
+var
+  s: UnicodeString;
 begin
   inherited Create;
+
+  s := WideCharToString(PWideChar(c));
+
+  WriteLn(Format('create widechar: 0x%s', [s]));
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, @s);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -390,8 +412,9 @@ end;
 constructor QChar.Create(c: DWORD);
 begin
   inherited Create;
+  WriteLn('create dword');
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), stQChar_DWord);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), stQChar_DWord, 0);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -408,8 +431,9 @@ end;
 constructor QChar.Create(c: Word);
 begin
   inherited Create;
+  WriteLn('create word');
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), stQChar_Word);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), stQChar_Word, 0);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -425,14 +449,15 @@ end;
 /// </param>
 constructor QChar.Create(c: SmallInt);
 begin
-  inherited Create;
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), stQChar_SmallInt);
+    inherited Create;
+    WriteLn('create smallint');
+    ClassName := PChar('QChar');
+    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), stQChar_SmallInt, 0);
 
-  if not check_ptr(ClassName, getOrigin) then
-  begin Free; exit; end;
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
 
-  c_type := c;
+    c_type := c;
 end;
 
 /// <summary>

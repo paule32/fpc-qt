@@ -4,7 +4,7 @@
         <ProjectVersion>20.1</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <ProjectName Condition="'$(ProjectName)'==''">fpcqt</ProjectName>
         <TargetedPlatforms>3</TargetedPlatforms>
@@ -246,7 +246,6 @@
         <Manifest_File>(Ohne)</Manifest_File>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
-        <UsePackages>true</UsePackages>
         <DCC_MinimumEnumSize>2</DCC_MinimumEnumSize>
         <DCC_UnitSearchPath>pas;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>

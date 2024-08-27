@@ -23,7 +23,7 @@ procedure EntryPoint(argc: Integer; argv: Array of String);
 var
     myQChar: QChar;
 begin
-    myQChar := QChar.Create;
+    myQChar := QChar.Create('1');
 
     if myQChar.isDigit then
     WriteLn('ok') else

@@ -19,10 +19,10 @@ uses
     SysUtils;
 
     {$ifdef win64}
-    const DLLname = 'fpcso.dll';
+    const DLLname = 'fpcqt.dll';
     {$endif}
     {$ifdef Unix}
-    const DLLname = 'fpcso.so';
+    const DLLname = 'fpcqt.so';
     {$endif}
 type
     TMainCallback = procedure(argc: Integer; argv: Array of String);
