@@ -63,10 +63,13 @@ FPC_DEL64 = $(PATH_CROSS)/bin/x86_64-linux/x86_64-w64-mingw32-strip.exe
 LD_UNIX32 = $(PATH_CROSS)/i386-linux/i386-linux-gnu-ld.exe
 LD_UNIX64 = $(PATH_CROSS)/x86_64-linux\x86_64-linux-gnu-ld.exe
 
-EXT_DLL       = dll
-EXT_EXE       = exe
-EXT_SO        = so
+EXT_DLL = dll
+EXT_EXE = exe
+EXT_SO  = so
 
+TARGET_EXE_32 = $(WINDOWS_BIN_REL_32)/$(TARGET).$(EXT_EXE)
+TARGET_EXE_64 = $(WINDOWS_BIN_REL_64)/$(TARGET).$(EXT_EXE)
+#
 TARGET_DLL_32 = $(TARGET)_32.$(EXT_DLL)
 TARGET_DLL_64 = $(TARGET)_64.$(EXT_DLL)
 #
@@ -118,7 +121,7 @@ FPC_FLAGS_LINUX =\
     -Tlinux -FD$(FPC_PATH)/cross/bin/x86_64-linux \
     -Fu$(FPC_PATH)/fpc/units/x86_64-linux \
     -Fl$(FPC_PATH)/cross/lib/x86_64-linux \
-    -Fu./pas -Fu./ -Fl./obj_cpp \
+    -Fu./pas -Fu./ -Fl./Linux64/Release \
     -FE./obj_pas \
     -vn- -Mdelphi
 
@@ -131,7 +134,7 @@ LD_UNIX64_FLAGS =\
     -fini FPC_LIB_EXIT           \
     -soname $(TARGET_SO) -shared \
     -L. -o  $(TARGET_SO_64) \
-    -T link.ld \
+    -T link.win64.ld \
     $(PAS_OBJ_DIR)/fpcso.o
 endif
 ifeq ($(OS),Linux)
@@ -202,26 +205,15 @@ endif
 
 common: welcome clean presteps
 
-ifeq ($(OS),Msys)
-GCC_32 = $(GCC_WIN32)
-GCC_64 = $(GCC_WIN64)
-#
-FPC_32 = $(FPC_WIN32)
-FPC_64 = $(FPC_WIN64)
-#
-GPP_32 = $(GPP_WIN32)
-GPP_64 = $(GPP_WIN64)
-endif
-
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
 # ---------------------------------------------------------------------------
 $(TARGET_REL_64): $(OBJS)
-	$(GPP_64) $(GPP_64_REL_FLAGS) -o ./$@ $^ $(Qt5LIBS)
+	$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o ./$@ $^ $(Qt5LIBS)
 
 $(CPP_OBJ_DIR)/%.o: $(CPP_DIR)/%.cc
 	@echo "compile: $< ..."
-	@$(GPP_64) $(GPP_64_REL_FLAGS) -o ./$@ -c $<
+	@$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o ./$@ -c $<
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target for Linux ...
@@ -247,26 +239,34 @@ welcome:
 	@echo "compile native files under Windows:"
 
 windows_dll: $(OBJS)
-	@echo "create 'fpc-qt.dll':"
-	$(GPP_64) $(GPP_64_REL_FLAGS) -o $(TARGET_REL_WIN64) $^ $(Qt5LIBS)
+	@echo "create 'fpcso.dll':"
+	$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o$(TARGET_REL_WIN64) $^ $(Qt5LIBS)
 	strip $(TARGET_REL_WIN64)
 	upx   $(TARGET_REL_WIN64)
 
 windows_app: $(TARGET_REL_64)
-	$(FPC_64) $(FPC_REL_FLAGS) -o$(WINDOWS_BIN_REL_64)/fpcqt.exe fpcqt.dpr
-	upx $(WINDOWS_BIN_REL_64)/fpcqt.exe
+	$(FPC_WIN64) $(FPC_REL_FLAGS_WINDOWS) -o$(TARGET_EXE_64) fpcqt.dpr
+	upx $(TARGET_EXE_64)
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target for Linux ...
 # ---------------------------------------------------------------------------
 linux_so:
-	$(FPC_64) -sh $(FPC_REL_FLAGS_LINUX) pas/fpcso.pas
+	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) pas/fpcso.pas
 	$(LD_UNIX64_FLAGS)
 	$(PATH_LINUX_64)/x86_64-linux-gnu-strip.exe --discard-all --strip-debug \
-    $(TARGET_SO_64)
+	$(TARGET_SO_64)
 
 linux_app:
-	$(FPC_64) $(FPC_REL_FLAGS_CROSS) -o$(WINDOWS_BIN_REL_64)/fpcqt fpcqt.dpr
+	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) -o$(LINUX_BIN_REL_64)/fpcqt fpcqt.dpr
+	$(PATH_LINUX_64)/x86_64-linux-gnu-ld.exe -b elf64-x86-64 -m elf_x86_64 \
+	--dynamic-linker=./lib64/ld-linux-x86-64.so.2 -s \
+	-L. -o ./Linux64/Release/fpcqt    \
+	-T ./link.linux64.ld -e _start    \
+	$(LINUX_BIN_REL_64)/fpcqt.o       \
+	$(LINUX_BIN_REL_64)/appsettings.o \
+	$(LINUX_BIN_REL_64)/misc.o        \
+	$(LINUX_BIN_REL_64)/QCharClass.o
 
 endif
 
