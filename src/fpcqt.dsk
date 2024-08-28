@@ -10,7 +10,8 @@ File_6=TSourceModule,'E:\Projekte\AthensProjekte\webview\source\vwPrint.pas',0,1
 [Modules]
 Module0=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
 Module1=E:\Projekte\AthensProjekte\1\fpcqt.dproj
-Count=2
+Module2=E:\Projekte\AthensProjekte\1\pas\misc.pas
+Count=3
 EditWindowCount=1
 
 [E:\Projekte\AthensProjekte\1\pas\QCharClass.pas]
@@ -19,11 +20,15 @@ ModuleType=TSourceModule
 [E:\Projekte\AthensProjekte\1\fpcqt.dproj]
 ModuleType=TBaseProject
 
+[E:\Projekte\AthensProjekte\1\pas\misc.pas]
+ModuleType=TSourceModule
+
 [EditWindow0]
-ViewCount=2
+ViewCount=3
 CurrentEditView=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
 View0=0
 View1=1
+View2=2
 PercentageSizes=1
 Create=1
 Visible=1
@@ -46,7 +51,7 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3,DockSite2
-LeftPanelData=00000800010100000000420F0000000000000168070000000000000100000000AF0B000009000000446F636B536974653301000000003B15000009000000446F636B53697465320100000000201B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101010000001100000050726F7065727479496E73706563746F72420F0000000000000168070000000000000100000000AF0B000009000000446F636B53697465330100000000201B000009000000446F636B53697465320100000000201B00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite4
 RightPanelData=00000800010100000000420F00000000000001D0070000000000000100000000201B000009000000446F636B5369746534FFFFFFFF
@@ -60,22 +65,30 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\Projekte\AthensProjekte\1\fpcqt.dpr
-CursorX=11
-CursorY=10
+CursorX=32
+CursorY=1
 TopLine=1
 LeftCol=1
-Elisions=
 Bookmarks=
 EditViewName=E:\Projekte\AthensProjekte\1\fpcqt.dpr
 
 [View1]
 CustomEditViewType=TEditView
-Module=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
-CursorX=110
-CursorY=99
-TopLine=81
+Module=E:\Projekte\AthensProjekte\1\pas\misc.pas
+CursorX=27
+CursorY=25
+TopLine=3
 LeftCol=1
-Elisions=
+Bookmarks=
+EditViewName=E:\Projekte\AthensProjekte\1\pas\misc.pas
+
+[View2]
+CustomEditViewType=TEditView
+Module=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
+CursorX=42
+CursorY=376
+TopLine=349
+LeftCol=1
 Bookmarks=
 EditViewName=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
 
@@ -153,11 +166,11 @@ State=0
 Left=0
 Top=0
 Width=1896
-Height=1938
+Height=3595
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=1938
+ClientHeight=3595
 TBDockHeight=5901
 LRDockWidth=2349
 Dockable=1
@@ -204,7 +217,7 @@ StayOnTop=0
 [PropertyInspector]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
@@ -666,11 +679,11 @@ State=0
 Left=0
 Top=351
 Width=1896
-Height=2209
+Height=3866
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=2209
+ClientHeight=3866
 TBDockHeight=3178
 LRDockWidth=1896
 Dockable=1

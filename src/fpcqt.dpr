@@ -23,12 +23,18 @@ procedure EntryPoint(argc: Integer; argv: Array of String);
 var
     myQChar: QChar;
 begin
+    WriteLn('start...');
     myQChar := QChar.Create('1');
-
+    WriteLn('zupf');
     if myQChar.isDigit then
-    WriteLn('ok') else
-    WriteLn('not ok');
-    Readln;
+    begin
+        WriteLn('ok');
+        ReadLn;
+    end else
+    begin
+        WriteLn('not ok');
+        Readln;
+    end;
     myQChar.Free;
 end;
 

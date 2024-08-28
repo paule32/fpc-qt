@@ -16,7 +16,7 @@ ARCH := $(shell uname -m)
 FPC_PATH = E:\FPCdeluxe
 WIN_PATH = 
 #
-TARGET   = fpcso
+TARGET   = fpcqt
 
 # ---------------------------------------------------------------------------
 # adjust to your needs ...
@@ -53,6 +53,8 @@ PATH_WIN   = $(FPC_PATH)/fpc/bin/i386-win32
 #
 PATH_LINUX_32 = $(PATH_CROSS)/i386-linux
 PATH_LINUX_64 = $(PATH_CROSS)/x86_64-linux
+
+STRIP = $(PATH_LINUX_64)/x86_64-linux-gnu-strip.exe
 
 FPC_WIN32 = $(FPC_PATH)/fpc/bin/i386-win32/ppcross386.exe
 FPC_WIN64 = $(FPC_PATH)/fpc/bin/i386-win32/ppcrossx64.exe
@@ -254,8 +256,7 @@ windows_app: $(TARGET_REL_64)
 linux_so:
 	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) pas/fpcso.pas
 	$(LD_UNIX64_FLAGS)
-	$(PATH_LINUX_64)/x86_64-linux-gnu-strip.exe --discard-all --strip-debug \
-	$(TARGET_SO_64)
+	$(STRIP) --discard-all --strip-debug $(TARGET_SO_64)
 
 linux_app:
 	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) -o$(LINUX_BIN_REL_64)/fpcqt fpcqt.dpr

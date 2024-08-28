@@ -368,10 +368,12 @@ begin
 
   memvar := c;
   ptr := @memvar;
-  WriteLn(Format('create widechar: 0x%p', [ptr]));
+  WriteLn(Format('->create ansichar: 0x%p', [ptr]));
 
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar, ptr);
+
+  WriteLn(Format('create ptr_cc: 0x%p', [ptr_cc]));
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -387,15 +389,20 @@ end;
 /// </param>
 constructor QChar.Create(c: WideChar);
 var
-  s: UnicodeString;
+  memvar: WideChar;
+  ptr: Pointer;
 begin
   inherited Create;
 
-  s := WideCharToString(PWideChar(c));
+  memvar := c;
+  ptr := @memvar;
+  WriteLn(Format('Create widechar: 0x%p', [ptr]));
 
-  WriteLn(Format('create widechar: 0x%s', [s]));
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, @s);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, ptr);
+
+  WriteLn('created');
+  //WriteLn(Format('create ptr_cc: 0x%p', [ptr_cc]));
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -465,10 +472,11 @@ end;
 /// </summary>
 destructor QChar.Destroy;
 begin
-  dtor_QChar(ptr_cc);
-  ptr_cc := 0;
-  WriteLn('pas: QChar: dtor...');
-  inherited Destroy;
+    WriteLn('destroy...');
+    WriteLn(IntToHex(ptr_cc));
+    dtor_QChar(ptr_cc);
+    WriteLn('pas: QChar: dtor...');
+    inherited Destroy;
 end;
 
 function QChar.Lt(const B: QChar): Boolean;
@@ -498,7 +506,8 @@ end;
 
 function QChar.isDigit: Boolean;
 begin
-  WriteLn('isDigit: ' + IntToHex(uint64(ptr_cc), 16));
+  WriteLn('isDigit');
+  //WriteLn(Format('isDigit: 0x%p', [ptr_cc]));
   result := isDigit_QChar(ptr_cc);
 end;
 

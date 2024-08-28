@@ -11,6 +11,9 @@
 # include <windows.h>
 #endif
 
+# include <stdio.h>
+# include <wchar.h>         // wideChar: wscpy
+
 # include <iostream>
 # include <string>
 # include <variant>
@@ -169,8 +172,8 @@ struct TypeTypes
  */
 extern std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
 
-extern void Iaddsymbol(const std::wstring&  p_sname, uint32_t value, uint64_t memvar);
-extern bool Igetsymbol(      std::wstring&& p_sname);
+extern uint64_t Iaddsymbol(const std::wstring&  p_sname, uint32_t value, uint64_t memvar);
+extern bool     Igetsymbol(      std::wstring&& p_sname);
 
 extern uint64_t current_ptr;
 
