@@ -28,8 +28,10 @@ type
     TMainCallback = procedure(argc: Integer; argv: Array of String);
 
     function InitLibrary(Callback: TMainCallback): Boolean;
-    function ErrorMessage(s: AnsiString): Boolean; cdecl; external dllname;
+    function ErrorMessage(s: PChar): Boolean; cdecl; external dllname;
 
+var
+    str_debug: PChar;
 implementation
 uses fpcmain;
 

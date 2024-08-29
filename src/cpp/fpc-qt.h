@@ -7,6 +7,8 @@
 #ifndef  __FPC_QT_H__
 # define __FPC_QT_H__
 
+# define FPC                // dll used in combination with Free Pascal
+
 #ifdef WINDOWS
 # include <windows.h>
 #endif
@@ -38,6 +40,7 @@ typedef uint32_t DWORD;
  * \brief  Diese Bibliothek nutzt das grafische Qt5 GUI-Framework.
  */
 # include <QtCore/QChar>
+# include <QtCore/QString>
 # include <QtWidgets/QApplication>
 # include <QtWidgets/QMessageBox>
 
@@ -194,7 +197,11 @@ extern "C" {
  * \defgroup internFunctions interne Funktionen
  * @{
  */
-extern void ErrorMessage(QString text);
+#ifdef FPC
+extern void ErrorMessage(const char    * text);
+#else
+extern void ErrorMessage(const wchar_t * text);
+#endif
 /**
  * \defgroup qcharclass QChar
  * \ingroup  internFunctions

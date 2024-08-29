@@ -202,7 +202,7 @@ ifeq ($(OS),Linux)
 all: common linux
 endif
 ifeq ($(OS),Msys)
-all: common windows_dll windows_app linux_so
+all: common windows_all windows_app commit_win64 linux_so
 endif
 
 common: welcome clean presteps
@@ -249,6 +249,11 @@ windows_dll: $(OBJS)
 windows_app: $(TARGET_REL_64)
 	$(FPC_WIN64) $(FPC_REL_FLAGS_WINDOWS) -o$(TARGET_EXE_64) fpcqt.dpr
 	upx $(TARGET_EXE_64)
+
+# ---------------------------------------------------------------------------
+# commit + push source code to github.com
+# ---------------------------------------------------------------------------
+commit_win64:
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target for Linux ...

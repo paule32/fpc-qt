@@ -19,23 +19,21 @@ uses
     {$endif}
     SysUtils, misc, fpcmain;
 
-type
-symbolType = (
+const
     /// Qt Klasse - QChar
-    stQChar          = 100,
-    stQChar_Byte     = 102,
-    stQChar_AnsiChar = 103,
-    stQChar_WideChar = 104,
-    stQChar_DWord    = 105,
-    stQChar_Word     = 106,
-    stQChar_SmallInt = 107
-);
+    stQChar          = 100;
+    stQChar_Byte     = 102;
+    stQChar_AnsiChar = 103;
+    stQChar_WideChar = 104;
+    stQChar_DWord    = 105;
+    stQChar_Word     = 106;
+    stQChar_SmallInt = 107;
 
 // ---------------------------------------------------------------------------
 // QChar ctor/dtor ...
 // ---------------------------------------------------------------------------
-function  ctor_QChar(s: PChar; t: symbolType; memvar: Pointer): uint64; cdecl; external dllname;
-procedure dtor_QChar(v: uint64); cdecl; external dllname;
+function  ctor_QChar(s: PChar; t: uint32; memvar: Pointer): Pointer; cdecl; external dllname;
+procedure dtor_QChar(v: Pointer); cdecl; external dllname;
 
 function isAscii_QChar(v: int64): Boolean; cdecl; external dllname;
 function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
@@ -148,7 +146,7 @@ type
         );
     private
         ClassName: PChar;
-        ptr_cc: uint64;
+        ptr_cc: Pointer;
         c_type: uint16;
     private
         FCategory:      QChar_Category;
@@ -368,12 +366,19 @@ begin
 
   memvar := c;
   ptr := @memvar;
-  WriteLn(Format('->create ansichar: 0x%p', [ptr]));
+//  { $ i fdef DEBUG}
+  GetMem(str_debug, 2048);
+  str_debug := StrCopy(str_debug, PChar('->' + #13#10));
+  str_debug := StrCat (str_debug, PChar(Format('create ansichar: 0x%p', [ptr])));
+//  { $ e ndif}
+//  ErrorMessage(PChar(str_debug));
 
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar, ptr);
 
-  WriteLn(Format('create ptr_cc: 0x%p', [ptr_cc]));
+  str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
+  str_debug := StrCat(str_debug, PChar(Format('ansichar: 0x%p', [ptr_cc])));
+  ErrorMessage(str_debug);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -396,13 +401,19 @@ begin
 
   memvar := c;
   ptr := @memvar;
-  WriteLn(Format('Create widechar: 0x%p', [ptr]));
+//  { $ i fdef DEBUG}
+  GetMem(str_debug, 2048);
+  str_debug := StrCopy(str_debug, PChar('->' + #13#10));
+  str_debug := StrCat (str_debug, PChar(Format('create widechar: 0x%p', [ptr])));
+//  { $ e ndif}
+//  ErrorMessage(str_debug);
 
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, ptr);
 
-  WriteLn('created');
-  //WriteLn(Format('create ptr_cc: 0x%p', [ptr_cc]));
+  str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
+  str_debug := StrCat(str_debug, PChar(Format('widechar: 0x%p', [ptr_cc])));
+  ErrorMessage(str_debug);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -472,10 +483,14 @@ end;
 /// </summary>
 destructor QChar.Destroy;
 begin
-    WriteLn('destroy...');
-    WriteLn(IntToHex(ptr_cc));
+    str_debug := StrCat(str_debug, PChar(#13#10));
+    str_debug := StrCat(str_debug, PChar('delete...'));
+
     dtor_QChar(ptr_cc);
-    WriteLn('pas: QChar: dtor...');
+
+    ErrorMessage(str_debug);
+    Dispose(str_debug);
+
     inherited Destroy;
 end;
 
@@ -496,44 +511,44 @@ end;
 
 function QChar.getOrigin: uint64;
 begin
-  result := ptr_cc;
+  result := uint64(ptr_cc);
 end;
 
 function QChar.isAscii: Boolean;
 begin
-    result := isAscii_QChar(ptr_cc);
+    result := isAscii_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isDigit: Boolean;
 begin
   WriteLn('isDigit');
   //WriteLn(Format('isDigit: 0x%p', [ptr_cc]));
-  result := isDigit_QChar(ptr_cc);
+  result := isDigit_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isLetter: Boolean;
 begin
-  result := isLetter_QChar(ptr_cc);
+  result := isLetter_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isLetterOrNumber: Boolean;
 begin
-  result := isLetterOrNumber_QChar(ptr_cc);
+  result := isLetterOrNumber_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isLower: Boolean;
 begin
-  result := isLower_QChar(ptr_cc);
+  result := isLower_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isMark: Boolean;
 begin
-    result := isLower_QChar(ptr_cc);
+    result := isLower_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isNonCharacter: Boolean;
 begin
-    result := isNonCharacter_QChar(ptr_cc);
+    result := isNonCharacter_QChar(uint64(ptr_cc));
 end;
 
 /// <summary>
@@ -541,67 +556,67 @@ end;
 /// </summary>
 function QChar.isNull: Boolean;
 begin
-  result := isNull_QChar(ptr_cc);
+  result := isNull_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isNumber: Boolean;
 begin
-    result := isNumber_QChar(ptr_cc);
+    result := isNumber_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isPrint: Boolean;
 begin
-    result := isPrint_QChar(ptr_cc);
+    result := isPrint_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isPunct: Boolean;
 begin
-    result := isPunct_QChar(ptr_cc);
+    result := isPunct_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isSpace: Boolean;
 begin
-    result := isSpace_QChar(ptr_cc);
+    result := isSpace_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isSurrogate: Boolean;
 begin
-    result := isSurrogate_QChar(ptr_cc);
+    result := isSurrogate_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isSymbol: Boolean;
 begin
-    result := isSymbol_QChar(ptr_cc);
+    result := isSymbol_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isTitleCase: Boolean;
 begin
-    result := isTitleCase_QChar(ptr_cc);
+    result := isTitleCase_QChar(uint64(ptr_cc));
 end;
 
 function QChar.isUpper: Boolean;
 begin
-    result := isUpper_QChar(ptr_cc);
+    result := isUpper_QChar(uint64(ptr_cc));
 end;
 
 function QChar.toLatin1: uint16;
 begin
-    result := toLatin1_QChar(ptr_cc);
+    result := toLatin1_QChar(uint64(ptr_cc));
 end;
 
 function QChar.toLower: uint16;
 begin
-    result := toLower_QChar(ptr_cc);
+    result := toLower_QChar(uint64(ptr_cc));
 end;
 
 function QChar.toTitleCase: uint16;
 begin
-    result := toTitleCase_QChar(ptr_cc);
+    result := toTitleCase_QChar(uint64(ptr_cc));
 end;
 
 function QChar.toUpper: uint16;
 begin
-    result := toUpper_QChar(ptr_cc);
+    result := toUpper_QChar(uint64(ptr_cc));
 end;
 
 end.

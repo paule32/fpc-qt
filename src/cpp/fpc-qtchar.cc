@@ -33,7 +33,11 @@ qvc::QChar::getType(void) const
     if (std::holds_alternative<uint32_t>(qchar_types)) result = stQChar_DWord;    else
     if (std::holds_alternative<wchar_t >(qchar_types)) result = stQChar_Word;     else
     if (std::holds_alternative<short   >(qchar_types)) result = stQChar_ShortInt; else {
-        ErrorMessage("Error: type out of bounds.");
+        #ifdef FPC
+            ErrorMessage("Error: type out of bounds.");
+        #else
+            ErrorMessage(L"Error: type out of bounds.");
+        #endif
         exit(1);
     }
     return result;
@@ -51,7 +55,11 @@ qvc::QChar::isAscii() const {
             result = false;
         }
     }   else {
-        ErrorMessage("QChar is not a CHAR");
+        #ifdef FPC
+            ErrorMessage("QChar is not a CHAR");
+        #else
+            ErrorMessage(L"QChar is not a CHAR");
+        #endif
     }   return result;
 }
 
@@ -195,8 +203,12 @@ qvc::QChar::~QChar(void)
 bool
 check_pointer(uint64_t addr, uint64_t ptr)
 {
-    if ((addr == 0) || (ptr == 0) || (addr != ptr)) {
-        ErrorMessage("Error: QChar Objekt not handled by ctor.");
+    if ((addr == 0) || (ptr == 0)) {
+        #ifdef FPC
+            ErrorMessage("Error: QChar Objekt not handled by ctor.");
+        #else
+            ErrorMessage(L"Error: QChar Objekt not handled by ctor.");
+        #endif
         exit(1);
         return false;
     }
@@ -210,20 +222,24 @@ ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr)
 {
     std::wcout << L"CTOR mem: 0x" << std::hex <<  addr << std::dec << std::endl;
     std::wcout << L"CTOR mem:   " << std::dec << reinterpret_cast<char*>(addr) << std::endl;
+    std::wcout << L"CTOR sym:   " << std::dec << sym_type << std::endl;
     
-    return Iaddsymbol(p_name, sym_type, addr);
+    current_ptr = Iaddsymbol(p_name, sym_type, addr);
+    std::wcout << L"curptr: " << std::hex << current_ptr << std::endl;
     //Igetsymbol(p_name);
-    //return current_ptr;
+    return current_ptr;
 }
 
 DLL_EXPORT void
 dtor_QChar(uint64_t addr)
 {
+    std::cout << "hallo dtor 11" << std::endl;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    
+    std::cout << "hallo dtor 22" << std::endl;
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     if (nullptr != objptr->origin)
     delete objptr->origin;
+    std::cout << "hallo dtor 33" << std::endl;
 }
 
 DLL_EXPORT bool

@@ -22,6 +22,7 @@ uint64_t
 Iaddsymbol(const std::wstring& p_sname, uint32_t value, uint64_t addr)
 {
     current_ptr = 0;
+    std::cout << "uint32_t:  " << value << std::endl;
 
     if (value == 1) {
         symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
@@ -37,57 +38,32 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value, uint64_t addr)
         qvc::QChar* qc = new qvc::QChar(ch);
         map_QChar.push_back(qc);
         symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-    }   else if (value == symbolTypeEnum::stQChar_AnsiChar) {
+    }
+    else if (value == symbolTypeEnum::stQChar_AnsiChar) {
         wchar_t * c = new wchar_t[16];
         wcscpy(c, reinterpret_cast<wchar_t*>(addr));
         uint8_t  ch = _wtoi(c);
         delete c;
         std::wcout << L"ansiChar: " << ch << std::endl;
         qvc::QChar* qc = new qvc::QChar(ch);
-        std::wcout << L"qc: " << std::hex << reinterpret_cast<uint64_t>(&qc) << std::endl;
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-        current_ptr = reinterpret_cast<uint64_t>(&qc);
-        std::cout << "CHAR: 0x";
-        std::cout << std::hex << current_ptr << std::endl;
+        uint64_t    qu = reinterpret_cast<uint64_t>((void*)qc);
+        current_ptr    = qu;
+        std::wcout << L"qc: " << std::hex << qu << std::endl;
         return current_ptr;
-    }   else if (value == symbolTypeEnum::stQChar_WideChar) {
+    }
+    else if (value == symbolTypeEnum::stQChar_WideChar) {
         wchar_t * c = new wchar_t[16];
         wcscpy(c, reinterpret_cast<wchar_t*>(addr));
         uint16_t  ch = _wtoi(c);
         delete c;
         std::wcout << L"wideChar: " << ch << std::endl;
         qvc::QChar* qc = new qvc::QChar(ch);
-        std::wcout << L"qc: " << std::hex << reinterpret_cast<uint64_t>(&qc) << std::endl;
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-        current_ptr = reinterpret_cast<uint64_t>(&qc);
-        std::cout << "CHAR: 0x";
-        std::cout << std::hex << current_ptr << std::endl;
+        uint64_t    qu = reinterpret_cast<uint64_t>((void*)qc);
+        current_ptr    = qu;
+        std::wcout << L"qc: " << std::hex << qu << std::endl;
         return current_ptr;
-        
-        /*
-        wchar_t * c = new wchar_t[16];
-        wcscpy(c, reinterpret_cast<wchar_t*>(addr));
-        uint16_t ch = _wtoi(c);
-        delete c;
-        std::wcout << L"wideChar: " << ch << std::endl;
-        qvc::QChar* qc = new qvc::QChar(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-        current_ptr = reinterpret_cast<uint64_t>(&qc);
-        std::cout << "CHARW: 0x";
-        std::cout << std::hex << current_ptr << std::endl;
-        return current_ptr;*/
-        /*
-        uint16_t ch = 0;
-        //uint16_t wc;
-        std::wcout << L"wideChar" << std::endl;
-        //wc = _wtoi(reinterpret_cast<wchar_t*>(addr));
-        qvc::QChar* qc = new qvc::QChar(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);*/
-    }   else if (value == symbolTypeEnum::stQChar_Word) {
+    }
+    else if (value == symbolTypeEnum::stQChar_Word) {
         WORD ch = 32;
         qvc::QChar* qc = new qvc::QChar((WORD)ch);
         qc->setType(ch);
@@ -142,12 +118,17 @@ Igetsymbol(std::wstring&& p_sname) {
         std::wstring&& part2_rvalue = std::move(part2);
         std::wstring   result       = std::wstring(part1) + part2_rvalue;
         
-        QString qstr = QString::fromWCharArray(
-            result.c_str(),
-            result.size()
-        );
+        const wchar_t * input = result.c_str();
+        size_t size   = (wcslen(input) + 1) * sizeof(wchar_t);
+        char * buffer = new char[size];
         
-        ErrorMessage(qstr);
+        #ifdef FPC
+            std::wcstombs(buffer, input, size);
+            ErrorMessage(buffer);
+        #else
+            ErrorMessage(result.c_str());
+        #endif
+        
         return false;
     }   return false;
 }
