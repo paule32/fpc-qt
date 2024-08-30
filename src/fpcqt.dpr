@@ -24,7 +24,7 @@ var
     myQChar: QChar;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create('1');
+    myQChar := QChar.Create('3');
     WriteLn('zupf');
     if myQChar.isDigit then
     begin

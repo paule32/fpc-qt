@@ -1,12 +1,40 @@
 #!/bin/bash
-pathdir="/E/Projekte/AthensProjekte/1"
+# ---------------------------------------------------------------------------
+# \file   build.sh
+# \author Jens Kallup - paule32
+# \date   (c) 2024 all rights reserved.
+#
+# \desc   Makefile for building fpc.dll and test data application.
+# \bote   only for education, and non-profit usage.
+#         commercial use is not allowed !
+# ---------------------------------------------------------------------------
+BASEDIR=$(cd "$(dirname "$0")" && pwd)
+
+# ---------------------------------------------------------------------------
+# 1. get the environment variables, based on the running system (RAD Delphi)
+# ---------------------------------------------------------------------------
+if [ -z "$1" ]; then
+    echo "no parameter for the pascal compiler."
+    read -n 1 -s
+    exit
+fi
+if [ -z "$2" ]; then
+    echo "no parameter for the used config."
+    read -n 1 -s
+    exit
+fi
+export PascalCompiler=$1
+export RadConfig=$2
 
 echo "create Windows fpcqt.dll"
-cd /E/Projekte/AthensProjekte/1
+cd $BASEDIR
 make
+echo "press any key to exit."
+read -n 1 -s
 exit
+
 echo "compile: server.cc"
-cd $pathdir
+cd $BASEDIR
 cd server
 qmake server.pro
 make

@@ -3,95 +3,157 @@
 # Author: (c) 2024 Jens Kallup - paule32
 # All rights reserved
 # ---------------------------------------------------------------------------
+TARGET = fpcqt
 
 # ---------------------------------------------------------------------------
 # get operating system, and architecture ...
 # ---------------------------------------------------------------------------
-OS   := $(shell uname -o)
-ARCH := $(shell uname -m)
+OS    := $(shell uname -o)
+ARCH  := $(shell uname -m)
 
 # ---------------------------------------------------------------------------
+# the following variables/environment values must be set, before make is run:
 # user/developer common section, for set individual path's and setting's ...
 # ---------------------------------------------------------------------------
-FPC_PATH = E:\FPCdeluxe
-WIN_PATH = 
-#
-TARGET   = fpcqt
+PascalCompiler := $(shell echo $$PascalCompiler)
+RadConfig      := $(shell echo $$RadConfig)
+FpcPath        := $(shell echo $$FPC_PATH)
 
 # ---------------------------------------------------------------------------
-# adjust to your needs ...
+# check, when these variables are "not set", then we don't compile from the
+# RAD Studio (EMB Delphi Community Edition 12).
+# If so, try to compile with Free Pascal Compiler (FPC) ...
+# todo: FPC_PATH must be set !
 # ---------------------------------------------------------------------------
-WINDOWS_BIN_REL_32 = ./win32/Release
-WINDOWS_BIN_REL_64 = ./win64/Release
+ifeq ($(PascalCompiler),)
+    PascalCompiler = FPC
+endif
+ifeq ($(RadConfig),)
+    RadConfig = Release
+endif
+ifeq ($(FpcPath),)
+    FPC_PATH = E:\FPCdeluxe
+endif
+
+# ---------------------------------------------------------------------------
+# cross compiler make it possible to compile for Linux under Windows.
+# The path is depend on the "FPCdeluxe" application.
+# ---------------------------------------------------------------------------
+FPC_PATH_Linux32 = $(FPC_PATH)/cross/bin/i386-linux
+FPC_PATH_Linux64 = $(FPC_PATH)/cross/bin/x86_64-linux
 #
-WINDOWS_BIN_DEB_32 = ./win32/Debug
-WINDOWS_BIN_DEB_64 = ./win64/Debug
-
-LINUX_BIN_REL_64 = ./Linux64/Release
-LINUX_BIN_DEB_64 = ./Linux64/Debug
-
-LINUX_BIN_REL_32 = ./Linux32/Release
-LINUX_BIN_DEB_32 = ./Linux32/Debug
-
-TARGET_REL_WIN32 = $(WINDOWS_BIN_REL_32)/$(TARGET).dll
-TARGET_REL_WIN64 = $(WINDOWS_BIN_REL_64)/$(TARGET).dll
-
-TARGET_DEB_WIN32 = $(WINDOWS_BIN_DEB_32)/$(TARGET).dll
-TARGET_DEB_WIN64 = $(WINDOWS_BIN_DEB_64)/$(TARGET).dll
-
-GPP_WIN32 = $(WIN_PATH)/mingw32/bin/i686-w64-mingw32-g++.exe
-GCC_WIN32 = $(WIN_PATH)/mingw32/bin/i686-w64-mingw32-gcc.exe
-
-GPP_WIN64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-g++.exe
-GCC_WIN64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-gcc.exe
-
-GCC_DEL32 = $(WIN_PATH)/mingw32/bin/i686-w64-mingw32-strip.exe
-GCC_DEL64 = $(WIN_PATH)/mingw64/bin/x86_64-w64-mingw32-strip.exe
-
-PATH_CROSS = $(FPC_PATH)/cross/bin
-PATH_WIN   = $(FPC_PATH)/fpc/bin/i386-win32
+FPC_PATH_WIN = $(FPC_PATH)/fpc/bin/i386-win32
 #
-PATH_LINUX_32 = $(PATH_CROSS)/i386-linux
-PATH_LINUX_64 = $(PATH_CROSS)/x86_64-linux
+FPC_Win_32   = $(FPC_PATH_WIN)/fpc
+FPC_Win_64   = $(FPC_PATH_WIN)/ppcrossx64
+#
+FPC_LINUX_32 = $(FPC_PATH_WIN)/ppcross386
+FPC_LINUX_64 = $(FPC_PATH_WIN)/ppcrossx64
 
-STRIP = $(PATH_LINUX_64)/x86_64-linux-gnu-strip.exe
+ifeq ($(OS),Msys)
+    ToolChain_Win32 = i686-w64-mingw32
+    ToolChain_Win64 = x86_64-w64-mingw32
+    #
+    ToolChain_Linux32 = i386-linux-gnu
+    ToolChain_Linux64 = x86_64-linux-gnu
+endif
 
-FPC_WIN32 = $(FPC_PATH)/fpc/bin/i386-win32/ppcross386.exe
-FPC_WIN64 = $(FPC_PATH)/fpc/bin/i386-win32/ppcrossx64.exe
-
-FPC_DEL32 = $(PATH_CROSS)/bin/i386-linux/linux/i386-linux-gnu-strip.exe
-FPC_DEL64 = $(PATH_CROSS)/bin/x86_64-linux/x86_64-w64-mingw32-strip.exe
-
-LD_UNIX32 = $(PATH_CROSS)/i386-linux/i386-linux-gnu-ld.exe
-LD_UNIX64 = $(PATH_CROSS)/x86_64-linux\x86_64-linux-gnu-ld.exe
-
+# ---------------------------------------------------------------------------
+# supported target extension's ...
+# ---------------------------------------------------------------------------
 EXT_DLL = dll
 EXT_EXE = exe
-EXT_SO  = so
-
-TARGET_EXE_32 = $(WINDOWS_BIN_REL_32)/$(TARGET).$(EXT_EXE)
-TARGET_EXE_64 = $(WINDOWS_BIN_REL_64)/$(TARGET).$(EXT_EXE)
-#
-TARGET_DLL_32 = $(TARGET)_32.$(EXT_DLL)
-TARGET_DLL_64 = $(TARGET)_64.$(EXT_DLL)
-#
-TARGET_SO_32  = $(TARGET).$(EXT_SO)
-TARGET_SO_64  = $(LINUX_BIN_REL_64)/$(TARGET).$(EXT_SO)
-
-TARGET_DLL_REL_32 = $(WINDOWS_BIN_REL_32)/$(TARGET_DLL)
-TARGET_DLL_REL_64 = $(WINDOWS_BIN_REL_64)/$(TARGET_DLL)
-
-TARGET_DLL_DEB_32 = $(WINDOWS_BIN_DEB_32)/$(TARGET_DLL)
-TARGET_DLL_DEB_64 = $(WINDOWS_BIN_DEB_64)/$(TARGET_DLL)
-
-CPP_DIR = ./cpp
-PAS_DIR = ./pas
+EXT_DSO = so
 
 # ---------------------------------------------------------------------------
 # temporary output directories ...
 # ---------------------------------------------------------------------------
 PAS_OBJ_DIR = ./obj_pas
 CPP_OBJ_DIR = ./obj_cpp
+
+CPP_DIR = ./cpp
+PAS_DIR = ./pas
+
+# ---------------------------------------------------------------------------
+# adjust to your needs ...
+# ---------------------------------------------------------------------------
+ifeq ($(OS),Msys)
+    ifeq ($(ARCH),x86_64)
+        ifeq ($(RadConfig),Release)
+            OUTPUT_PATH = ./win64/Release
+            GCC_FLAGS  = -D WINDOWS -D RELEASE
+            GCC_FLAGS += -D WIN32
+            #
+            GXX_FLAGS  = -D WINDOWS -D RELEASE
+            GXX_FLAGS += -D WIN64
+            #
+        else ifeq ($(RadConfig),Debug)
+            OUTPUT_PATH = ./win64/Debug
+            GCC_FLAGS  = -D WINDOWS -D DEBUG
+            GCC_FLAGS += -D WIN32
+            #
+            GXX_FLAGS  = -D WINDOWS -D DEBUG
+            GXX_FLAGS += -D WIN64
+        endif
+    else
+        ifeq ($(RadConfig),Release)
+            OUTPUT_PATH = ./win32/Release
+            GCC_FLAGS  = -D WINDOWS -D RELEASE
+            GCC_FLAGS += -D WIN32
+            #
+            GXX_FLAGS  = -D WINDOWS -D RELEASE
+            GXX_FLAGS #= -D WIN64
+            #
+        else ifeq ($(RadConfig),Debug)
+            OUTPUT_PATH = ./win32/Debug
+            GCC_FLAGS  = -D WINDOWS -D DEBUG
+            GCC_FLAGS += -D WIN32
+            #
+            GXX_FLAGS  = -D WINDOWS -D DEBUG
+            GXX_FLAGS #= -D WIN64
+        endif
+    endif
+    DLL_TARGET = $(OUTPUT_PATH)/$(TARGET).$(EXT_DLL)
+    EXE_TARGET = $(OUTPUT_PATH)/$(TARGET).$(EXT_EXE)
+    DSO_TARGET = $(OUTPUT_PATH)/$(TARGET).$(EXT_DSO)
+    #
+    ToolChain_Linux32 = $(FPC_LINUX_32)
+    ToolChain_Linux64 = $(FPC_LINUX_64)
+    #
+    ToolChain_Win32_Path = /mingw32/bin/$(ToolChain_Win32)
+    ToolChain_Win64_Path = /mingw64/bin/$(ToolChain_Win64)
+    #
+    GCC_32 = $(ToolChain_Win32_Path)-gcc
+    GXX_32 = $(ToolChain_Win32_Path)-g++
+    #
+    GCC_64 = $(ToolChain_Win64_Path)-gcc
+    GXX_64 = $(ToolChain_Win64_Path)-g++
+    #
+    STRIP_Win32 = $(ToolChain_Win32_Path)-strip
+    STRIP_Win64 = $(ToolChain_Win64_Path)-strip
+    #
+    STRIP_Linux32 = $(ToolChain_Linux32)-strip
+    STRIP_Linux64 = $(ToolChain_Linux64)-strip
+    #
+    LD_LINUX_32 = $(FPC_PATH_Linux32)/i386-linux-gnu-ld.exe
+    LD_LINUX_64 = $(FPC_PATH_Linux64)/x86_64-linux-gnu-ld.exe
+    #
+else ifeq ($(OS),Linux)
+    ifeq ($(ARCH),x86_64)
+        ifeq ($(RadConfig),Release)
+            OUTPUT_PATH = ./Linux64/Release
+        else ifeq ($(RadConfig),Debug)
+            OUTPUT_PATH = ./Linux64/Debug
+        endif
+    else
+        ifeq ($(RadConfig),Release)
+            OUTPUT_PATH = ./Linux32/Release
+        else ifeq ($(RadConfig),Debug)
+            OUTPUT_PATH = ./Linux32/Debug
+        endif
+    endif
+    TARGET = $(OUTPUT_PATH)/lib$(TARGET).so
+endif
 
 Qt5LIBS = -lQt5Core -lQt5Widgets
 
@@ -157,23 +219,23 @@ FPC_DEB_FLAGS_LINUX =\
     -vn- -Mdelphi
 endif
 
-CC_FLAGS  = -O2 -Wno-write-strings
-CC_FLAGS += $(INCLUDES)
+GCC_FLAGS += -O2 -Wno-write-strings
+GCC_FLAGS += $(INCLUDES)
 #
-XX_FLAGS  = $(CC_FLAGS) -fPIC -shared -std=c++2a
-XX_FLAGS += $(INCLUDES)
+GXX_FLAGS += $(GCC_FLAGS) -fPIC -shared -std=c++2a
+GXX_FLAGS += $(INCLUDES)
 
-GCC_32_REL_FLAGS += -m32 $(CC_FLAGS) -DRELEASE
-GCC_64_REL_FLAGS += -m64 $(CC_FLAGS) -DRELEASE
+GCC_32_REL_FLAGS += -m32 $(GCC_FLAGS)
+GCC_64_REL_FLAGS += -m64 $(GCC_FLAGS)
 
-GCC_32_DEB_FLAGS += -m32 $(CC_FLAGS) -DDEBUG -g gdb
-GCC_64_DEB_FLAGS += -m64 $(CC_FLAGS) -DDEBUG -g gdb
+GCC_32_DEB_FLAGS += -m32 $(GCC_FLAGS) -g gdb
+GCC_64_DEB_FLAGS += -m64 $(GCC_FLAGS) -g gdb
 #
-GPP_32_REL_FLAGS += -m32 $(XX_FLAGS) -DRELEASE
-GPP_64_REL_FLAGS += -m64 $(XX_FLAGS) -DRELEASE
+GPP_32_REL_FLAGS += -m32 $(GXX_FLAGS) -DFPC
+GPP_64_REL_FLAGS += -m64 $(GXX_FLAGS) -DFPC
 
-GPP_32_DEB_FLAGS += -m32 $(XX_FLAGS) -DDEBUG -g gdb
-GPP_64_DEB_FLAGS += -m64 $(XX_FLAGS) -DDEBUG -g gdb
+GPP_32_DEB_FLAGS += -m32 $(GXX_FLAGS) -g gdb
+GPP_64_DEB_FLAGS += -m64 $(GXX_FLAGS) -g gdb
 #
 
 ifeq ($(OS),Linux)
@@ -202,7 +264,8 @@ ifeq ($(OS),Linux)
 all: common linux
 endif
 ifeq ($(OS),Msys)
-all: common windows_all windows_app commit_win64 linux_so
+all: common windows_dll windows_app
+#commit_win64 linux_so
 endif
 
 common: welcome clean presteps
@@ -210,18 +273,19 @@ common: welcome clean presteps
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target ...
 # ---------------------------------------------------------------------------
-$(TARGET_REL_64): $(OBJS)
-	$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o ./$@ $^ $(Qt5LIBS)
+$(DLL_TARGET): $(OBJS)
+	g++ $(GPP_64_REL_FLAGS) -o ./$@ $^ $(Qt5LIBS)
 
 $(CPP_OBJ_DIR)/%.o: $(CPP_DIR)/%.cc
 	@echo "compile: $< ..."
-	@$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o ./$@ -c $<
+	g++ $(GPP_64_REL_FLAGS) -o ./$@ -c $<
 
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target for Linux ...
 # ---------------------------------------------------------------------------
 ifeq ($(OS),Linux)
 welcome:
+	@echo "verwende: $(isFPC)"
 	@echo "compile fpc-qt.so native under Linux:"
 
 linux: $(OBJS)
@@ -231,24 +295,27 @@ linux: $(OBJS)
 	@strip $(TARGET_REL_64)
 	@echo "compile test.app native under Linux:"
 	@echo $(FPC_REL_FLAGS_LINUX)
-	$(FPC_64) $(FPC_REL_FLAGS_LINUX) fpcqt.dpr
+	$(FPC_Win_64) $(FPC_REL_FLAGS_LINUX) fpcqt.dpr
 endif
 ifeq ($(OS),Msys)
 # ---------------------------------------------------------------------------
 # 64-Bit release DLL target for Windows ...
 # ---------------------------------------------------------------------------
 welcome:
+	@echo "verwende: $(isFPC)"
+	@echo "Config:   $(RadConfig)"
+	@echo "Compiler: $(PascalCompiler)"
 	@echo "compile native files under Windows:"
 
 windows_dll: $(OBJS)
 	@echo "create 'fpcso.dll':"
-	$(GPP_WIN64) $(GPP_64_REL_FLAGS) -o$(TARGET_REL_WIN64) $^ $(Qt5LIBS)
-	strip $(TARGET_REL_WIN64)
-	upx   $(TARGET_REL_WIN64)
+	g++   $(GPP_64_REL_FLAGS) -o$(DLL_TARGET) $^ $(Qt5LIBS)
+	strip $(DLL_TARGET)
+	upx   $(DLL_TARGET)
 
 windows_app: $(TARGET_REL_64)
-	$(FPC_WIN64) $(FPC_REL_FLAGS_WINDOWS) -o$(TARGET_EXE_64) fpcqt.dpr
-	upx $(TARGET_EXE_64)
+	$(FPC_Win_64) $(FPC_REL_FLAGS_WINDOWS) -o$(EXE_TARGET) fpcqt.dpr
+	upx $(EXE_TARGET)
 
 # ---------------------------------------------------------------------------
 # commit + push source code to github.com
@@ -259,12 +326,12 @@ commit_win64:
 # 64-Bit release DLL target for Linux ...
 # ---------------------------------------------------------------------------
 linux_so:
-	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) pas/fpcso.pas
+	$(FPC_Win_64) -sh $(FPC_REL_FLAGS_LINUX) pas/fpcso.pas
 	$(LD_UNIX64_FLAGS)
 	$(STRIP) --discard-all --strip-debug $(TARGET_SO_64)
 
 linux_app:
-	$(FPC_WIN64) -sh $(FPC_REL_FLAGS_LINUX) -o$(LINUX_BIN_REL_64)/fpcqt fpcqt.dpr
+	$(FPC_Win_64) -sh $(FPC_REL_FLAGS_LINUX) -o$(LINUX_BIN_REL_64)/fpcqt fpcqt.dpr
 	$(PATH_LINUX_64)/x86_64-linux-gnu-ld.exe -b elf64-x86-64 -m elf_x86_64 \
 	--dynamic-linker=./lib64/ld-linux-x86-64.so.2 -s \
 	-L. -o ./Linux64/Release/fpcqt    \
@@ -283,9 +350,8 @@ clean:
 	@echo "delete old temporary stuff..."
 	@rm -rf $(PAS_OBJ_DIR)
 	@rm -rf $(CPP_OBJ_DIR)
+	@rm -rf $(OUTPUT_PATH)
 	@rm -rf link.res
-	@rm -rf Linux32
-	@rm -rf Linux64
 	@rm -rf Win32
 	@rm -rf Win64
 
@@ -298,11 +364,6 @@ presteps:
 	@echo "create new tempory directories..."
 	@mkdir -p $(PAS_OBJ_DIR)
 	@mkdir -p $(CPP_OBJ_DIR)
-	@mkdir -p $(WINDOWS_BIN_DEB_32)
-	@mkdir -p $(WINDOWS_BIN_REL_32)
-	@mkdir -p $(WINDOWS_BIN_REL_64)
-	@mkdir -p $(WINDOWS_BIN_DEB_64)
-	@mkdir -p $(LINUX_BIN_DEB_32)
-	@mkdir -p $(LINUX_BIN_REL_64)
+	@mkdir -p $(OUTPUT_PATH)
 
 .PHONY: all clean rebuild linux

@@ -7,8 +7,6 @@
 #ifndef  __FPC_QT_H__
 # define __FPC_QT_H__
 
-# define FPC                // dll used in combination with Free Pascal
-
 #ifdef WINDOWS
 # include <windows.h>
 #endif
@@ -202,6 +200,10 @@ extern void ErrorMessage(const char    * text);
 #else
 extern void ErrorMessage(const wchar_t * text);
 #endif
+
+extern void    SetPascalCompiler(uint8_t pc);
+extern uint8_t GetPascalCompiler(void);
+
 /**
  * \defgroup qcharclass QChar
  * \ingroup  internFunctions
@@ -214,7 +216,6 @@ extern void ErrorMessage(const wchar_t * text);
  * \return   uint64_t - ein 64-Bit Type der die Adresse der erstellten Klasse zurückgibt.
  */
 uint64_t ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr);
-
 
 /**
  * \defgroup qstringclass QString

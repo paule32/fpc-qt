@@ -10,25 +10,31 @@ unit misc;
 
 interface
 uses
-    {$ifdef win64}
-    Windows,
+    {$if defined(Win64)}
+        Windows,
+    {$elseif defined(Unix)}
+        DynLibs,
     {$endif}
-    {$ifdef Unix}
-    DynLibs,
-    {$endif}
-    SysUtils;
+        SysUtils;
 
-    {$ifdef win64}
-    const DLLname = 'fpcqt.dll';
-    {$endif}
-    {$ifdef Unix}
-    const DLLname = 'fpcqt.so';
+const CompilerFPC = 1;
+const CompilerDCC = 2;
+
+    {$if defined(Win64)}
+        const DLLname = 'fpcqt.dll';
+    {$elseif defined(Unix)}
+        const DLLname = 'fpcqt.so';
+    {$else}
+        {$message fatal 'Compiler nicht unterstützt'}
     {$endif}
 type
     TMainCallback = procedure(argc: Integer; argv: Array of String);
 
     function InitLibrary(Callback: TMainCallback): Boolean;
     function ErrorMessage(s: PChar): Boolean; cdecl; external dllname;
+
+    procedure SetPascalCompiler(v: uint8); cdecl; external dllname;
+    function  GetPascalCompiler: uint8; cdecl; external dllname;
 
 var
     str_debug: PChar;
@@ -37,20 +43,21 @@ uses fpcmain;
 
 function InitLibrary(Callback: TMainCallback): Boolean;
 begin
-  result := False;
-//  DLLHandle := LoadLibrary('fpc-qt.so');
-//  if DLLHandle = 0 then
-//  begin
-//    ErrorMessage('Error: DLL could not be loaded.');
-//    Halt(1);
-//  end;
-  try
-    Callback(ParamCount, ParamStr(1));
-  finally
-//      FreeLibrary(DLLHandle);
-//      ReadLn;
-      Halt(0);
-  end;
+    result := False;
+    try
+        {$IFDEF CONDITIONALEXPRESSIONS}
+            {$IF CompilerVersion >= 36.0}
+                {$IF Defined(FPC)}
+                    SetPascalCompiler(CompilerFPC);
+                {$ELSE}
+                    SetPascalCompiler(CompilerDCC);
+                {$ENDIF}
+            {$ENDIF}
+        {$ENDIF}
+        Callback(ParamCount, ParamStr(1));
+    finally
+        Halt(0);
+    end;
 end;
 
 end.

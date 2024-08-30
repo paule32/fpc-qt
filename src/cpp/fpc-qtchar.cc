@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
-// File:   fpc-qtchar.cc
-// Author: (c) 2024 Jens Kallup - paule32
-// All rights reserved
+// \file   fpc-qtchar.cc
+// \author (c) 2024 Jens Kallup - paule32
+// \copy   All rights reserved
 // ---------------------------------------------------------------------------
 # include "fpc-qt.h"
 
@@ -9,7 +9,7 @@ namespace qvc {
 
 qvc::QChar::QChar(void      ) { origin = new ::QChar( ); }
 qvc::QChar::QChar(char     t) { origin = new ::QChar(t); }
-qvc::QChar::QChar(uint8_t  t) { origin = new ::QChar(t); }
+qvc::QChar::QChar(uint8_t  t) { origin = new ::QChar(((char)(t))); }
 qvc::QChar::QChar(uint16_t t) { origin = new ::QChar(t); }
 qvc::QChar::QChar(uint32_t t) { origin = new ::QChar(t); }
 qvc::QChar::QChar(wchar_t  t) { origin = new ::QChar(t); }
@@ -215,6 +215,20 @@ check_pointer(uint64_t addr, uint64_t ptr)
     return true ;
 }
 
+bool
+check_origin(::QChar * addr)
+{
+    if (nullptr != addr) {
+        return true;
+    }   else {
+        #ifdef FPC
+            ErrorMessage("Error: QChar origin not available.");
+        #else
+            ErrorMessage(L"Error: QChar origin not available.");
+        #endif
+    }   return false;
+}
+
 extern "C" {
 
 DLL_EXPORT uint64_t
@@ -257,10 +271,18 @@ isAscii_QChar(uint64_t addr)
 DLL_EXPORT bool
 isDigit_QChar(uint64_t addr)
 {
+    bool result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    return objptr->isDigit();
+    result = check_origin(objptr->origin);
+    if (!result) {
+        result = false;
+    }   else {
+        std::wcout << L"isdiiiigg" << std::endl;
+        result = objptr->origin->isDigit();
+    }
+    return result;
 }
 
 DLL_EXPORT bool

@@ -184,6 +184,10 @@
         <Icon_MainIcon>$(ProjectName).Artwork\Windows\AppIcon.ico</Icon_MainIcon>
         <Icns_MainIcns>$(ProjectName).Artwork\Windows\AppIcon.icns</Icns_MainIcns>
         <DCC_OutputXMLDocumentation>true</DCC_OutputXMLDocumentation>
+        <Manifest_File>(Ohne)</Manifest_File>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+        <PreBuildEvent><![CDATA[start cmd.exe /c "E:\Projekte\AthensProjekte\1\build.bat"
+$(PreBuildEvent)]]></PreBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -243,11 +247,11 @@
         <DCC_XmlOutput>E:\Projekte\AthensProjekte\1\xml\</DCC_XmlOutput>
         <DCC_TSAware>false</DCC_TSAware>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Manifest_File>(Ohne)</Manifest_File>
-        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_MinimumEnumSize>2</DCC_MinimumEnumSize>
         <DCC_UnitSearchPath>pas;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <PreBuildEvent><![CDATA[start cmd.exe /c "E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)"
+$(PreBuildEvent)]]></PreBuildEvent>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -1310,4 +1314,20 @@
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
     <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
+        <PreBuildEvent>start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat&quot;</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent/>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
+        <PreBuildEvent>start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)&quot;&amp;&amp;start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat&quot;</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent/>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
 </Project>

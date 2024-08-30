@@ -42,14 +42,16 @@ Iaddsymbol(const std::wstring& p_sname, uint32_t value, uint64_t addr)
     else if (value == symbolTypeEnum::stQChar_AnsiChar) {
         wchar_t * c = new wchar_t[16];
         wcscpy(c, reinterpret_cast<wchar_t*>(addr));
-        uint8_t  ch = _wtoi(c);
+        uint8_t  ch = (uint8_t)_wtoi(c);
+        char * buffer = new char[4];
+        sprintf(buffer, "%d", ch);
+        memcpy(&ch, buffer, sizeof(uint8_t));
+        delete buffer;
         delete c;
-        std::wcout << L"ansiChar: " << ch << std::endl;
-        qvc::QChar* qc = new qvc::QChar(ch);
+        qvc::QChar* qc = new qvc::QChar((uint8_t)ch);
         uint64_t    qu = reinterpret_cast<uint64_t>((void*)qc);
         current_ptr    = qu;
-        std::wcout << L"qc: " << std::hex << qu << std::endl;
-        return current_ptr;
+        return current_ptr ;
     }
     else if (value == symbolTypeEnum::stQChar_WideChar) {
         wchar_t * c = new wchar_t[16];
