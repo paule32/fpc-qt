@@ -1,5 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <namespace name="fpcqt" platform="Win64">
+  <contains name="System.IniFiles" />
+  <contains name="System.IOUtils" />
+  <contains name="System.DateUtils" />
+  <contains name="System.StrUtils" />
+  <contains name="System.Masks" />
+  <contains name="Winapi.KnownFolders" />
+  <contains name="Winapi.ShlObj" />
+  <contains name="Winapi.MSXMLIntf" />
+  <contains name="Winapi.PropSys" />
+  <contains name="Winapi.StructuredQueryCondition" />
+  <contains name="Winapi.ObjectArray" />
+  <contains name="Winapi.UrlMon" />
+  <contains name="Winapi.WinInet" />
+  <contains name="Winapi.RegStr" />
+  <contains name="Winapi.ShellAPI" />
+  <contains name="Winapi.IpExport" />
+  <contains name="Winapi.Winsock2" />
+  <contains name="Winapi.Qos" />
+  <contains name="Winapi.CommCtrl" />
+  <contains name="System.Classes" />
+  <contains name="System.Rtti" />
+  <contains name="System.SyncObjs" />
+  <contains name="System.Diagnostics" />
+  <contains name="System.TimeSpan" />
+  <contains name="System.Generics.Collections" />
+  <contains name="System.Generics.Defaults" />
+  <contains name="System.Math" />
+  <contains name="System.Hash" />
+  <contains name="System.TypInfo" />
+  <contains name="Winapi.ActiveX" />
   <contains name="System.Variants" />
   <contains name="System.VarUtils" />
   <contains name="System.SysUtils" />
@@ -10,12 +40,25 @@
   <contains name="Winapi.SHFolder" />
   <contains name="Winapi.ImageHlp" />
   <contains name="System.SysConst" />
+  <contains name="Winapi.Messages" />
   <contains name="Winapi.Windows.PkgHelper" />
   <contains name="System.UITypes" />
   <contains name="System.Types" />
   <contains name="QCharClass" />
+  <contains name="fpcmain" />
+  <contains name="misc" />
+  <contains name="appsettings" />
   <contains name="Winapi.Windows" />
   <contains name="SysInit" />
   <contains name="System" />
-  <variable name="myQChar" type="QChar" file="fpcqt.dpr" line="14" />
+  <procedure name="EntryPoint" visibility="private">
+    <parameters>
+      <parameter name="argc" type="Integer" />
+      <parameter name="argv">
+        <array name="argv">
+          <element type="string" />
+        </array>
+      </parameter>
+    </parameters>
+  </procedure>
 </namespace>

@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="appsettings" platform="Win64">
+  <const name="CompilerVersionDelphi1" type="Integer">
+    <devnotes>
+<!-- Falsch strukturierter XML-Kommentar wird für Member 'CompilerVersionDelphi1' ignoriert -->
+    </devnotes>
+    <value>
+      $8
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2" type="Integer">
+    <value>
+      $9
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi3" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi4" type="Integer">
+    <value>
+      $C
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi5" type="Integer">
+    <value>
+      $D
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi6" type="Integer">
+    <value>
+      $E
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi7" type="Integer">
+    <value>
+      $F
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi8" type="Integer">
+    <value>
+      $10
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2005" type="Integer">
+    <value>
+      $11
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2006" type="Integer">
+    <value>
+      $12
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2007" type="Comp">
+    <value>
+      18.5
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2007NET" type="Integer">
+    <value>
+      $13
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2009" type="Integer">
+    <value>
+      $14
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi2010" type="Integer">
+    <value>
+      $15
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE" type="Integer">
+    <value>
+      $16
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE2" type="Integer">
+    <value>
+      $17
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE3" type="Integer">
+    <value>
+      $18
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE4" type="Integer">
+    <value>
+      $19
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE5" type="Integer">
+    <value>
+      $1A
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE6" type="Integer">
+    <value>
+      $1B
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE7" type="Integer">
+    <value>
+      $1C
+    </value>
+  </const>
+  <const name="CompilerVersionDelphiXE8" type="Integer">
+    <value>
+      $1D
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi10Seattle" type="Integer">
+    <value>
+      $1E
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi101Berlin" type="Integer">
+    <value>
+      $1F
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi102Tokyo" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi103Rio" type="Integer">
+    <value>
+      $21
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi104Sydney" type="Integer">
+    <value>
+      $22
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi110Alexandria" type="Integer">
+    <value>
+      $23
+    </value>
+  </const>
+  <const name="CompilerVersionDelphi120Athens" type="Integer">
+    <value>
+      $24
+    </value>
+  </const>
+  <const name="RtlVersionDelphi102Tokyo" type="Integer">
+    <devnotes>
+<!-- Falsch strukturierter XML-Kommentar wird für Member 'RtlVersionDelphi102Tokyo' ignoriert -->
+    </devnotes>
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="RtlVersionDelphi103Berlin" type="Integer">
+    <value>
+      $21
+    </value>
+  </const>
+  <const name="RtlVersionDelphi104Sydney" type="Integer">
+    <value>
+      $22
+    </value>
+  </const>
+  <const name="RtlVersionDelphi110Alexandria" type="Integer">
+    <value>
+      $23
+    </value>
+  </const>
+  <const name="RtlVersionDelphi120Athens" type="Integer">
+    <value>
+      $24
+    </value>
+  </const>
+  <class name="TConfigurations">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public" procflags="constructor">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="DisposeOf" visibility="public" procflags="inline" symflags="deprecated">
+      </methodref>
+      <methodref name="InitInstance" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public" procflags="inline">
+      </methodref>
+      <methodref name="ClassName" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="ClassParent" visibility="public" procflags="class inline">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public" procflags="class inline">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public" procflags="class inline">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public" procflags="class overload">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public" procflags="class overload">
+      </methodref>
+      <methodref name="MethodName" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="QualifiedClassName" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public" procflags="overload">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public" procflags="overload">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public" procflags="class inline">
+      </methodref>
+      <methodref name="UnitName" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="UnitScope" visibility="public" procflags="class">
+      </methodref>
+      <methodref name="Equals" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="GetHashCode" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="ToString" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="Dispatch" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="NewInstance" visibility="public" procflags="class virtual">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="Destroy" visibility="public" procflags="destructor virtual">
+      </methodref>
+      <methodref name="CPP_ABI_1" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="CPP_ABI_2" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="CPP_ABI_3" visibility="public" procflags="virtual">
+      </methodref>
+      <methodref name="GetDisposed" visibility="protected" procflags="inline">
+      </methodref>
+      <methodref name="CheckDisposed" visibility="protected" procflags="inline">
+      </methodref>
+      <propertyref name="Disposed" visibility="protected">
+      </propertyref>
+    </ancestor>
+    <members>
+      <field name="FAppConfigFile" type="string" visibility="private" size="8" offset="8" />
+      <field name="FAppConfigPath" type="string" visibility="private" size="8" offset="16" />
+      <field name="FAppWorkingDir" type="string" visibility="private" size="8" offset="24" />
+      <field name="FAppDirectroy" type="string" visibility="private" size="8" offset="32" />
+      <field name="FAppExeName" type="string" visibility="private" size="8" offset="40" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="ReadFromFile" visibility="public">
+        <parameters>
+          <parameter name="Sender" type="TObject" />
+        </parameters>
+      </procedure>
+      <procedure name="Save" visibility="public">
+        <parameters>
+          <parameter name="Sender" type="TObject" />
+        </parameters>
+      </procedure>
+      <property name="AppDirectory" visibility="published" read="FAppDirectroy" type="string" default="0" />
+      <property name="AppExeName" visibility="published" read="FAppExeName" type="string" default="0" />
+      <property name="AppWorkingDir" visibility="published" read="FAppWorkingDir" type="string" default="0" />
+      <property name="AppConfigPath" visibility="published" read="FAppConfigPath" type="string" default="0" />
+      <property name="AppConfigFile" visibility="published" read="FAppConfigFile" type="string" default="0" />
+    </members>
+  </class>
+  <variable name="vConfigurations" type="TConfigurations" />
+</namespace>

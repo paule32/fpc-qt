@@ -23,7 +23,7 @@ except ET.XMLSyntaxError as e:
 
 # Lade die XSLT-Datei für enums
 try:
-    xslt_function_doc  = ET.parse('fpcqt.xslt')
+    xslt_function_doc  = ET.parse('fpcqt_functions.xsl')
     transform_function = ET.XSLT(xslt_function_doc)
 except ET.XMLSyntaxError as e:
     print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
@@ -70,8 +70,8 @@ for xml_file in xml_files:
         except ET.XSLTApplyError as e:
             print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_enum}': {e}")
     
-    # Extrahiere und speichere die enum-Elemente in eine separate Datei
-    functions = xml_doc.xpath('//members/function')
+    # Extrahiere und speichere die function-Elemente in eine separate Datei
+    functions = xml_doc.xpath('//function')
     for function in functions:
         function_name = function.get('name')
         output_file_path_function = f"{function_name}_functions.html"
@@ -79,6 +79,6 @@ for xml_file in xml_files:
             result_function = transform_function(function)
             with open(output_file_path_function, 'wb') as f:
                 f.write(ET.tostring(result_function, pretty_print=True))
-            print(f"Die enum-HTML-Datei wurde erfolgreich erstellt: {output_file_path_function}")
+            print(f"Die func-HTML-Datei wurde erfolgreich erstellt: {output_file_path_function}")
         except ET.XSLTApplyError as e:
             print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_function}': {e}")

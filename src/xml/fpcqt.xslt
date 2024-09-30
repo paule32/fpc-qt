@@ -53,46 +53,6 @@
 </html>
 </xsl:template>
 
-<!-- Template für Funktionen1 -->
-<xsl:template match="mups/functions">
-<html>
-<head>
-    <title>
-    <xsl:choose>
-        <xsl:when test="$lang = 'en'">
-            <xsl:text>Delphi Documentation for Project</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:text>Delphi Dokumentation für Projekt</xsl:text>
-        </xsl:otherwise>
-    </xsl:choose>
-    </title>
-    <xsl:choose>
-        <xsl:when test="$theme = 'light'">
-            <link rel="stylesheet" type="text/css" href="style_light.css" />
-        </xsl:when>
-        <xsl:when test="$theme = 'dark'">
-            <link rel="stylesheet" type="text/css" href="style_dark.css" />
-        </xsl:when>
-    </xsl:choose>
-</head>
-<body>
-    <h1>
-    <xsl:choose>
-        <xsl:when test="$lang = 'en'">
-            <xsl:text>Delphi Documentation for Project</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:text>Delphi Dokumentation für Projekt</xsl:text>
-        </xsl:otherwise>
-    </xsl:choose>
-    </h1>
-    xxxx
-    <xsl:apply-templates select="members/function" />
-</body>
-</html>
-</xsl:template>
-
 <xsl:template match="namespace">
 <div class="namespace">
     <h2>
@@ -214,6 +174,48 @@
             </td>
         </tr>
     </table>
+</xsl:if>
+
+<!-- Template für Enum -->
+<xsl:if test="members/enum">
+    <xsl:for-each select="members/enum">
+        <xsl:choose>
+            <xsl:when test="$lang = 'en'">
+                <h2>enum: <xsl:value-of select="@name"/></h2>
+            </xsl:when>
+            <xsl:otherwise>
+                <h2>Aufzählung: <xsl:value-of select="@name"/></h2>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="devnotes/enum">
+            <p>
+            <div class="devnotes">
+                <strong>Hinweise:</strong><br/>
+                <xsl:value-of select="devnotes/enum"/>
+            </div>
+            </p>
+        </xsl:if>
+        <table>
+            <tr>
+                <xsl:choose>
+                    <xsl:when test="$lang = 'en'">
+                        <th>Constant</th>
+                        <th>Value</th>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <th>Konstante</th>
+                        <th>Wert</th>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tr>
+            <xsl:for-each select="element">
+            <tr>
+                <td class="name-cell"><xsl:value-of select="@name"/></td>
+                <td class="value-cell"><xsl:value-of select="@value"/></td>
+            </tr>
+            </xsl:for-each>
+        </table>
+    </xsl:for-each>
 </xsl:if>
 
 <!-- Tabelle für Konstruktoren 'Create' -->
@@ -338,71 +340,106 @@
         </xsl:otherwise>
     </xsl:choose>
     <table>
+        <!-- Durchlaufe jede Funktion -->
+        <xsl:for-each select="members/function">
         <tr>
             <xsl:choose>
                 <xsl:when test="$lang = 'en'">
-                    <th>Return Type</th>
-                    <th>Function Name</th>
-                    <th>Summary</th>
+                    <td style="background-color:#555555;">Return Type</td>
+                    <td style="background-color:#555555;">Function Name</td>
+                    <td style="background-color:#555555;">Summary</td>
                 </xsl:when>
                 <xsl:otherwise>
-                    <th>Rückgabetyp</th>
-                    <th>Funktion-Name</th>
-                    <th>Kurzbeschreibung</th>
+                    <td style="background-color:#555555;">Rückgabetyp</td>
+                    <td style="background-color:#555555;">Funktion-Name</td>
+                    <td style="background-color:#555555;">Kurzbeschreibung</td>
                 </xsl:otherwise>
             </xsl:choose>
         </tr>
-        <!-- Durchlaufe jede Funktion -->
-        <xsl:for-each select="members/function">
-            <tr>
-                <!-- Erste Zeile für Rückgabetyp, Funktionsname und Zusammenfassung -->
-                <td><xsl:value-of select="parameters/retval/@type"/></td>
-                <td><xsl:value-of select="@name"/></td>
-                <td>
-                    <xsl:if test="devnotes/summary">
-                        <xsl:value-of select="devnotes/summary"/>
-                    </xsl:if>
-                </td>
-            </tr>
-            <tr>
-                <!-- Zweite Zeile für Parameter -->
-                <td colspan="3"> <!-- colspan="3" sorgt dafür, dass die Parameter
-                über die gesamte Breite der Tabelle angezeigt werden -->
-                    <strong>
-                        <xsl:choose>
-                            <xsl:when test="$lang = 'en'">Parameters:</xsl:when>
-                            <xsl:otherwise>Parameter:</xsl:otherwise>
-                        </xsl:choose>
-                    </strong>
-                    <xsl:for-each select="parameters/parameter">
-                        <xsl:value-of select="@name"/>: <xsl:value-of select="@type"/>
-                        <xsl:if test="position() != last()">, </xsl:if>
-                    </xsl:for-each>
-                    <xsl:if test="not(parameters/parameter)">
-                        <!-- Falls keine Parameter vorhanden sind -->
-                        <xsl:choose>
-                            <xsl:when test="$lang = 'en'">no param</xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
-                                <span class="no_params">keine</span>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </td>
-            </tr>
-            <tr>
-                <!-- Zusätzliche Zeile nach den Parametern -->
-                <td colspan="3"> <!-- Hier kannst du zusätzlichen Inhalt einfügen -->
+        <tr>
+            <!-- Erste Zeile für Rückgabetyp, Funktionsname und Zusammenfassung -->
+            <td><xsl:value-of select="parameters/retval/@type"/></td>
+            <td><xsl:value-of select="@name"/></td>
+            <td>
+                <xsl:if test="devnotes/summary">
+                    <xsl:value-of select="devnotes/summary"/>
+                    <!-- Link zum Remarks-Anker -->
+                    <a class="more-link" href="#remarks-{@name}">Mehr...</a>
+                </xsl:if>
+            </td>
+        </tr>
+        <tr>
+            <!-- Zweite Zeile für Parameter -->
+            <td colspan="3"> <!-- colspan="3" sorgt dafür, dass die Parameter
+            über die gesamte Breite der Tabelle angezeigt werden -->
+                <strong>
                     <xsl:choose>
-                        <xsl:when test="$lang = 'en'">Additional Information or Notes</xsl:when>
-                        <xsl:otherwise>
-                            <div class="addi_td">
-                                <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
-                            </div>
+                        <xsl:when test="$lang = 'en'">Parameters:</xsl:when>
+                        <xsl:otherwise>Parameter:
+                            <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
+                </strong>
+                <xsl:for-each select="parameters/parameter">
+                    <xsl:value-of select="@name"/>:
+                        <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
+                    <xsl:value-of select="@type"/>
+                    <xsl:if test="position() != last()">, </xsl:if>
+                </xsl:for-each>
+                <xsl:if test="not(parameters/parameter)">
+                    <!-- Falls keine Parameter vorhanden sind -->
+                    <xsl:choose>
+                        <xsl:when test="$lang = 'en'">no param</xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
+                            <span class="no_params">keine</span>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+            </td>
+        </tr>
+        <tr>
+            <!-- Zusätzliche Zeile nach den Parametern -->
+            <td colspan="3" style="background-color:gray;">
+                <xsl:choose>
+                    <xsl:when test="$lang = 'en'"><strong>Remarks:</strong></xsl:when>
+                    <xsl:when test="$lang = 'de'"><strong>Bemerkungen:</strong></xsl:when>
+                    <xsl:otherwise>
+                        <div class="addi_td">
+                            <xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
+                        </div>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </td>
+        </tr>
+        <tr>
+        <!-- Remarks unter der Funktion anzeigen -->
+        <xsl:if test="not(devnotes/remarks)">
+            <td colspan="3" style="background-color:black;">
+            <xsl:choose>
+                <xsl:when test="$lang = 'en'"><span style="background-color:black;">no remarks</span></xsl:when>
+                <xsl:when test="$lang = 'de'"><span style="background-color:black;">keine Bemerkungen</span></xsl:when>
+                <xsl:otherwise></xsl:otherwise>
+            </xsl:choose>
+            </td>
+        </xsl:if>
+        <xsl:if test="devnotes/remarks">
+            <tr>
+                <td colspan="3">
+                    <a name="remarks-{@name}"></a>
+                    <div class="remarks">
+                        <p><xsl:value-of select="devnotes/remarks"/></p>
+                    </div>
                 </td>
             </tr>
+        </xsl:if>
+        </tr>
+        <tr>
+            <td colspan="3" style="background-color:black;"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="background-color:orange;"></td>
+        </tr>
         </xsl:for-each>
     </table>
 </xsl:if>

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="fpcmain" platform="Win64">
+  <variable name="DLLHandle" type="UInt64" />
+</namespace>
