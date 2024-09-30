@@ -238,6 +238,9 @@ type
         /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
         /// Objekt entspricht.
         /// </summary>
+        /// <remarks>
+        ///    Dies und das
+        /// </remarks>
         function isDigit: Boolean;
 
         /// <summary>
@@ -313,15 +316,16 @@ end;
 constructor QChar.Create;
 begin
     inherited Create;
+
+    {$ifdef DEBUG}
     WriteLn('create qchar');
+    {$endif}
+
     ClassName := PChar('QChar');
-    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar, 0);
+    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar, nil);
 
     if not check_ptr(ClassName, getOrigin) then
-    begin
-        Free;
-        exit;
-    end;
+    begin Free; exit; end;
 
     c_type := Ord('A');
 end;
@@ -341,7 +345,11 @@ begin
   inherited Create;
   memvar := c;
   ptr := @memvar;
+
+  {$ifdef DEBUG}
   WriteLn(Format('create byte: 0x%p', [ptr]));
+  {$endif}
+
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), stQChar_Byte, ptr);
 
@@ -366,19 +374,25 @@ begin
 
   memvar := c;
   ptr := @memvar;
-//  { $ i fdef DEBUG}
+
+  {$ifdef DEBUG}
   GetMem(str_debug, 2048);
   str_debug := StrCopy(str_debug, PChar('->' + #13#10));
   str_debug := StrCat (str_debug, PChar(Format('create ansichar: 0x%p', [ptr])));
-//  { $ e ndif}
-//  ErrorMessage(PChar(str_debug));
+  ErrorMessage(PChar(str_debug));
+  Dispose(str_debug);
+  {$endif}
 
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar, ptr);
 
+  {$ifdef DEBUG}
+  GetMem(str_debug, 2048);
   str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
   str_debug := StrCat(str_debug, PChar(Format('ansichar: 0x%p', [ptr_cc])));
   ErrorMessage(str_debug);
+  Dispose(str_debug);
+  {$endif}
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -401,19 +415,25 @@ begin
 
   memvar := c;
   ptr := @memvar;
-//  { $ i fdef DEBUG}
+
+  {$ifdef DEBUG}
   GetMem(str_debug, 2048);
   str_debug := StrCopy(str_debug, PChar('->' + #13#10));
   str_debug := StrCat (str_debug, PChar(Format('create widechar: 0x%p', [ptr])));
-//  { $ e ndif}
-//  ErrorMessage(str_debug);
+  ErrorMessage(str_debug);
+  Dispose(str_debug);
+  {$endif}
 
   ClassName := PChar('QChar');
   ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, ptr);
 
+  {$ifdef DEBUG}
+  GetMem(str_debug, 2048);
   str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
-  str_debug := StrCat(str_debug, PChar(Format('widechar: 0x%p', [ptr_cc])));
+  str_debug := StrCat(str_debug, PChar(Format('wide char: 0x%p', [ptr_cc])));
   ErrorMessage(str_debug);
+  Dispose(str_debug);
+  {$endif}
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -430,9 +450,13 @@ end;
 constructor QChar.Create(c: DWORD);
 begin
   inherited Create;
+
+  {$ifdef DEBUG}
   WriteLn('create dword');
+  {$endif}
+
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), stQChar_DWord, 0);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), stQChar_DWord, nil);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -449,9 +473,13 @@ end;
 constructor QChar.Create(c: Word);
 begin
   inherited Create;
+
+  {$ifdef DEBUG}
   WriteLn('create word');
+  {$endif}
+
   ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), stQChar_Word, 0);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), stQChar_Word, nil);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -468,9 +496,13 @@ end;
 constructor QChar.Create(c: SmallInt);
 begin
     inherited Create;
+
+    {$ifdef DEBUG}
     WriteLn('create smallint');
+    {$endif}
+
     ClassName := PChar('QChar');
-    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), stQChar_SmallInt, 0);
+    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), stQChar_SmallInt, nil);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -483,13 +515,15 @@ end;
 /// </summary>
 destructor QChar.Destroy;
 begin
+    {$ifdef DEBUG}
+    GetMem(str_debug, 2048);
     str_debug := StrCat(str_debug, PChar(#13#10));
     str_debug := StrCat(str_debug, PChar('delete...'));
-
-    dtor_QChar(ptr_cc);
-
     ErrorMessage(str_debug);
     Dispose(str_debug);
+    {$endif}
+
+    dtor_QChar(ptr_cc);
 
     inherited Destroy;
 end;
@@ -519,6 +553,17 @@ begin
     result := isAscii_QChar(uint64(ptr_cc));
 end;
 
+/// <summary>
+/// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
+/// Objekt (Zahl) entspricht.
+/// </summary>
+/// <noparam>
+/// Boolean Funktion ohne Parameter
+/// </noparam>
+/// <remarks>
+/// Wurde die QChar Klasse mit einer Zahl initializiert wird die Funktion
+/// isDigit TRUE zurück geben, sonst FALSE.
+/// </remarks>
 function QChar.isDigit: Boolean;
 begin
   WriteLn('isDigit');
