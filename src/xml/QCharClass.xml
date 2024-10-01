@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <namespace name="QCharClass" platform="Win64">
+  <struct name="ClassVHelper" size="68">
+    <field name="VType" type="Cardinal" visibility="public" size="4" offset="0" />
+    <field name="Value_u1" type="Byte" visibility="public" size="1" offset="4" />
+    <field name="Value_u2" type="Word" visibility="public" size="2" offset="6" />
+    <field name="Value_u3" type="Cardinal" visibility="public" size="4" offset="8" />
+    <field name="Value_u4" type="UInt64" visibility="public" size="8" offset="12" />
+    <field name="Value_s1" type="ShortInt" visibility="public" size="1" offset="20" />
+    <field name="Value_s2" type="SmallInt" visibility="public" size="2" offset="22" />
+    <field name="Value_s3" type="Integer" visibility="public" size="4" offset="24" />
+    <field name="Value_s4" type="Int64" visibility="public" size="8" offset="28" />
+    <field name="NLength" type="UInt64" visibility="public" size="8" offset="36" />
+    <field name="SLength" type="UInt64" visibility="public" size="8" offset="44" />
+    <field name="NName" type="PWideChar" visibility="public" size="8" offset="52" />
+    <field name="SName" type="PWideChar" visibility="public" size="8" offset="60" />
+  </struct>
   <const name="stQChar" type="Integer">
     <devnotes>
        Qt Klasse - QChar
@@ -8,40 +23,9 @@
       $64
     </value>
   </const>
-  <const name="stQChar_Byte" type="Integer">
-    <value>
-      $66
-    </value>
-  </const>
-  <const name="stQChar_AnsiChar" type="Integer">
-    <value>
-      $67
-    </value>
-  </const>
-  <const name="stQChar_WideChar" type="Integer">
-    <value>
-      $68
-    </value>
-  </const>
-  <const name="stQChar_DWord" type="Integer">
-    <value>
-      $69
-    </value>
-  </const>
-  <const name="stQChar_Word" type="Integer">
-    <value>
-      $6A
-    </value>
-  </const>
-  <const name="stQChar_SmallInt" type="Integer">
-    <value>
-      $6B
-    </value>
-  </const>
   <function name="ctor_QChar" visibility="external public" callconv="cdecl">
     <parameters>
       <parameter name="s" type="PWideChar" />
-      <parameter name="t" type="Cardinal" />
       <parameter name="memvar" type="Pointer" />
       <retval type="Pointer" />
     </parameters>
@@ -329,10 +313,12 @@
       </enum>
       <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" />
       <field name="ptr_cc" type="Pointer" visibility="private" size="8" offset="16" />
-      <field name="c_type" type="Word" visibility="private" size="2" offset="24" />
-      <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="26" />
-      <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="28" />
-      <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="30" />
+      <field name="ptr_val" type="ClassVHelper" visibility="private" size="68" offset="24" />
+      <field name="c_type" type="Word" visibility="private" size="2" offset="92" />
+      <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="94" />
+      <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="96" />
+      <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="98" />
+      <field name="FVHelper" type="ClassVHelper" visibility="private" size="68" offset="100" />
       <constructor name="Create" visibility="public">
         <devnotes>
 <!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->

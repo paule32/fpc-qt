@@ -15,18 +15,17 @@ uses
   Windows,
   {$endif }
   appsettings in 'pas/appsettings.pas',
-  misc in 'pas/misc.pas',
-  fpcmain in 'pas/fpcmain.pas',
-  QCharClass in 'pas/QCharClass.pas';
+  misc        in 'pas/misc.pas',
+  fpcmain     in 'pas/fpcmain.pas',
+  QCharClass  in 'pas/QCharClass.pas';
 
 procedure EntryPoint(argc: Integer; argv: Array of String);
 var
     myQChar: QChar;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create('3');
-    WriteLn('zupf');
-    if myQChar.isDigit then
+    myQChar := QChar.Create(42);
+    if myQChar.isLetterOrNumber then
     begin
         WriteLn('ok');
         ReadLn;

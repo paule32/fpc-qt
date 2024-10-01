@@ -22,6 +22,8 @@
 # include <memory>
 # include <cwchar>
 # include <exception>
+# include <locale>
+# include <codecvt>
 
 #ifndef WINDOWS
 typedef uint16_t WORD;
@@ -43,6 +45,54 @@ typedef uint32_t DWORD;
 # include <QtWidgets/QMessageBox>
 
 /**
+ * \brief  Benutzerdefinierte Exception-Klasse mit Konvertierung von std::wstring
+ *         in std::string
+ */
+class MyBaseException : public std::exception {
+private:
+    std::wstring wErrorMessage;
+    std::string errorMessage; // Konvertierte std::string Version
+
+    // Helferfunktion zur Konvertierung von std::wstring zu std::string
+    std::string wstringToString(const std::wstring& wstr) const {
+        std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+        return converter.to_bytes(wstr);
+    }
+
+public:
+    // Konstruktor mit std::wstring
+    MyBaseException(const std::string& message)
+        : errorMessage(message)
+        {}
+    MyBaseException(const std::wstring& message)
+        : wErrorMessage(message), errorMessage(wstringToString(message))
+        {}
+
+    // Überschreibe what() für std::string Rückgabe
+    virtual const char* what() const noexcept override {
+        return errorMessage.c_str();
+    }
+
+    // Methode für std::wstring Rückgabe
+    const std::wstring& wwhat() const noexcept {
+        return wErrorMessage;
+    }
+};
+
+class ERangeError: public MyBaseException {
+public:
+    ERangeError(const std::wstring& message) : MyBaseException(message) {}
+    ERangeError(const std:: string& message) : MyBaseException(message) {}
+};
+
+class ETypeError: public MyBaseException {
+public:
+    ETypeError(const std::wstring& message) : MyBaseException(message) {}
+    ETypeError(const std:: string& message) : MyBaseException(message) {}
+};
+
+
+/**
  * \namespace qvc
  * \brief     Ein Namespace, um Seiteneffekte mit anderen Frameworks zu vermeiden.
  * \details   QVC steht für dieses Projekt für "Qt Visual Components" als Ansammlung
@@ -53,6 +103,26 @@ typedef uint32_t DWORD;
  */
 namespace qvc
 {
+
+struct ClassVHelper {
+    uint32_t VType  ;
+    
+    uint8_t  Value_u1;   // unsigned:   8-bit
+    uint16_t Value_u2;   // unsigned:  16-bit
+    uint32_t Value_u3;   // unsigned:  32-bit
+    uint64_t Value_u4;   // unsigned:  64-bit
+    
+    int8_t   Value_s1;   // signed  :   8-bit
+    int16_t  Value_s2;   // signed  :  16-bit
+    int32_t  Value_s3;   // signed  :  32-bit
+    int64_t  Value_s4;   // signed  :  64-bit
+    //
+    uint64_t NLength;
+    uint64_t SLength;
+    //
+    char   * NName  ;
+    char   * SName  ;
+};
 
 /**
  * \enum    symbolType
@@ -74,18 +144,11 @@ enum symbolTypeEnum : uint32_t
     /// entspricht einen WideChar (2 Byte)
     stWideChar = 4,
     /// Qt Klasse - QChar
-    stQChar          = 100,
-    stQChar_Char     = 101,
-    stQChar_Byte     = 102,
-    stQChar_AnsiChar = 103,
-    stQChar_WideChar = 104,
-    stQChar_DWord    = 105,
-    stQChar_Word     = 106,
-    stQChar_ShortInt = 107
+    stQChar = 100,
 };
 
 class QChar {
-private:
+public:
     std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t, short> qchar_types;
 public:
     // constructor
@@ -136,6 +199,8 @@ public:
     symbolTypeEnum getType  (void) const;
     ::QChar *      getOrigin(void) const;
     ::QChar *      origin;
+    
+    struct ClassVHelper * ptr_val = nullptr;
 };
 
 /**
@@ -173,7 +238,7 @@ struct TypeTypes
  */
 extern std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
 
-extern uint64_t Iaddsymbol(const std::wstring&  p_sname, uint32_t value, uint64_t memvar);
+extern uint64_t Iaddsymbol(const std::wstring&  p_sname, struct ClassVHelper *addr);
 extern bool     Igetsymbol(      std::wstring&& p_sname);
 
 extern uint64_t current_ptr;
@@ -215,7 +280,7 @@ extern uint8_t GetPascalCompiler(void);
  * \param    p_name - wchar_t* der Name der Klasse
  * \return   uint64_t - ein 64-Bit Type der die Adresse der erstellten Klasse zurückgibt.
  */
-uint64_t ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr);
+uint64_t ctor_QChar(wchar_t* p_name, uint64_t addr);
 
 /**
  * \defgroup qstringclass QString

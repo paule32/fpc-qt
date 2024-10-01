@@ -3,6 +3,7 @@
 // \author     (c) 2024 Jens Kallup - paule32
 // \copyright  Alle Rechte vorbehalten.
 // ---------------------------------------------------------------------------
+{$define DEBUG}
 {$ifdef FPC}
     {$mode delphi}{$H+}
 {$else}
@@ -19,20 +20,35 @@ uses
     {$endif}
     SysUtils, misc, fpcmain;
 
+type
+    ClassVHelper = record
+        VType  : uint32;
+        //
+        Value_u1  : uint8;
+        Value_u2  : uint16;
+        Value_u3  : uint32;
+        Value_u4  : uint64;
+        //
+        Value_s1  : int8;
+        Value_s2  : int16;
+        Value_s3  : int32;
+        Value_s4  : int64;
+        //
+        NLength: uint64;
+        SLength: uint64;
+        //
+        NName  : PChar ;
+        SName  : PChar ;
+    end;
+
 const
     /// Qt Klasse - QChar
     stQChar          = 100;
-    stQChar_Byte     = 102;
-    stQChar_AnsiChar = 103;
-    stQChar_WideChar = 104;
-    stQChar_DWord    = 105;
-    stQChar_Word     = 106;
-    stQChar_SmallInt = 107;
 
 // ---------------------------------------------------------------------------
 // QChar ctor/dtor ...
 // ---------------------------------------------------------------------------
-function  ctor_QChar(s: PChar; t: uint32; memvar: Pointer): Pointer; cdecl; external dllname;
+function  ctor_QChar(s: PChar; memvar: Pointer): Pointer; cdecl; external dllname;
 procedure dtor_QChar(v: Pointer); cdecl; external dllname;
 
 function isAscii_QChar(v: int64): Boolean; cdecl; external dllname;
@@ -147,11 +163,13 @@ type
     private
         ClassName: PChar;
         ptr_cc: Pointer;
+        ptr_val: ClassVHelper;
         c_type: uint16;
     private
         FCategory:      QChar_Category;
         FDecomposition: QChar_Decomposition;
         FDirection:     QChar_Direction;
+        FVHelper:       ClassVHelper;
     public
         /// <summary>
         /// Erstellt eine Instanz von QChar ohne Parameter.
@@ -225,7 +243,7 @@ type
         /// <remarks>
         /// Dies ist der SmallInt Konstruktor für QChar.
         /// </remarks>
-        constructor Create(c: SmallInt); overload;
+        constructor Create(c: int16); overload;
         destructor Destroy; override;
 
         function Lt(const B: QChar): Boolean;
@@ -321,8 +339,7 @@ begin
     WriteLn('create qchar');
     {$endif}
 
-    ClassName := PChar('QChar');
-    ptr_cc := ctor_QChar(PChar('ctor_QChar'), stQChar, nil);
+    ptr_cc := ctor_QChar(PChar('ctor_QChar'), nil);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -350,8 +367,7 @@ begin
   WriteLn(Format('create byte: 0x%p', [ptr]));
   {$endif}
 
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), stQChar_Byte, ptr);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), ptr);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -383,8 +399,7 @@ begin
   Dispose(str_debug);
   {$endif}
 
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), stQChar_AnsiChar, ptr);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), ptr);
 
   {$ifdef DEBUG}
   GetMem(str_debug, 2048);
@@ -424,8 +439,7 @@ begin
   Dispose(str_debug);
   {$endif}
 
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), stQChar_WideChar, ptr);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), ptr);
 
   {$ifdef DEBUG}
   GetMem(str_debug, 2048);
@@ -455,8 +469,7 @@ begin
   WriteLn('create dword');
   {$endif}
 
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), stQChar_DWord, nil);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), nil);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -478,8 +491,7 @@ begin
   WriteLn('create word');
   {$endif}
 
-  ClassName := PChar('QChar');
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), stQChar_Word, nil);
+  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), nil);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -493,7 +505,9 @@ end;
 /// <param name="c">
 ///  Ein SmallInt für das Zeichen.
 /// </param>
-constructor QChar.Create(c: SmallInt);
+constructor QChar.Create(c: int16);
+var
+    pch_str: PChar;
 begin
     inherited Create;
 
@@ -501,8 +515,18 @@ begin
     WriteLn('create smallint');
     {$endif}
 
-    ClassName := PChar('QChar');
-    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), stQChar_SmallInt, nil);
+    pch_str          := 'smallint';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_s2 := c;
+    ptr_val.NLength  := strlen(pch_str);
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_SmallInt';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
+
+    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -604,7 +628,7 @@ begin
   result := isNull_QChar(uint64(ptr_cc));
 end;
 
-function QChar.isNumber: Boolean;
+function QChar.isNumber: Boolean;  // getestet
 begin
     result := isNumber_QChar(uint64(ptr_cc));
 end;

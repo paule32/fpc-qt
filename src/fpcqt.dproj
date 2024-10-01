@@ -250,7 +250,7 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_MinimumEnumSize>2</DCC_MinimumEnumSize>
         <DCC_UnitSearchPath>pas;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <PreBuildEvent><![CDATA[start cmd.exe /c "E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)"
+        <PreBuildEvent><![CDATA[rem start cmd.exe /c "E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)"
 $(PreBuildEvent)]]></PreBuildEvent>
     </PropertyGroup>
     <ItemGroup>
@@ -1323,7 +1323,7 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
-        <PreBuildEvent>start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)&quot;&amp;&amp;start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat&quot;</PreBuildEvent>
+        <PreBuildEvent>rem start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat Delphi $(Config)&quot;&amp;&amp;start cmd.exe /c &quot;E:\Projekte\AthensProjekte\1\build.bat&quot;</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>

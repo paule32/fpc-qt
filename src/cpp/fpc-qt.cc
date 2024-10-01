@@ -19,65 +19,16 @@ std::vector< qvc::QChar* > map_QChar;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 uint64_t
-Iaddsymbol(const std::wstring& p_sname, uint32_t value, uint64_t addr)
+Iaddsymbol(const std::wstring& p_sname, struct ClassVHelper *addr)
 {
     current_ptr = 0;
-    std::cout << "uint32_t:  " << value << std::endl;
 
-    if (value == 1) {
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(value);
-    }   else if (value == symbolTypeEnum::stQChar) {
-        char ch = 32;
-        qvc::QChar* qc = new qvc::QChar(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-    }   else if (value == symbolTypeEnum::stQChar_Byte) {
-        uint8_t ch = '1';
-        std::cout << "memvar: " << std::hex << addr << std::endl;
-        std::cout << "memval: " << std::dec << reinterpret_cast<uint64_t>(addr) << std::endl;
-        qvc::QChar* qc = new qvc::QChar(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
+    if (addr->VType == symbolTypeEnum::stQChar) {
+        qvc::QChar* qc = new qvc::QChar();
+        qc->ptr_val    = addr;
+        current_ptr    = reinterpret_cast<uint64_t>((void*)qc);
     }
-    else if (value == symbolTypeEnum::stQChar_AnsiChar) {
-        wchar_t * c = new wchar_t[16];
-        wcscpy(c, reinterpret_cast<wchar_t*>(addr));
-        uint8_t  ch = (uint8_t)_wtoi(c);
-        char * buffer = new char[4];
-        sprintf(buffer, "%d", ch);
-        memcpy(&ch, buffer, sizeof(uint8_t));
-        delete buffer;
-        delete c;
-        qvc::QChar* qc = new qvc::QChar((uint8_t)ch);
-        uint64_t    qu = reinterpret_cast<uint64_t>((void*)qc);
-        current_ptr    = qu;
-        return current_ptr ;
-    }
-    else if (value == symbolTypeEnum::stQChar_WideChar) {
-        wchar_t * c = new wchar_t[16];
-        wcscpy(c, reinterpret_cast<wchar_t*>(addr));
-        uint16_t  ch = _wtoi(c);
-        delete c;
-        std::wcout << L"wideChar: " << ch << std::endl;
-        qvc::QChar* qc = new qvc::QChar(ch);
-        uint64_t    qu = reinterpret_cast<uint64_t>((void*)qc);
-        current_ptr    = qu;
-        std::wcout << L"qc: " << std::hex << qu << std::endl;
-        return current_ptr;
-    }
-    else if (value == symbolTypeEnum::stQChar_Word) {
-        WORD ch = 32;
-        qvc::QChar* qc = new qvc::QChar((WORD)ch);
-        qc->setType(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-    }   else if (value == symbolTypeEnum::stQChar_ShortInt) {
-        short ch = 32;
-        qvc::QChar* qc = new qvc::QChar((short)ch);
-        qc->setType(ch);
-        map_QChar.push_back(qc);
-        symbol_map[p_sname] = std::make_unique<TypeTypes>(qc);
-    }
+    
     return current_ptr;
 }
 
@@ -97,13 +48,19 @@ Igetsymbol(std::wstring&& p_sname) {
         std::visit([](auto&& arg) {
             using T = std::decay_t<decltype(arg)>;
             if constexpr (std::is_same_v<T, uint32_t>) {
+                #ifdef DEBUG
                 std::wcout << L"Integer: " << arg << std::endl;
+                #endif
                 return true;
             }   else if constexpr (std::is_same_v<T, float>) {
+                #ifdef DEBUG
                 std::wcout << L"Float: " << arg << std::endl;
+                #endif
                 return true;
             }   else if constexpr (std::is_same_v<T, std::wstring>) {
+                #ifdef DEBUG
                 std::wcout << L"String: " << arg << std::endl;
+                #endif
                 return true;
             }   else if constexpr (std::is_same_v<T, qvc::QChar*>) {
                 current_ptr = reinterpret_cast<uint64_t>(&arg);
@@ -148,8 +105,8 @@ extern "C" {
 DLL_EXPORT void
 addsymbol(wchar_t* p_name, uint32_t cc)
 {
-    Iaddsymbol(p_name, 1, 0);
-    Igetsymbol(p_name);
+    //Iaddsymbol(p_name, 1, 0);
+    //Igetsymbol(p_name);
 }
 };
 

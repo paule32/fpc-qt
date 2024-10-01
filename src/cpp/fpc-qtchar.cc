@@ -4,7 +4,7 @@
 // \copy   All rights reserved
 // ---------------------------------------------------------------------------
 # include "fpc-qt.h"
-
+#define DEBUG
 namespace qvc {
 
 qvc::QChar::QChar(void      ) { origin = new ::QChar( ); }
@@ -15,58 +15,17 @@ qvc::QChar::QChar(uint32_t t) { origin = new ::QChar(t); }
 qvc::QChar::QChar(wchar_t  t) { origin = new ::QChar(t); }
 qvc::QChar::QChar(short    t) { origin = new ::QChar(t); }
 
-void qvc::QChar::setType(char     t) { qchar_types = static_cast<char    >( t ); }
-void qvc::QChar::setType(uint8_t  t) { qchar_types = static_cast<uint8_t >( t ); }
-void qvc::QChar::setType(uint16_t t) { qchar_types = static_cast<uint16_t>( t ); }
-void qvc::QChar::setType(uint32_t t) { qchar_types = static_cast<uint32_t>( t ); }
-void qvc::QChar::setType(wchar_t  t) { qchar_types = static_cast<wchar_t >( t ); }
-void qvc::QChar::setType(short    t) { qchar_types = static_cast<short   >( t ); }
-
-symbolTypeEnum
-qvc::QChar::getType(void) const
-{
-    symbolTypeEnum result = stUnknown;
-    
-    if (std::holds_alternative<char    >(qchar_types)) result = stQChar_Char;     else
-    if (std::holds_alternative<uint8_t >(qchar_types)) result = stQChar_AnsiChar; else
-    if (std::holds_alternative<uint16_t>(qchar_types)) result = stQChar_WideChar; else
-    if (std::holds_alternative<uint32_t>(qchar_types)) result = stQChar_DWord;    else
-    if (std::holds_alternative<wchar_t >(qchar_types)) result = stQChar_Word;     else
-    if (std::holds_alternative<short   >(qchar_types)) result = stQChar_ShortInt; else {
-        #ifdef FPC
-            ErrorMessage("Error: type out of bounds.");
-        #else
-            ErrorMessage(L"Error: type out of bounds.");
-        #endif
-        exit(1);
-    }
+bool
+qvc::QChar::isAscii() const {
+    bool result = false;
     return result;
 }
 
 bool
-qvc::QChar::isAscii() const {
-    bool result = false;
-    symbolTypeEnum resultype = getType();
-    if (resultype == stQChar_Char) {
-        char c = std::holds_alternative<char>(qchar_types);
-        if (std::isalpha(c)) {
-            result = true;
-        }   else {
-            result = false;
-        }
-    }   else {
-        #ifdef FPC
-            ErrorMessage("QChar is not a CHAR");
-        #else
-            ErrorMessage(L"QChar is not a CHAR");
-        #endif
-    }   return result;
-}
-
-bool
 qvc::QChar::isDigit() const {
-    if (nullptr != origin)
-    return origin->isDigit();
+    //if (nullptr != origin)
+    //return origin->isDigit();
+    
     return false;
 }
 
@@ -78,9 +37,17 @@ qvc::QChar::isLetter() const {
 }
 
 bool
-qvc::QChar::isLetterOrNumber() const {
-    if (nullptr != origin)
-    return origin->isLetterOrNumber();
+qvc::QChar::isLetterOrNumber() const
+{
+    if (!strcmp(ptr_val->NName, "smallint")) {
+        std::cout << ptr_val->Value_s2 << std::endl;
+        if ((ptr_val->Value_s2 >= -32768) && (ptr_val->Value_s2 <= 32767)) {
+            return true;
+        }   else {
+            return false;
+        }
+    }
+    
     return false;
 }
 
@@ -114,8 +81,14 @@ qvc::QChar::isNull() const {
 
 bool
 qvc::QChar::isNumber() const {
-    if (nullptr != origin)
-    return origin->isNumber();
+    if (!strcmp(ptr_val->NName, "smallint")) {
+        std::cout << ptr_val->Value_s2 << std::endl;
+        if ((ptr_val->Value_s2 >= -32768) && (ptr_val->Value_s2 <= 32767)) {
+            return true;
+        }   else {
+            return false;
+        }
+    }
     return false;
 }
 
@@ -232,28 +205,60 @@ check_origin(::QChar * addr)
 extern "C" {
 
 DLL_EXPORT uint64_t
-ctor_QChar(wchar_t* p_name, uint32_t sym_type, uint64_t addr)
+ctor_QChar(wchar_t* p_name, uint64_t addr)
 {
-    std::wcout << L"CTOR mem: 0x" << std::hex <<  addr << std::dec << std::endl;
-    std::wcout << L"CTOR mem:   " << std::dec << reinterpret_cast<char*>(addr) << std::endl;
-    std::wcout << L"CTOR sym:   " << std::dec << sym_type << std::endl;
+    #ifdef DEBUG
+    ClassVHelper * vhelper = new ClassVHelper;
     
-    current_ptr = Iaddsymbol(p_name, sym_type, addr);
+    vhelper->VType = reinterpret_cast<ClassVHelper*>(addr)->VType;
+    
+    vhelper->Value_s1 = reinterpret_cast<ClassVHelper*>(addr)->Value_s1;
+    vhelper->Value_s2 = reinterpret_cast<ClassVHelper*>(addr)->Value_s2;
+    vhelper->Value_s3 = reinterpret_cast<ClassVHelper*>(addr)->Value_s3;
+    vhelper->Value_s4 = reinterpret_cast<ClassVHelper*>(addr)->Value_s4;
+    //
+    vhelper->Value_u1 = reinterpret_cast<ClassVHelper*>(addr)->Value_u1;
+    vhelper->Value_u2 = reinterpret_cast<ClassVHelper*>(addr)->Value_u2;
+    vhelper->Value_u3 = reinterpret_cast<ClassVHelper*>(addr)->Value_u3;
+    vhelper->Value_u4 = reinterpret_cast<ClassVHelper*>(addr)->Value_u4;
+    
+    vhelper->NLength = reinterpret_cast<ClassVHelper*>(addr)->NLength;
+    vhelper->SLength = reinterpret_cast<ClassVHelper*>(addr)->SLength;
+    
+    vhelper->NName  = new char[vhelper->NLength+1];
+    vhelper->SName  = new char[vhelper->SLength+1];
+    
+    strcpy(vhelper->NName, reinterpret_cast<ClassVHelper*>(addr)->NName);
+    strcpy(vhelper->SName, reinterpret_cast<ClassVHelper*>(addr)->SName);
+    
+    std::wcout << L"CTOR mem:  0x"
+               << std::hex << addr
+               << std::dec << std::endl;
+    std::wcout << L"CTOR sym:  " << vhelper->VType << std::endl;
+    std::wcout << L"CTOR str:  " << vhelper->SName << std::endl;
+//  std::wcout << L"CTOR val:  " << vhelper->Value << std::endl;
+
+    #endif
+    
+    current_ptr = Iaddsymbol(p_name, vhelper);
+    
+    #ifdef DEBUG
     std::wcout << L"curptr: " << std::hex << current_ptr << std::endl;
-    //Igetsymbol(p_name);
+    #endif
+    
     return current_ptr;
 }
 
 DLL_EXPORT void
 dtor_QChar(uint64_t addr)
 {
-    std::cout << "hallo dtor 11" << std::endl;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-    std::cout << "hallo dtor 22" << std::endl;
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     if (nullptr != objptr->origin)
     delete objptr->origin;
-    std::cout << "hallo dtor 33" << std::endl;
+    #ifdef DEBUG
+    std::cout << "dtor QChar" << std::endl;
+    #endif
 }
 
 DLL_EXPORT bool
@@ -271,17 +276,25 @@ isAscii_QChar(uint64_t addr)
 DLL_EXPORT bool
 isDigit_QChar(uint64_t addr)
 {
+    std::cout << "uint8_t value" << std::endl;
     bool result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    result = check_origin(objptr->origin);
-    if (!result) {
-        result = false;
-    }   else {
-        std::wcout << L"isdiiiigg" << std::endl;
-        result = objptr->origin->isDigit();
-    }
+    //objptr->qchar_types = static_cast<uint8_t>(value);
+    
+    /*char buffer[200];
+    sprintf(buffer,"%d", value);
+    
+    int  i = 0;
+    for (i = 0; i < 200; i++) {
+        if (isdigit(buffer[i])) {
+            result = true;
+        }   else {
+            result = false;
+            break;
+        }
+    }*/
     return result;
 }
 
@@ -300,13 +313,13 @@ isLetter_QChar(uint64_t addr)
 DLL_EXPORT bool
 isLetterOrNumber_QChar(uint64_t addr)
 {
-    bool   result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
-
-    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    check_pointer(addr,  reinterpret_cast<uint64_t>(objptr));
+    
     if (objptr->isLetterOrNumber())
-    result = true;
-    return result;
+    return true;
+
+    return false;
 }
 
 DLL_EXPORT bool
@@ -341,8 +354,8 @@ isNonCharacter_QChar(uint64_t addr)
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     if (objptr->isNonCharacter())
-    result = true;
-    return result;
+    return true;
+    return false;
 }
 
 DLL_EXPORT bool
@@ -360,7 +373,7 @@ isNull_QChar(uint64_t addr)
 DLL_EXPORT bool
 isNumber_QChar(uint64_t addr)
 {
-    bool   result = false;
+    bool result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
