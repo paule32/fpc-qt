@@ -1,8 +1,0 @@
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.h:126: warning: Found non-existing group 'CreateQChar' for the command '@ingroup', ignoring command
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.h:138: warning: Found non-existing group 'CreateQString' for the command '@ingroup', ignoring command
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.h:43: warning: Documentation for undefined enum 'symbolType' found.
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.cc:119: warning: The following parameter of qvc::addsymbol(wchar_t *p_name, uint32_t cc) is not documented:
-  parameter 'cc'
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.cc:18: warning: argument 'e_value' of command @param is not found in the argument list of qvc::Iaddsymbol(const std::wstring &p_sname, int value)
-E:/Projekte/AthensProjekte/1/dox/cpp/fpc-qt.cc:18: warning: The following parameter of qvc::Iaddsymbol(const std::wstring &p_sname, int value) is not documented:
-  parameter 'value'
