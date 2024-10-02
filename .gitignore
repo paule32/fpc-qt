@@ -6,7 +6,6 @@
 /FPCqt4Linux
 /obj_cpp
 /pas/__history
-/readme
 win64/Release/QCharClass.ppu
 win64/Release/QCharClass.o
 win64/Release/misc.ppu
@@ -29,3 +28,4 @@ dox/project.chm
 dox/warnings.log
 dox/project.chi
 /pas/__recovery
+/readme
