@@ -355,7 +355,7 @@
            </remarks>
         </devnotes>
         <parameters>
-          <parameter name="c" type="AnsiChar" />
+          <parameter name="c" type="Char" />
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
@@ -369,13 +369,6 @@
            <remarks>
            Dies ist der WideChar Konstruktor für QChar.
            </remarks>
-        </devnotes>
-        <parameters>
-          <parameter name="c" type="Char" />
-        </parameters>
-      </constructor>
-      <constructor name="Create" visibility="public">
-        <devnotes>
            <summary>
            Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
            </summary>
@@ -420,6 +413,15 @@
         </devnotes>
         <parameters>
           <parameter name="c" type="SmallInt" />
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="c">
+            <array name="c">
+              <element type="Char" />
+            </array>
+          </parameter>
         </parameters>
       </constructor>
       <destructor name="Destroy" visibility="public">

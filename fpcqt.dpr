@@ -24,7 +24,7 @@ var
     myQChar: QChar;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create(42);
+    myQChar := QChar.Create(['c', '1']);
     if myQChar.isLetterOrNumber then
     begin
         WriteLn('ok');

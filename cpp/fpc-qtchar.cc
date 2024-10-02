@@ -31,8 +31,13 @@ qvc::QChar::QChar(short    t) { origin = new ::QChar(t); }
  */
 bool
 qvc::QChar::isAscii() const {
-    bool result = false;
-    return result;
+    if (!strcmp(ptr_val->NName, "char")) {
+        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
+        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool
@@ -45,24 +50,47 @@ qvc::QChar::isDigit() const {
 
 bool
 qvc::QChar::isLetter() const {
-    if (nullptr != origin)
-    return origin->isLetter();
+    if (!strcmp(ptr_val->NName, "char")) {
+        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
+        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
+            return true;
+        }
+    }
     return false;
 }
 
 bool
-qvc::QChar::isLetterOrNumber() const
-{
+qvc::QChar::isLetterOrNumber() const {
     if (!strcmp(ptr_val->NName, "smallint")) {
         std::cout << ptr_val->Value_s2 << std::endl;
+        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
+        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
+            return true;
+        }
         if ((ptr_val->Value_s2 >= -32768) && (ptr_val->Value_s2 <= 32767)) {
             return true;
         }   else {
             return false;
         }
-    }
-    
-    return false;
+    }   else
+    if (!strcmp(ptr_val->NName, "char")) {
+        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
+        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
+            return true;
+        }
+    }   else
+    if (!strcmp(ptr_val->NName, "arraychar")) {
+        std::cout << "array c++ char" << std::endl;
+        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
+        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))
+        ||  ((ptr_val->Value_u2 >= 'a') && (ptr_val->Value_u2 <= 'z'))
+        ||  ((ptr_val->Value_u2 >= 'A') && (ptr_val->Value_u2 <= 'Z'))
+        ||  ((ptr_val->Value_u1 >= '0') && (ptr_val->Value_u1 <= '9'))
+        ||  ((ptr_val->Value_u2 >= '0') && (ptr_val->Value_u2 <= '9'))) {
+            return true;
+        }
+        return false;
+    }   return false;
 }
 
 bool
@@ -221,7 +249,6 @@ extern "C" {
 DLL_EXPORT uint64_t
 ctor_QChar(wchar_t* p_name, uint64_t addr)
 {
-    #ifdef DEBUG
     ClassVHelper * vhelper = new ClassVHelper;
     
     vhelper->VType = reinterpret_cast<ClassVHelper*>(addr)->VType;
@@ -248,11 +275,10 @@ ctor_QChar(wchar_t* p_name, uint64_t addr)
     std::wcout << L"CTOR mem:  0x"
                << std::hex << addr
                << std::dec << std::endl;
-    std::wcout << L"CTOR sym:  " << vhelper->VType << std::endl;
-    std::wcout << L"CTOR str:  " << vhelper->SName << std::endl;
-//  std::wcout << L"CTOR val:  " << vhelper->Value << std::endl;
+    std::wcout << L"CTOR sym:  " << vhelper->VType    << std::endl;
+    std::wcout << L"CTOR str:  " << vhelper->SName    << std::endl;
+    std::wcout << L"CTOR val:  " << vhelper->Value_u1 << std::endl;
 
-    #endif
     
     current_ptr = Iaddsymbol(p_name, vhelper);
     
@@ -275,6 +301,7 @@ dtor_QChar(uint64_t addr)
     #endif
 }
 
+// ok
 DLL_EXPORT bool
 isAscii_QChar(uint64_t addr)
 {
@@ -315,6 +342,7 @@ isDigit_QChar(uint64_t addr)
 DLL_EXPORT bool
 isLetter_QChar(uint64_t addr)
 {
+    std::cout << "letter or not" << std::endl;
     bool   result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 

@@ -8,6 +8,7 @@
     {$mode delphi}{$H+}
 {$else}
     {$if CompilerVersion >= 36}
+    {$define RADCE}
     {$M+}
     {$endif}
 {$endif}
@@ -199,7 +200,7 @@ type
         /// <remarks>
         /// Dies ist der AnsiChar Konstruktor für QChar.
         /// </remarks>
-        constructor Create(c: AnsiChar); overload;
+        constructor Create(c: Char); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für einen WideChar als Parameter.
@@ -210,7 +211,9 @@ type
         /// <remarks>
         /// Dies ist der WideChar Konstruktor für QChar.
         /// </remarks>
+        {$ifndef RADCE}
         constructor Create(c: WideChar); overload;
+        {$endif}
 
         /// <summary>
         /// Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
@@ -244,6 +247,9 @@ type
         /// Dies ist der SmallInt Konstruktor für QChar.
         /// </remarks>
         constructor Create(c: int16); overload;
+
+        constructor Create(c: Array of Char); overload;
+
         destructor Destroy; override;
 
         function Lt(const B: QChar): Boolean;
@@ -381,38 +387,27 @@ end;
 /// <param name="c">
 ///  Ein AnsiChar für das Zeichen.
 /// </param>
-constructor QChar.Create(c: AnsiChar);
+constructor QChar.Create(c: Char);
 var
-  memvar: AnsiChar;
-  ptr: Pointer;
+    pch_str: PChar;
 begin
-  inherited Create;
+    inherited Create;
+ErrorMessage('kukuku  char');
+    pch_str          := 'char';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_u1 := Byte(c);
+    ptr_val.NLength  := strlen(pch_str);
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_Char';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
 
-  memvar := c;
-  ptr := @memvar;
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
 
-  {$ifdef DEBUG}
-  GetMem(str_debug, 2048);
-  str_debug := StrCopy(str_debug, PChar('->' + #13#10));
-  str_debug := StrCat (str_debug, PChar(Format('create ansichar: 0x%p', [ptr])));
-  ErrorMessage(PChar(str_debug));
-  Dispose(str_debug);
-  {$endif}
-
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_AnsiChar'), ptr);
-
-  {$ifdef DEBUG}
-  GetMem(str_debug, 2048);
-  str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
-  str_debug := StrCat(str_debug, PChar(Format('ansichar: 0x%p', [ptr_cc])));
-  ErrorMessage(str_debug);
-  Dispose(str_debug);
-  {$endif}
-
-  if not check_ptr(ClassName, getOrigin) then
-  begin Free; exit; end;
-
-  c_type := Ord(c);
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
 end;
 
 /// <summary>
@@ -421,13 +416,14 @@ end;
 /// <param name="c">
 ///  Ein WideChar für das Zeichen.
 /// </param>
+{$ifndef RADCE}
 constructor QChar.Create(c: WideChar);
 var
   memvar: WideChar;
   ptr: Pointer;
 begin
   inherited Create;
-
+ErrorMessage('kukuku  wwwwchar');
   memvar := c;
   ptr := @memvar;
 
@@ -454,6 +450,7 @@ begin
 
   c_type := Ord(c);
 end;
+{$endif}
 
 /// <summary>
 ///  Erstellt eine Instanz der Klasse QChar mit einen DWORD als Parameter.
@@ -526,12 +523,38 @@ begin
     ptr_val.SLength  := strlen(pch_str);
     ptr_val.SName    := pch_str;
 
-    ptr_cc := ctor_QChar(PChar('ctor_QChar_SmallInt'), @ptr_val);
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
 
     c_type := c;
+end;
+
+constructor QChar.Create(c: Array of Char);
+var
+    pch_str: PChar;
+begin
+    {$ifdef DEBUG}
+    writeln('array of char ctor delp');
+    {$endif}
+
+    pch_str          := 'arraychar';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_u1 := int8(c[0]);
+    ptr_val.Value_u2 := int8(c[1]);
+    ptr_val.NLength  := 2;
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfChar';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
+
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
 end;
 
 /// <summary>
@@ -574,6 +597,7 @@ end;
 
 function QChar.isAscii: Boolean;
 begin
+writeln('check if ascii');
     result := isAscii_QChar(uint64(ptr_cc));
 end;
 
@@ -599,7 +623,7 @@ begin
   result := isLetter_QChar(uint64(ptr_cc));
 end;
 
-function QChar.isLetterOrNumber: Boolean;
+function QChar.isLetterOrNumber: Boolean;  // done. getestet
 begin
   result := isLetterOrNumber_QChar(uint64(ptr_cc));
 end;
@@ -627,7 +651,7 @@ begin
   result := isNull_QChar(uint64(ptr_cc));
 end;
 
-function QChar.isNumber: Boolean;  // getestet
+function QChar.isNumber: Boolean;  // done. getestet
 begin
     result := isNumber_QChar(uint64(ptr_cc));
 end;
