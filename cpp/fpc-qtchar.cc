@@ -80,7 +80,6 @@ qvc::QChar::isLetterOrNumber() const {
         }
     }   else
     if (!strcmp(ptr_val->NName, "arraychar")) {
-        std::cout << "array c++ char" << std::endl;
         if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
         ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))
         ||  ((ptr_val->Value_u2 >= 'a') && (ptr_val->Value_u2 <= 'z'))
@@ -89,8 +88,12 @@ qvc::QChar::isLetterOrNumber() const {
         ||  ((ptr_val->Value_u2 >= '0') && (ptr_val->Value_u2 <= '9'))) {
             return true;
         }
-        return false;
-    }   return false;
+    }   else
+    if (!strcmp(ptr_val->NName, "arraybyte")) {
+        std::cout << "array c++ byte" << std::endl;
+        return true;
+    }
+    return false;
 }
 
 bool

@@ -419,6 +419,15 @@
         <parameters>
           <parameter name="c">
             <array name="c">
+              <element type="Byte" />
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="c">
+            <array name="c">
               <element type="Char" />
             </array>
           </parameter>

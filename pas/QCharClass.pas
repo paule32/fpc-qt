@@ -248,6 +248,7 @@ type
         /// </remarks>
         constructor Create(c: int16); overload;
 
+        constructor Create(c: Array of Byte); overload;
         constructor Create(c: Array of Char); overload;
 
         destructor Destroy; override;
@@ -529,6 +530,32 @@ begin
     begin Free; exit; end;
 
     c_type := c;
+end;
+
+constructor QChar.Create(c: Array of Byte);
+var
+    pch_str: PChar;
+begin
+    {$ifdef DEBUG}
+    writeln('array of byte ctor delp');
+    {$endif}
+
+    pch_str          := 'arraybyte';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_u1 := int8(c[0]);
+    ptr_val.Value_u2 := int8(c[1]);
+    ptr_val.NLength  := 2;
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfByte';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
+
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
 end;
 
 constructor QChar.Create(c: Array of Char);
