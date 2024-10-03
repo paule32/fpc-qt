@@ -30,7 +30,7 @@ echo "create Windows fpcqt.dll"
 cd $BASEDIR
 make
 echo "press any key to exit."
-read -n 1 -s
+#read -n 1 -s
 exit
 
 echo "compile: server.cc"

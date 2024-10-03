@@ -4,582 +4,751 @@
     <link rel="stylesheet" type="text/css" href="style_dark.css"/>
   </head>
   <body>
-    <h1>Delphi Dokumentation f&#252;r Projekt</h1>
-    <div class="namespace">
-      <h2>Namensraum: QCharClass</h2>
-      <div class="platform">Platform: Win64</div>
-      <h2>Klasse: QChar</h2>
-      <h3>Erbt von</h3>
-      <table>
-        <tr>
-          <th>Vererbter-Klassen-Name</th>
-          <th>Namensraum</th>
-        </tr>
-        <tr>
-          <td>TObject</td>
-          <td>System</td>
-        </tr>
-      </table>
-      <h2>Aufz&#228;hlung: QChar_Category</h2>
-      <table>
-        <tr>
-          <th>Konstante</th>
-          <th>Wert</th>
-        </tr>
-        <tr>
-          <td class="name-cell">Mark_NonSpacing</td>
-          <td class="value-cell">0</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Mark_SpacingCombining</td>
-          <td class="value-cell">1</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Mark_Enclosing</td>
-          <td class="value-cell">2</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Number_DecimalDigit</td>
-          <td class="value-cell">3</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Number_Letter</td>
-          <td class="value-cell">4</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Number_Other</td>
-          <td class="value-cell">5</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Separator_Space</td>
-          <td class="value-cell">6</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Separator_Line</td>
-          <td class="value-cell">7</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Separator_Paragraph</td>
-          <td class="value-cell">8</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Other_Control</td>
-          <td class="value-cell">9</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Other_Format</td>
-          <td class="value-cell">10</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Other_Surrogate</td>
-          <td class="value-cell">11</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Other_PrivateUse</td>
-          <td class="value-cell">12</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Other_NotAssigned</td>
-          <td class="value-cell">13</td>
-        </tr>
-      </table>
-      <h2>Aufz&#228;hlung: QChar_Decomposition</h2>
-      <table>
-        <tr>
-          <th>Konstante</th>
-          <th>Wert</th>
-        </tr>
-        <tr>
-          <td class="name-cell">NoDecomposition</td>
-          <td class="value-cell">0</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Canonical</td>
-          <td class="value-cell">1</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Font</td>
-          <td class="value-cell">2</td>
-        </tr>
-        <tr>
-          <td class="name-cell">NoBreak</td>
-          <td class="value-cell">3</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Initial</td>
-          <td class="value-cell">4</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Medial</td>
-          <td class="value-cell">5</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Final</td>
-          <td class="value-cell">6</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Isolated</td>
-          <td class="value-cell">7</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Circle</td>
-          <td class="value-cell">8</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Super</td>
-          <td class="value-cell">9</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Sub</td>
-          <td class="value-cell">10</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Vertical</td>
-          <td class="value-cell">11</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Wide</td>
-          <td class="value-cell">12</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Narrow</td>
-          <td class="value-cell">13</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Small</td>
-          <td class="value-cell">14</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Square</td>
-          <td class="value-cell">15</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Compat</td>
-          <td class="value-cell">16</td>
-        </tr>
-        <tr>
-          <td class="name-cell">Fraction</td>
-          <td class="value-cell">17</td>
-        </tr>
-      </table>
-      <h2>Aufz&#228;hlung: QChar_Direction</h2>
-      <table>
-        <tr>
-          <th>Konstante</th>
-          <th>Wert</th>
-        </tr>
-        <tr>
-          <td class="name-cell">DirL</td>
-          <td class="value-cell">0</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirR</td>
-          <td class="value-cell">1</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirEN</td>
-          <td class="value-cell">2</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirES</td>
-          <td class="value-cell">3</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirET</td>
-          <td class="value-cell">4</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirAN</td>
-          <td class="value-cell">5</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirCS</td>
-          <td class="value-cell">6</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirB</td>
-          <td class="value-cell">7</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirS</td>
-          <td class="value-cell">8</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirWS</td>
-          <td class="value-cell">9</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirON</td>
-          <td class="value-cell">10</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirLRE</td>
-          <td class="value-cell">11</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirLRO</td>
-          <td class="value-cell">12</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirAL</td>
-          <td class="value-cell">13</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirRLE</td>
-          <td class="value-cell">14</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirRLO</td>
-          <td class="value-cell">15</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirPDF</td>
-          <td class="value-cell">16</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirNSM</td>
-          <td class="value-cell">17</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirBN</td>
-          <td class="value-cell">18</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirLRI</td>
-          <td class="value-cell">19</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirRLI</td>
-          <td class="value-cell">20</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirFSI</td>
-          <td class="value-cell">21</td>
-        </tr>
-        <tr>
-          <td class="name-cell">DirPDI</td>
-          <td class="value-cell">22</td>
-        </tr>
-      </table>
-      <h3>Konstruktoren</h3>
-      <table>
-        <tr>
-          <th>Konstruktor</th>
-          <th>Parameter</th>
-          <th>Kurzbeschreibung</th>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td/>
-          <td/>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: Byte</td>
-          <td>
+    <div id="container">
+      <h1>Delphi Dokumentation f&#252;r Projekt</h1>
+      <div class="namespace">
+        <h2>Namensraum: QCharClass</h2>
+        <div class="platform">Platform: Win64</div>
+        <h2>Klasse: QChar</h2>
+        <h3>Erbt von</h3>
+        <table>
+          <tr>
+            <th>Vererbter-Klassen-Name</th>
+            <th>Namensraum</th>
+          </tr>
+          <tr>
+            <td>TObject</td>
+            <td>System</td>
+          </tr>
+        </table>
+        <h2>Aufz&#228;hlung: QChar_Category</h2>
+        <table>
+          <tr>
+            <th>Konstante</th>
+            <th>Wert</th>
+          </tr>
+          <tr>
+            <td class="name-cell">Mark_NonSpacing</td>
+            <td class="value-cell">0</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Mark_SpacingCombining</td>
+            <td class="value-cell">1</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Mark_Enclosing</td>
+            <td class="value-cell">2</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Number_DecimalDigit</td>
+            <td class="value-cell">3</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Number_Letter</td>
+            <td class="value-cell">4</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Number_Other</td>
+            <td class="value-cell">5</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Separator_Space</td>
+            <td class="value-cell">6</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Separator_Line</td>
+            <td class="value-cell">7</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Separator_Paragraph</td>
+            <td class="value-cell">8</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Other_Control</td>
+            <td class="value-cell">9</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Other_Format</td>
+            <td class="value-cell">10</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Other_Surrogate</td>
+            <td class="value-cell">11</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Other_PrivateUse</td>
+            <td class="value-cell">12</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Other_NotAssigned</td>
+            <td class="value-cell">13</td>
+          </tr>
+        </table>
+        <h2>Aufz&#228;hlung: QChar_Decomposition</h2>
+        <table>
+          <tr>
+            <th>Konstante</th>
+            <th>Wert</th>
+          </tr>
+          <tr>
+            <td class="name-cell">NoDecomposition</td>
+            <td class="value-cell">0</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Canonical</td>
+            <td class="value-cell">1</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Font</td>
+            <td class="value-cell">2</td>
+          </tr>
+          <tr>
+            <td class="name-cell">NoBreak</td>
+            <td class="value-cell">3</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Initial</td>
+            <td class="value-cell">4</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Medial</td>
+            <td class="value-cell">5</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Final</td>
+            <td class="value-cell">6</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Isolated</td>
+            <td class="value-cell">7</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Circle</td>
+            <td class="value-cell">8</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Super</td>
+            <td class="value-cell">9</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Sub</td>
+            <td class="value-cell">10</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Vertical</td>
+            <td class="value-cell">11</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Wide</td>
+            <td class="value-cell">12</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Narrow</td>
+            <td class="value-cell">13</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Small</td>
+            <td class="value-cell">14</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Square</td>
+            <td class="value-cell">15</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Compat</td>
+            <td class="value-cell">16</td>
+          </tr>
+          <tr>
+            <td class="name-cell">Fraction</td>
+            <td class="value-cell">17</td>
+          </tr>
+        </table>
+        <h2>Aufz&#228;hlung: QChar_Direction</h2>
+        <table>
+          <tr>
+            <th>Konstante</th>
+            <th>Wert</th>
+          </tr>
+          <tr>
+            <td class="name-cell">DirL</td>
+            <td class="value-cell">0</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirR</td>
+            <td class="value-cell">1</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirEN</td>
+            <td class="value-cell">2</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirES</td>
+            <td class="value-cell">3</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirET</td>
+            <td class="value-cell">4</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirAN</td>
+            <td class="value-cell">5</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirCS</td>
+            <td class="value-cell">6</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirB</td>
+            <td class="value-cell">7</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirS</td>
+            <td class="value-cell">8</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirWS</td>
+            <td class="value-cell">9</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirON</td>
+            <td class="value-cell">10</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirLRE</td>
+            <td class="value-cell">11</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirLRO</td>
+            <td class="value-cell">12</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirAL</td>
+            <td class="value-cell">13</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirRLE</td>
+            <td class="value-cell">14</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirRLO</td>
+            <td class="value-cell">15</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirPDF</td>
+            <td class="value-cell">16</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirNSM</td>
+            <td class="value-cell">17</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirBN</td>
+            <td class="value-cell">18</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirLRI</td>
+            <td class="value-cell">19</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirRLI</td>
+            <td class="value-cell">20</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirFSI</td>
+            <td class="value-cell">21</td>
+          </tr>
+          <tr>
+            <td class="name-cell">DirPDI</td>
+            <td class="value-cell">22</td>
+          </tr>
+        </table>
+        <h3>Konstruktoren</h3>
+        <table>
+          <tr>
+            <th>Konstruktor</th>
+            <th>Parameter</th>
+            <th>Kurzbeschreibung</th>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;"/>
+            <td/>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Byte</td>
+            <td>
            Erstellt eine Instanz von QChar mit einen Byte als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: AnsiChar</td>
-          <td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Char</td>
+            <td>
            Erstellt eine Instanz f&#252;r ein AnsiChar mit einen Byte als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: Char</td>
-          <td>
-           Erstellt eine Instanz f&#252;r einen WideChar als Parameter.
-           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: Cardinal</td>
-          <td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Cardinal</td>
+            <td>
            Erstellt eine Instanz f&#252;r ein DWORD Zeichen mit DWORD als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: Word</td>
-          <td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Word</td>
+            <td>
            Erstellt eine Instanz f&#252;r ein WORD Zeichen mit WORD als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td>Create</td>
-          <td>c: SmallInt</td>
-          <td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: SmallInt</td>
+            <td>
            Erstellt eine Instanz f&#252;r ein SmallInt Zeichen mit Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
-        </tr>
-      </table>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Array of
+                                <span style="color:orange;">Byte</span></td>
+            <td>
+           Erstellt eine Instanz f&#252;r zwei 8-Bit Array of Byte Zeichen, die im
+           Parameter-Block angegeben sind.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Array of
+                                <span style="color:orange;">Char</span></td>
+            <td>
+           Erstellt eine Instanz f&#252;r zwei 8-Bit Array of Char Zeichen, die im
+           Parameter-Block angegeben sind.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Array of
+                                <span style="color:orange;">Word</span></td>
+            <td>
+           Erstellt eine Instanz f&#252;r zwei 16-Bit Array of Word Zeichen, die im
+           Parameter-Block angegeben sind.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Array of
+                                <span style="color:orange;">Cardinal</span></td>
+            <td>
+           Erstellt eine Instanz f&#252;r zwei 32-Bit Array of DWord Zeichen, die im
+           Parameter-Block angegeben sind.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+          </tr>
+        </table>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">no param</div>
+          </div>
+          <p/>
+        </div>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/>Byte</span></div></div></li>
             </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">no param</div>
-        </div>
-        <p/>
-      </div>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
-            </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Byte</span></li>
           </div>
         </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
            Dies ist der Standardkonstruktors f&#252;r QChar.
-           </p>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/>Char</span></div></div></li>
             </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">AnsiChar</span></li>
           </div>
         </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
            Dies ist der AnsiChar Konstruktor f&#252;r QChar.
-           </p>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/>Cardinal</span></div></div></li>
             </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Char</span></li>
           </div>
         </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
-           Dies ist der WideChar Konstruktor f&#252;r QChar.
-           </p>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
-            </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Cardinal</span></li>
-          </div>
-        </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
            Dies ist der DWORD Konstruktor f&#252;r QChar.
-           </p>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/>Word</span></div></div></li>
             </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">Word</span></li>
           </div>
         </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
            Dies ist der WORD Konstruktor f&#252;r QChar.
-           </p>
-      <div>
-        <div class="constructor_div">
-          <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
-          <div class="ctor_right">
-                Pascal
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/>SmallInt</span></div></div></li>
             </div>
-        </div>
-        <div class="ctor_container">
-          <div class="param_div">
-            <li>Parameter 1&#160;&#160;&#160;&#160;<span class="parameter">c</span>&#160;&#160;&#160;&#160;<span class="parameter_name">SmallInt</span></li>
           </div>
         </div>
-      </div>
-      <a name="remarks-Create"/>
-      <p class="remarks"><strong>Bemerkungen:</strong><br/>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
            Dies ist der SmallInt Konstruktor f&#252;r QChar.
-           </p>
-      <h3>Funktionen</h3>
-      <table>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>Lt</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>B:
-                        &#160;&#160;&#160;&#160;QChar</td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>Eq</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>B:
-                        &#160;&#160;&#160;&#160;QChar</td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>Gt</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>B:
-                        &#160;&#160;&#160;&#160;QChar</td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isAscii</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isDigit</td>
-          <td>
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/></span>Array of
+                                            <span style="color:orange;">Byte</span></div></div></li>
+            </div>
+          </div>
+        </div>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
+           Dies ist der Array of Byte Konstruktor f&#252;r QChar.
+           Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verf&#252;gung.
+           Es k&#246;nnen mehr als zwei Eintr&#228;ge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei ber&#252;cksichtigt.
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/></span>Array of
+                                            <span style="color:orange;">Char</span></div></div></li>
+            </div>
+          </div>
+        </div>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
+           Dies ist der Array of Byte Konstruktor f&#252;r QChar.
+           Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verf&#252;gung.
+           Es k&#246;nnen mehr als zwei Eintr&#228;ge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei ber&#252;cksichtigt.
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/></span>Array of
+                                            <span style="color:orange;">Word</span></div></div></li>
+            </div>
+          </div>
+        </div>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
+           Dies ist der Array of Byte Konstruktor f&#252;r QChar.
+           Jeder Array-Eintrag stellt ein 16-Bit Zeichen zur Verf&#252;gung.
+           Es k&#246;nnen mehr als zwei Eintr&#228;ge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei ber&#252;cksichtigt.
+           </div>
+        </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left"><span style="color:white;font-wight:normal;">constructor</span>&#160;<span style="color:orange;font-weight:bold;">Create</span></div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">
+              <li>Parameter 1<div style="display:flex;flex-direction:row;"><div style="width:100px;">
+                                        Name:<br/>
+                                        Typ:
+                                    </div><div><span class="parameter">c<br/></span>Array of
+                                            <span style="color:orange;">Cardinal</span></div></div></li>
+            </div>
+          </div>
+        </div>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
+           Dies ist der Array of Byte Konstruktor f&#252;r QChar.
+           Jeder Array-Eintrag stellt ein 32-Bit Zeichen zur Verf&#252;gung.
+           Es k&#246;nnen mehr als zwei Eintr&#228;ge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei ber&#252;cksichtigt.
+           </div>
+        </p>
+        <h3>Funktionen</h3>
+        <table>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Lt</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>B:
+                            &#160;&#160;&#160;&#160;QChar</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Eq</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>B:
+                            &#160;&#160;&#160;&#160;QChar</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Gt</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>B:
+                            &#160;&#160;&#160;&#160;QChar</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isAscii</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isDigit</td>
+            <td>
            pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
            Objekt (Zahl) entspricht.
            <a class="more-link" href="#remarks-isDigit">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
+            <td style="text-align:right;">public</td>
+          </tr>
           <tr>
-            <td colspan="3">
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
               <a name="remarks-isDigit"/>
               <div class="remarks">
                 <p>
@@ -589,593 +758,943 @@
               </div>
             </td>
           </tr>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isLetter</td>
-          <td>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isLetter</td>
+            <td>
            pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
            entspricht.
            <a class="more-link" href="#remarks-isLetter">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isLetterOrNumber</td>
-          <td>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isLetterOrNumber</td>
+            <td>
            pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, Schriftzeichen
            oder ein einzelnes mathematisches Objekt entspricht.
            <a class="more-link" href="#remarks-isLetterOrNumber">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isLower</td>
-          <td>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isLower</td>
+            <td>
            pr&#252;ft, ob das gepeicherte QChar Zeichen ein einzelnes, kleines
            Schriftzeichen entspricht.
            <a class="more-link" href="#remarks-isLower">Mehr...</a></td>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isMark</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isNonCharacter</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Boolean</td>
-          <td>isNull</td>
-          <td>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isMark</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isNonCharacter</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isNull</td>
+            <td>
            testung
            <a class="more-link" href="#remarks-isNull">Mehr...</a></td>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isNumber</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isPrint</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isPunct</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isSpace</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isSurrogate</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isSymbol</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isTitleCase</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isUpper</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Word</td>
+            <td>toLatin1</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Word</td>
+            <td>toLower</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Word</td>
+            <td>toTitleCase</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Word</td>
+            <td>toUpper</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+            <td style="background-color:#555555;">Funktion-Name</td>
+            <td style="background-color:#555555;">Kurzbeschreibung</td>
+            <td style="background-color:#555555;">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>UInt64</td>
+            <td>getOrigin</td>
+            <td/>
+            <td style="text-align:right;">protected</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:gray;">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background-color:black;">
+              <span style="background-color:black;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:black;"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+        </table>
+      </div>
+      <span style="font-weight:bold;color:white;">interne wrapper-Funktionen:</span>
+      <br/>
+      <table>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          <td>Pointer</td>
+          <td>ctor_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isNumber</td>
-          <td/>
+          <td>isAscii_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isPrint</td>
-          <td/>
+          <td>isDigit_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isPunct</td>
-          <td/>
+          <td>isLetter_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isSpace</td>
-          <td/>
+          <td>isLetterOrNumber_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isSurrogate</td>
-          <td/>
+          <td>isLower_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isSymbol</td>
-          <td/>
+          <td>isMark_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isTitleCase</td>
-          <td/>
+          <td>isNonCharacter_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>isUpper</td>
-          <td/>
+          <td>isNull_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isNumber_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isPrint_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isPunct_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isSpace_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isSurrogate_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isSymbol_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isTitleCase_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isUpper_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Byte</td>
+          <td>toAscii_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Byte</td>
+          <td>toLatin1_QChar</td>
+          <td style="text-align:right;">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
+        </tr>
+        <tr>
+          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
+          <td style="background-color:#555555;">Funktion-Name</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Word</td>
-          <td>toLatin1</td>
-          <td/>
+          <td>toLower_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Word</td>
-          <td>toLower</td>
-          <td/>
+          <td>toTitleCase_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
         <tr>
           <td style="background-color:#555555;">R&#252;ckgabetyp</td>
           <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
+          <td style="background-color:#555555;text-align:right;">Sichtbarkeit</td>
         </tr>
         <tr>
           <td>Word</td>
-          <td>toTitleCase</td>
-          <td/>
+          <td>toUpper_QChar</td>
+          <td style="text-align:right;">external public</td>
         </tr>
         <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>Word</td>
-          <td>toUpper</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
-        </tr>
-        <tr>
-          <td style="background-color:#555555;">R&#252;ckgabetyp</td>
-          <td style="background-color:#555555;">Funktion-Name</td>
-          <td style="background-color:#555555;">Kurzbeschreibung</td>
-        </tr>
-        <tr>
-          <td>UInt64</td>
-          <td>getOrigin</td>
-          <td/>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>Parameter:
-                            &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:gray;">
-            <strong>Bemerkungen:</strong>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;">
-            <span style="background-color:black;">keine Bemerkungen</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:black;"/>
-        </tr>
-        <tr>
-          <td colspan="3" style="background-color:orange;"/>
+          <td>Bemerkungen</td>
+          <td colspan="2" style="color:orange;"> keine </td>
         </tr>
       </table>
     </div>

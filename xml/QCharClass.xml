@@ -318,7 +318,6 @@
       <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="94" />
       <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="96" />
       <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="98" />
-      <field name="FVHelper" type="ClassVHelper" visibility="private" size="68" offset="100" />
       <constructor name="Create" visibility="public">
         <devnotes>
 <!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->
@@ -360,15 +359,6 @@
       </constructor>
       <constructor name="Create" visibility="public">
         <devnotes>
-           <summary>
-           Erstellt eine Instanz für einen WideChar als Parameter.
-           </summary>
-           <param name="c">
-           Ein WideChar für das Zeichen.
-           </param>
-           <remarks>
-           Dies ist der WideChar Konstruktor für QChar.
-           </remarks>
            <summary>
            Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
            </summary>
@@ -416,6 +406,21 @@
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für zwei 8-Bit Array of Byte Zeichen, die im
+           Parameter-Block angegeben sind.
+           </summary>
+           <param name="c">
+           Ein Array of Byte für die Zeichen.
+           </param>
+           <remarks>
+           Dies ist der Array of Byte Konstruktor für QChar.
+           Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verfügung.
+           Es können mehr als zwei Einträge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei berücksichtigt.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c">
             <array name="c">
@@ -425,10 +430,73 @@
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für zwei 8-Bit Array of Char Zeichen, die im
+           Parameter-Block angegeben sind.
+           </summary>
+           <param name="c">
+           Ein Array of Byte für die Zeichen.
+           </param>
+           <remarks>
+           Dies ist der Array of Byte Konstruktor für QChar.
+           Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verfügung.
+           Es können mehr als zwei Einträge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei berücksichtigt.
+           </remarks>
+        </devnotes>
         <parameters>
           <parameter name="c">
             <array name="c">
               <element type="Char" />
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für zwei 16-Bit Array of Word Zeichen, die im
+           Parameter-Block angegeben sind.
+           </summary>
+           <param name="c">
+           Ein Array of Byte für die Zeichen.
+           </param>
+           <remarks>
+           Dies ist der Array of Byte Konstruktor für QChar.
+           Jeder Array-Eintrag stellt ein 16-Bit Zeichen zur Verfügung.
+           Es können mehr als zwei Einträge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei berücksichtigt.
+           </remarks>
+        </devnotes>
+        <parameters>
+          <parameter name="c">
+            <array name="c">
+              <element type="Word" />
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für zwei 32-Bit Array of DWord Zeichen, die im
+           Parameter-Block angegeben sind.
+           </summary>
+           <param name="c">
+           Ein Array of Byte für die Zeichen.
+           </param>
+           <remarks>
+           Dies ist der Array of Byte Konstruktor für QChar.
+           Jeder Array-Eintrag stellt ein 32-Bit Zeichen zur Verfügung.
+           Es können mehr als zwei Einträge vorhanden sein, aber nur die
+           ersten zwei Werte werden hierbei berücksichtigt.
+           </remarks>
+        </devnotes>
+        <parameters>
+          <parameter name="c">
+            <array name="c">
+              <element type="Cardinal" />
             </array>
           </parameter>
         </parameters>

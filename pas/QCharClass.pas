@@ -170,7 +170,6 @@ type
         FCategory:      QChar_Category;
         FDecomposition: QChar_Decomposition;
         FDirection:     QChar_Direction;
-        FVHelper:       ClassVHelper;
     public
         /// <summary>
         /// Erstellt eine Instanz von QChar ohne Parameter.
@@ -202,6 +201,7 @@ type
         /// </remarks>
         constructor Create(c: Char); overload;
 
+        {$ifndef RADCE}
         /// <summary>
         /// Erstellt eine Instanz für einen WideChar als Parameter.
         /// </summary>
@@ -211,7 +211,6 @@ type
         /// <remarks>
         /// Dies ist der WideChar Konstruktor für QChar.
         /// </remarks>
-        {$ifndef RADCE}
         constructor Create(c: WideChar); overload;
         {$endif}
 
@@ -248,8 +247,65 @@ type
         /// </remarks>
         constructor Create(c: int16); overload;
 
-        constructor Create(c: Array of Byte); overload;
-        constructor Create(c: Array of Char); overload;
+        /// <summary>
+        /// Erstellt eine Instanz für zwei 8-Bit Array of Byte Zeichen, die im
+        /// Parameter-Block angegeben sind.
+        /// </summary>
+        /// <param name="c">
+        /// Ein Array of Byte für die Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der Array of Byte Konstruktor für QChar.
+        /// Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verfügung.
+        /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
+        /// ersten zwei Werte werden hierbei berücksichtigt.
+        /// </remarks>
+        constructor Create(c: Array of  Byte); overload;
+
+        /// <summary>
+        /// Erstellt eine Instanz für zwei 8-Bit Array of Char Zeichen, die im
+        /// Parameter-Block angegeben sind.
+        /// </summary>
+        /// <param name="c">
+        /// Ein Array of Byte für die Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der Array of Byte Konstruktor für QChar.
+        /// Jeder Array-Eintrag stellt ein 8-Bit Zeichen zur Verfügung.
+        /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
+        /// ersten zwei Werte werden hierbei berücksichtigt.
+        /// </remarks>
+        constructor Create(c: Array of  Char); overload;
+
+        /// <summary>
+        /// Erstellt eine Instanz für zwei 16-Bit Array of Word Zeichen, die im
+        /// Parameter-Block angegeben sind.
+        /// </summary>
+        /// <param name="c">
+        /// Ein Array of Byte für die Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der Array of Byte Konstruktor für QChar.
+        /// Jeder Array-Eintrag stellt ein 16-Bit Zeichen zur Verfügung.
+        /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
+        /// ersten zwei Werte werden hierbei berücksichtigt.
+        /// </remarks>
+        constructor Create(c: Array of  Word); overload;
+
+        /// <summary>
+        /// Erstellt eine Instanz für zwei 32-Bit Array of DWord Zeichen, die im
+        /// Parameter-Block angegeben sind.
+        /// </summary>
+        /// <param name="c">
+        /// Ein Array of Byte für die Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der Array of Byte Konstruktor für QChar.
+        /// Jeder Array-Eintrag stellt ein 32-Bit Zeichen zur Verfügung.
+        /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
+        /// ersten zwei Werte werden hierbei berücksichtigt.
+        /// </remarks>
+        constructor Create(c: Array of DWord); overload;
 
         destructor Destroy; override;
 
@@ -364,7 +420,6 @@ constructor QChar.Create(c: Byte);
 var
   memvar: SmallInt;
   ptr: Pointer;
-  s: String;
 begin
   inherited Create;
   memvar := c;
@@ -393,7 +448,6 @@ var
     pch_str: PChar;
 begin
     inherited Create;
-ErrorMessage('kukuku  char');
     pch_str          := 'char';
     // ----------------------------
     ptr_val.VType    := stQChar;
@@ -575,6 +629,58 @@ begin
     ptr_val.NName    := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_ArrayOfChar';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
+
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
+end;
+
+constructor QChar.Create(c: Array of Word);
+var
+    pch_str: PChar;
+begin
+    {$ifdef DEBUG}
+    writeln('array of word ctor delp');
+    {$endif}
+
+    pch_str          := 'arrayword';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_u1 := int8(c[0]);
+    ptr_val.Value_u2 := int8(c[1]);
+    ptr_val.NLength  := 2;
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfWord';
+    ptr_val.SLength  := strlen(pch_str);
+    ptr_val.SName    := pch_str;
+
+    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
+end;
+
+constructor QChar.Create(c: Array of DWord);
+var
+    pch_str: PChar;
+begin
+    {$ifdef DEBUG}
+    writeln('array of DWord ctor delp');
+    {$endif}
+
+    pch_str          := 'arraydword';
+    // ----------------------------
+    ptr_val.VType    := stQChar;
+    ptr_val.Value_u1 := int8(c[0]);
+    ptr_val.Value_u2 := int8(c[1]);
+    ptr_val.NLength  := 2;
+    ptr_val.NName    := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfDWord';
     ptr_val.SLength  := strlen(pch_str);
     ptr_val.SName    := pch_str;
 

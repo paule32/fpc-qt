@@ -42,9 +42,12 @@ qvc::QChar::isAscii() const {
 
 bool
 qvc::QChar::isDigit() const {
-    //if (nullptr != origin)
-    //return origin->isDigit();
-    
+    if (!strcmp(ptr_val->NName, "char")) {
+        std::cout << "c++ isdigi" << std::endl;
+        if ((ptr_val->Value_u1 >= '0') && (ptr_val->Value_u1 <= '9')) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -275,13 +278,14 @@ ctor_QChar(wchar_t* p_name, uint64_t addr)
     strcpy(vhelper->NName, reinterpret_cast<ClassVHelper*>(addr)->NName);
     strcpy(vhelper->SName, reinterpret_cast<ClassVHelper*>(addr)->SName);
     
+    #ifdef DEBUG
     std::wcout << L"CTOR mem:  0x"
                << std::hex << addr
                << std::dec << std::endl;
     std::wcout << L"CTOR sym:  " << vhelper->VType    << std::endl;
     std::wcout << L"CTOR str:  " << vhelper->SName    << std::endl;
     std::wcout << L"CTOR val:  " << vhelper->Value_u1 << std::endl;
-
+    #endif
     
     current_ptr = Iaddsymbol(p_name, vhelper);
     
@@ -325,20 +329,8 @@ isDigit_QChar(uint64_t addr)
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
-    //objptr->qchar_types = static_cast<uint8_t>(value);
-    
-    /*char buffer[200];
-    sprintf(buffer,"%d", value);
-    
-    int  i = 0;
-    for (i = 0; i < 200; i++) {
-        if (isdigit(buffer[i])) {
-            result = true;
-        }   else {
-            result = false;
-            break;
-        }
-    }*/
+    if (objptr->isDigit())
+    result = true;
     return result;
 }
 

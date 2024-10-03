@@ -29,3 +29,6 @@ dox/warnings.log
 dox/project.chi
 /pas/__recovery
 /readme
+*.dcu
+*.html
+*.html

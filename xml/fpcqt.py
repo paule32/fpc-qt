@@ -7,26 +7,15 @@ xml_files = ['QCharClass.xml']  # Füge hier weitere Dateien hinzu
 
 # Lade die Haupt-XSLT-Datei
 try:
-    xslt_main_doc = ET.parse('fpcqt.xslt')
+    xslt_main_doc  = ET.parse('fpcqt.xslt')
+    #
     transform_main = ET.XSLT(xslt_main_doc)
+    transform_enum = ET.XSLT(xslt_main_doc)
+    transform_func = ET.XSLT(xslt_main_doc)
+    transform_proc = ET.XSLT(xslt_main_doc)
+    #
 except ET.XMLSyntaxError as e:
     print(f"XSLT-Datei konnte nicht geladen werden: {e}")
-    exit()
-
-# Lade die XSLT-Datei für enums
-try:
-    xslt_enum_doc = ET.parse('fpcqt_enum.xsl')
-    transform_enum = ET.XSLT(xslt_enum_doc)
-except ET.XMLSyntaxError as e:
-    print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
-    exit()
-
-# Lade die XSLT-Datei für enums
-try:
-    xslt_function_doc  = ET.parse('fpcqt_functions.xsl')
-    transform_function = ET.XSLT(xslt_function_doc)
-except ET.XMLSyntaxError as e:
-    print(f"XSLT-Datei für enums konnte nicht geladen werden: {e}")
     exit()
 
 # Verarbeite jede XML-Datei in der Liste
@@ -76,9 +65,23 @@ for xml_file in xml_files:
         function_name = function.get('name')
         output_file_path_function = f"{function_name}_functions.html"
         try:
-            result_function = transform_function(function)
+            result_function = transform_func(function)
             with open(output_file_path_function, 'wb') as f:
                 f.write(ET.tostring(result_function, pretty_print=True))
             print(f"Die func-HTML-Datei wurde erfolgreich erstellt: {output_file_path_function}")
         except ET.XSLTApplyError as e:
             print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_function}': {e}")
+
+    # Extrahiere und speichere die procedure-Elemente in eine separate Datei
+    procedures = xml_doc.xpath('//procedure')
+    for procedure in procedures:
+        procedure_name = procedure.get('name')
+        output_file_path_procedure = f"{procedure_name}_procedure.html"
+        try:
+            result_procedure = transform_proc(procedure)
+            with open(output_file_path_procedure, 'wb') as f:
+                f.write(ET.tostring(result_procedure, pretty_print=True))
+            print(f"Die func-HTML-Datei wurde erfolgreich erstellt: {output_file_path_procedure}")
+        except ET.XSLTApplyError as e:
+            print(f"Fehler bei der Transformation der enum-Datei '{output_file_path_procedure}': {e}")
+            
