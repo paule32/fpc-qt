@@ -1,8 +1,8 @@
 body {
-font-family: Arial, sans-serif;
-margin: 10px;
-background-color: #000000;
-color: white;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    background-color: #000000;
+    color: white;
 }
 .more-link {
     text-decoration: none;
@@ -54,6 +54,14 @@ td.name-cell {
 .ctor_right {
     text-align: right;
 }
+.ctor_l {
+    color:white;
+    font-wight:normal;
+}
+.ctor_r {
+    color:orange;
+    font-weight:bold;
+}
 .param_div {
     background-color: #202020;
     padding: 8px;
@@ -69,6 +77,11 @@ td.name-cell {
 .no_params {
     color: orange;
 }
+.para {
+    display:flex;
+    flex-direction:row;
+}
+
 .ctor_container {
     width: 40%;
 }
@@ -77,6 +90,19 @@ td.name-cell {
 }
 .addi_td {
     background-color: #202020;
+}
+
+.func {
+    background-color:#555555;
+}
+.tahrs {
+    text-align:right;
+}
+.bgblack {
+    background-color:black;
+}
+.bggray {
+    background-color:gray;
 }
 
 .namespace { margin-bottom: 10px; }
