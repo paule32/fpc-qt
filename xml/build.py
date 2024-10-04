@@ -43,7 +43,7 @@ for xml_file in xml_files:
         continue
     
     # Speichere die Haupt-HTML-Datei
-    output_file_path_main = os.path.splitext(xml_file)[0] + '_mem.html'
+    output_file_path_main = os.path.splitext(xml_file)[0] + '_enum.html'
     with open(output_file_path_main, 'wb') as f:
         f.write(ET.tostring(result_main, pretty_print=True))
     

@@ -104,7 +104,8 @@
         </tr>
         <tr>
             <td>Bemerkungen</td>
-            <td colspan="2" style="color:orange;"> keine </td>
+            <td style="color:orange;"> keine </td>
+            <td style="text-align:right;"><xsl:value-of select="@callconv"/></td>
         </tr>
         </xsl:for-each>
     </table>
@@ -189,7 +190,9 @@
                 <h3>Inherited from</h3>
             </xsl:when>
             <xsl:otherwise>
-                <h3>Erbt von</h3>
+                <h3>
+                Erbt von: <xsl:value-of select="ancestor/@name"/>
+                </h3>
             </xsl:otherwise>
         </xsl:choose>
         <table>
@@ -206,13 +209,23 @@
                 </xsl:choose>
             </tr>
             <tr>
-                <td>
+                <td class="subclass1">
                     <xsl:value-of select="ancestor/@name"/>
                 </td>
-                <td>
+                <td class="subclass1">
                     <xsl:value-of select="ancestor/@namespace"/>
                 </td>
             </tr>
+            <xsl:for-each select="ancestor/methodref">
+            <tr>
+                <td>
+                    <xsl:value-of select="@name"/>
+                </td>
+                <td>
+                    <xsl:value-of select="@procflags"/>
+                </td>
+            </tr>
+            </xsl:for-each>
         </table>
     </xsl:if>
 
@@ -385,7 +398,31 @@
             </p>
         </xsl:if>
     </xsl:for-each>
-            
+    
+    <!-- Tabelle für Eigenschaften (Properties) -->
+    <xsl:if test="members/property">
+        <xsl:choose>
+            <xsl:when test="$lang = 'en'">
+                <h3>Properties</h3>
+            </xsl:when>
+            <xsl:otherwise>
+                <h3>Eigenschaften</h3>
+            </xsl:otherwise>
+        </xsl:choose>
+        <table>
+            <tr>
+                <td style="background-color:gray;font-weight:bold;">Sichtbarkeit</td>
+                <td style="background-color:gray;font-weight:bold;">Name</td>
+            </tr>
+            <xsl:for-each select="members/property">
+            <tr>
+                <td><xsl:value-of select="@visibility"/></td>
+                <td><xsl:value-of select="@name"/></td>
+            </tr>
+            </xsl:for-each>
+        </table>
+    </xsl:if>
+        
     <!-- Tabelle für Funktionen -->
     <xsl:if test="members/function">
         <xsl:choose>

@@ -82,6 +82,17 @@ td.name-cell {
     flex-direction:row;
 }
 
+.subclass1 {
+    background-color:orange;
+    color:black;
+    font-weight:bold;
+}
+.subclass2 {
+    background-color:black;
+    color: white;
+    font-weight: normal;
+}
+
 .ctor_container {
     width: 40%;
 }
@@ -95,7 +106,7 @@ td.name-cell {
 .func {
     background-color:#555555;
 }
-.tahrs {
+.tarhs {
     text-align:right;
 }
 .bgblack {

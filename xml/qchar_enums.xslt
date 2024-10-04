@@ -50,7 +50,6 @@
     </xsl:choose>
     </h1>
     <xsl:apply-templates select="namespace" />
-    xxx
     <!-- comntainer -->
     </div>
 </body>
@@ -71,42 +70,36 @@
         </h2>
         <div class="platform">Platform: <xsl:value-of select="@platform"/></div>
         <xsl:if test="class/members/enum">
-            <xsl:choose>
-                <xsl:when test="$lang = 'en'">
-                    <h2>enum: <xsl:value-of select="@name"/></h2>
-                </xsl:when>
-                <xsl:otherwise>
-                    <h2>Aufzählung: <xsl:value-of select="@name"/></h2>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="devnotes/enum">
-                <p>
-                <div class="devnotes">
-                    <strong>Hinweise:</strong><br/>
-                    <xsl:value-of select="devnotes/enum"/>
-                </div>
-                </p>
-            </xsl:if>
-            <table>
-                <tr>
-                    <xsl:choose>
-                        <xsl:when test="$lang = 'en'">
-                            <th>Constant</th>
-                            <th>Value</th>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <th>Konstante</th>
-                            <th>Wert</th>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </tr>
-                <xsl:for-each select="class/members/enum/element">
-                <tr>
-                    <td class="name-cell"><xsl:value-of select="@name"/></td>
-                    <td class="value-cell"><xsl:value-of select="@value"/></td>
-                </tr>
-                </xsl:for-each>
-            </table>
+            <xsl:for-each select="class/members/enum">
+                <xsl:choose>
+                    <xsl:when test="$lang = 'en'">
+                        <h2>enum: <xsl:value-of select="@name"/></h2>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <h2>Aufzählung: <xsl:value-of select="@name"/></h2>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <table>
+                    <tr>
+                        <xsl:choose>
+                            <xsl:when test="$lang = 'en'">
+                                <th>Constant</th>
+                                <th>Value</th>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <th>Konstante</th>
+                                <th>Wert</th>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tr>
+                    <xsl:for-each select="element">
+                    <tr>
+                        <td class="name-cell"><xsl:value-of select="@name"/></td>
+                        <td class="value-cell"><xsl:value-of select="@value"/></td>
+                    </tr>
+                    </xsl:for-each>
+                </table>
+            </xsl:for-each>
         </xsl:if>
     </div>
 </xsl:template>
