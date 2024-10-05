@@ -105,6 +105,7 @@ namespace qvc
 {
 
 struct ClassVHelper {
+    uint64_t VPointer;
     uint32_t VType  ;
     
     uint8_t  Value_u1;   // unsigned:   8-bit
@@ -117,11 +118,14 @@ struct ClassVHelper {
     int32_t  Value_s3;   // signed  :  32-bit
     int64_t  Value_s4;   // signed  :  64-bit
     //
-    uint64_t NLength;
-    uint64_t SLength;
-    //
-    char   * NName  ;
-    char   * SName  ;
+    uint64_t Length;
+    char   * Name  ;
+};
+
+struct ResultVHelper {
+    struct ClassVHelper VType1;
+    struct ClassVHelper VType2;
+    struct ClassVHelper VType3;
 };
 
 /**
@@ -148,8 +152,6 @@ enum symbolTypeEnum : uint32_t
 };
 
 class QChar {
-public:
-    std::variant<char, uint8_t, uint16_t, uint32_t, wchar_t, short> qchar_types;
 public:
     // constructor
     QChar(void);
@@ -200,60 +202,11 @@ public:
     ::QChar *      getOrigin(void) const;
     ::QChar *      origin;
     
-    struct ClassVHelper * ptr_val = nullptr;
+    struct ResultVHelper * ptr_val = nullptr;
 };
 
-/**
- * \struct  TypeTypes
- * \brief   Intern verwendete Struktur für das Speichern von Datentypen, um die
- *          Auswahl der entsprechenden Aktionen auf Grundlage des gegebenen Typs
- *          zu verarbeiten.
- * \details Intern werden für jedes Symbol ein Name sowie ein Typ in einer std::map
- *          vorrätig gehalten, um eine spätere Auswertung zu gewährleisten wenn
- *          Typen zwischen Pascal und C++ ausgetauscht werden.
- * \since   Version 0.0.1
- */
-struct TypeTypes
-{
-    /** Container für mögliche Typen für ein Symbol */
-    std::variant<
-    uint32_t,
-    float,
-    std::wstring,
-    qvc::QChar*> value;
-    
-    /// repräsentiert einen Integer Wert
-    TypeTypes(uint32_t v) : value(v) {}
-    /// repräsentiert eine Fließkomma Zahl
-    TypeTypes(float v) : value(v) {}
-    /// repräsentiert einen WideString
-    TypeTypes(const std::wstring& v) : value(v) {}
-    TypeTypes(qvc::QChar* v): value(v) { }
-};
-
-/**
- * \brief   Diese Symbol-Zuordnungs-Tabelle hält die Symbole mit entsprechenden Typ.
- * \details Der Typ den jedes Symbol annehmen kann, wird mit eines TypeTypes-Eintrag
- *          festgelegt. Für jedes Symbol kann immer nur ein Typ vergeben werden.
- */
-extern std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
-
-extern uint64_t Iaddsymbol(const std::wstring&  p_sname, struct ClassVHelper *addr);
-extern bool     Igetsymbol(      std::wstring&& p_sname);
-
+extern uint64_t Iaddsymbol(const std::wstring&, struct ResultVHelper *addr);
 extern uint64_t current_ptr;
-
-/**
- * \class   symbolHandler
- * \brief   Behandelt ein Symbol mit erweiterten Funktionen.
- * \details Wenn es nötig erscheint einen Symbol-Typen weitere Funktionen mit
- *          zugeben, dient die Klasse symbolHandler als konkrete Anlaufstelle.
- */
-class symbolHandler {
-public:
-    symbolTypeEnum   symType;
-    std::wstring     symName;
-};
 
 extern "C" {
 /**

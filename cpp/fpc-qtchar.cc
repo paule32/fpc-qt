@@ -31,20 +31,18 @@ qvc::QChar::QChar(short    t) { origin = new ::QChar(t); }
  */
 bool
 qvc::QChar::isAscii() const {
-    if (!strcmp(ptr_val->NName, "char")) {
-        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
-        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
-            return true;
-        }
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        if (isascii(ptr_val->VType2.Value_u1)) return true;
+        if (isascii(ptr_val->VType2.Value_u2)) return true;
     }
     return false;
 }
 
 bool
 qvc::QChar::isDigit() const {
-    if (!strcmp(ptr_val->NName, "char")) {
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
         std::cout << "c++ isdigi" << std::endl;
-        if ((ptr_val->Value_u1 >= '0') && (ptr_val->Value_u1 <= '9')) {
+        if ((ptr_val->VType2.Value_u1 >= '0') && (ptr_val->VType2.Value_u1 <= '9')) {
             return true;
         }
     }
@@ -53,9 +51,9 @@ qvc::QChar::isDigit() const {
 
 bool
 qvc::QChar::isLetter() const {
-    if (!strcmp(ptr_val->NName, "char")) {
-        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
-        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        if (((ptr_val->VType2.Value_u1 >= 'a') && (ptr_val->VType2.Value_u1 <= 'z'))
+        ||  ((ptr_val->VType2.Value_u1 >= 'A') && (ptr_val->VType2.Value_u1 <= 'Z'))) {
             return true;
         }
     }
@@ -64,35 +62,25 @@ qvc::QChar::isLetter() const {
 
 bool
 qvc::QChar::isLetterOrNumber() const {
-    if (!strcmp(ptr_val->NName, "smallint")) {
-        std::cout << ptr_val->Value_s2 << std::endl;
-        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
-        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
-            return true;
-        }
-        if ((ptr_val->Value_s2 >= -32768) && (ptr_val->Value_s2 <= 32767)) {
-            return true;
-        }   else {
-            return false;
-        }
+    if (!strcmp(ptr_val->VType2.Name, "smallint")) {
+        if (isascii(ptr_val->VType2.Value_u1))
+        return true;
+
+        if ((ptr_val->VType2.Value_s2 >= -32768) && (ptr_val->VType2.Value_s2 <= 32767))
+        return true;
     }   else
-    if (!strcmp(ptr_val->NName, "char")) {
-        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
-        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))) {
-            return true;
-        }
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        if (isascii(ptr_val->VType2.Value_u1))
+        return true;
     }   else
-    if (!strcmp(ptr_val->NName, "arraychar")) {
-        if (((ptr_val->Value_u1 >= 'a') && (ptr_val->Value_u1 <= 'z'))
-        ||  ((ptr_val->Value_u1 >= 'A') && (ptr_val->Value_u1 <= 'Z'))
-        ||  ((ptr_val->Value_u2 >= 'a') && (ptr_val->Value_u2 <= 'z'))
-        ||  ((ptr_val->Value_u2 >= 'A') && (ptr_val->Value_u2 <= 'Z'))
-        ||  ((ptr_val->Value_u1 >= '0') && (ptr_val->Value_u1 <= '9'))
-        ||  ((ptr_val->Value_u2 >= '0') && (ptr_val->Value_u2 <= '9'))) {
-            return true;
-        }
+    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+        if (isascii(ptr_val->VType2.Value_u1)) return true;
+        if (isascii(ptr_val->VType2.Value_u2)) return true;
+        
+        if (isdigit(ptr_val->VType2.Value_u1)) return true;
+        if (isdigit(ptr_val->VType2.Value_u2)) return true;
     }   else
-    if (!strcmp(ptr_val->NName, "arraybyte")) {
+    if (!strcmp(ptr_val->VType2.Name, "arraybyte")) {
         std::cout << "array c++ byte" << std::endl;
         return true;
     }
@@ -101,9 +89,11 @@ qvc::QChar::isLetterOrNumber() const {
 
 bool
 qvc::QChar::isLower() const {
-    if (nullptr != origin)
-    return origin->isLower();
-    return false;
+    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+        std::cout << "c++ loweerrr" << std::endl;
+        if (islower(ptr_val->VType2.Value_u1))
+        return true;
+    }   return false;
 }
 
 bool
@@ -129,9 +119,9 @@ qvc::QChar::isNull() const {
 
 bool
 qvc::QChar::isNumber() const {
-    if (!strcmp(ptr_val->NName, "smallint")) {
-        std::cout << ptr_val->Value_s2 << std::endl;
-        if ((ptr_val->Value_s2 >= -32768) && (ptr_val->Value_s2 <= 32767)) {
+    if (!strcmp(ptr_val->VType2.Name, "smallint")) {
+        std::cout << ptr_val->VType2.Value_s2 << std::endl;
+        if ((ptr_val->VType2.Value_s2 >= -32768) && (ptr_val->VType2.Value_s2 <= 32767)) {
             return true;
         }   else {
             return false;
@@ -142,9 +132,11 @@ qvc::QChar::isNumber() const {
 
 bool
 qvc::QChar::isPrint() const {
-    if (nullptr != origin)
-    return origin->isPrint();
-    return false;
+    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+        std::cout << "c++ printerrr" << std::endl;
+        if (isprint(ptr_val->VType2.Value_u1))
+        return true;
+    }   return false;
 }
 
 bool
@@ -156,9 +148,10 @@ qvc::QChar::isPunct() const {
 
 bool
 qvc::QChar::isSpace() const {
-    if (nullptr != origin)
-    return origin->isSpace();
-    return false;
+    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+        if (isspace(ptr_val->VType2.Value_u1))
+        return true;
+    }   return false;
 }
 
 bool
@@ -184,8 +177,10 @@ qvc::QChar::isTitleCase() const {
 
 bool
 qvc::QChar::isUpper() const {
-    if (nullptr != origin)
-    return origin->isUpper();
+    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+        if (isupper(ptr_val->VType2.Value_u1))
+        return true;
+    }
     return false;
 }
 
@@ -255,36 +250,61 @@ extern "C" {
 DLL_EXPORT uint64_t
 ctor_QChar(wchar_t* p_name, uint64_t addr)
 {
-    ClassVHelper * vhelper = new ClassVHelper;
+    ResultVHelper * vhelper = new ResultVHelper;
     
-    vhelper->VType = reinterpret_cast<ClassVHelper*>(addr)->VType;
+    vhelper->VType1.VType = reinterpret_cast<ResultVHelper*>(addr)->VType1.VType;
+    vhelper->VType2.VType = reinterpret_cast<ResultVHelper*>(addr)->VType2.VType;
+    vhelper->VType3.VType = reinterpret_cast<ResultVHelper*>(addr)->VType3.VType;
     
-    vhelper->Value_s1 = reinterpret_cast<ClassVHelper*>(addr)->Value_s1;
-    vhelper->Value_s2 = reinterpret_cast<ClassVHelper*>(addr)->Value_s2;
-    vhelper->Value_s3 = reinterpret_cast<ClassVHelper*>(addr)->Value_s3;
-    vhelper->Value_s4 = reinterpret_cast<ClassVHelper*>(addr)->Value_s4;
+    vhelper->VType1.Value_s1 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_s1;
+    vhelper->VType1.Value_s2 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_s2;
+    vhelper->VType1.Value_s3 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_s3;
+    vhelper->VType1.Value_s4 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_s4;
     //
-    vhelper->Value_u1 = reinterpret_cast<ClassVHelper*>(addr)->Value_u1;
-    vhelper->Value_u2 = reinterpret_cast<ClassVHelper*>(addr)->Value_u2;
-    vhelper->Value_u3 = reinterpret_cast<ClassVHelper*>(addr)->Value_u3;
-    vhelper->Value_u4 = reinterpret_cast<ClassVHelper*>(addr)->Value_u4;
+    vhelper->VType2.Value_s1 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_s1;
+    vhelper->VType2.Value_s2 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_s2;
+    vhelper->VType2.Value_s3 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_s3;
+    vhelper->VType2.Value_s4 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_s4;
+    //
+    vhelper->VType3.Value_s1 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_s1;
+    vhelper->VType3.Value_s2 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_s2;
+    vhelper->VType3.Value_s3 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_s3;
+    vhelper->VType3.Value_s4 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_s4;
     
-    vhelper->NLength = reinterpret_cast<ClassVHelper*>(addr)->NLength;
-    vhelper->SLength = reinterpret_cast<ClassVHelper*>(addr)->SLength;
+    vhelper->VType1.Value_u1 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_u1;
+    vhelper->VType1.Value_u2 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_u2;
+    vhelper->VType1.Value_u3 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_u3;
+    vhelper->VType1.Value_u4 = reinterpret_cast<ResultVHelper*>(addr)->VType1.Value_u4;
+    //
+    vhelper->VType2.Value_u1 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_u1;
+    vhelper->VType2.Value_u2 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_u2;
+    vhelper->VType2.Value_u3 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_u3;
+    vhelper->VType2.Value_u4 = reinterpret_cast<ResultVHelper*>(addr)->VType2.Value_u4;
+    //
+    vhelper->VType3.Value_u1 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_u1;
+    vhelper->VType3.Value_u2 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_u2;
+    vhelper->VType3.Value_u3 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_u3;
+    vhelper->VType3.Value_u4 = reinterpret_cast<ResultVHelper*>(addr)->VType3.Value_u4;
     
-    vhelper->NName  = new char[vhelper->NLength+1];
-    vhelper->SName  = new char[vhelper->SLength+1];
+    vhelper->VType1.Length  = reinterpret_cast<ResultVHelper*>(addr)->VType1.Length;
+    vhelper->VType2.Length  = reinterpret_cast<ResultVHelper*>(addr)->VType2.Length;
+    vhelper->VType3.Length  = reinterpret_cast<ResultVHelper*>(addr)->VType3.Length;
     
-    strcpy(vhelper->NName, reinterpret_cast<ClassVHelper*>(addr)->NName);
-    strcpy(vhelper->SName, reinterpret_cast<ClassVHelper*>(addr)->SName);
+    vhelper->VType1.Name  = new char[vhelper->VType1.Length + 1];
+    vhelper->VType2.Name  = new char[vhelper->VType2.Length + 1];
+    vhelper->VType3.Name  = new char[vhelper->VType3.Length + 1];
+
+    strcpy(vhelper->VType2.Name, reinterpret_cast<ResultVHelper*>(addr)->VType2.Name);
+    //strcpy(vhelper->VType2.Name, reinterpret_cast<ResultVHelper*>(addr)->VType2.Name);
+    //strcpy(vhelper->VType3.Name, reinterpret_cast<ResultVHelper*>(addr)->VType3.Name);
     
     #ifdef DEBUG
     std::wcout << L"CTOR mem:  0x"
                << std::hex << addr
                << std::dec << std::endl;
-    std::wcout << L"CTOR sym:  " << vhelper->VType    << std::endl;
-    std::wcout << L"CTOR str:  " << vhelper->SName    << std::endl;
-    std::wcout << L"CTOR val:  " << vhelper->Value_u1 << std::endl;
+    std::wcout << L"CTOR sym:  " << vhelper->VType2.VType    << std::endl;
+    std::wcout << L"CTOR str:  " << vhelper->VType2.Name     << std::endl;
+    std::wcout << L"CTOR val:  " << vhelper->VType2.Value_u1 << std::endl;
     #endif
     
     current_ptr = Iaddsymbol(p_name, vhelper);

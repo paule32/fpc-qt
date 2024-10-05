@@ -6,10 +6,7 @@
 # include "fpc-qt.h"
 
 namespace qvc {
-std::map<std::wstring, std::unique_ptr<TypeTypes>> symbol_map;
-
 uint64_t current_ptr = 0;
-std::vector< qvc::QChar* > map_QChar;
 
 /**
  * \brief  Fügt ein neues Symbol, das mit p_name angegeben wurde, zu der intern
@@ -19,11 +16,10 @@ std::vector< qvc::QChar* > map_QChar;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 uint64_t
-Iaddsymbol(const std::wstring& p_sname, struct ClassVHelper *addr)
+Iaddsymbol(const std::wstring& p_sname, struct ResultVHelper *addr)
 {
     current_ptr = 0;
-
-    if (addr->VType == symbolTypeEnum::stQChar) {
+    if (addr->VType2.VType == symbolTypeEnum::stQChar) {
         qvc::QChar* qc = new qvc::QChar();
         qc->ptr_val    = addr;
         current_ptr    = reinterpret_cast<uint64_t>((void*)qc);
@@ -41,55 +37,7 @@ Iaddsymbol(const std::wstring& p_sname, struct ClassVHelper *addr)
  */
 bool
 Igetsymbol(std::wstring&& p_sname) {
-    auto it = symbol_map.find(p_sname);
-    if (it != symbol_map.end()) {
-        const auto& value = it->second->value;
-
-        std::visit([](auto&& arg) {
-            using T = std::decay_t<decltype(arg)>;
-            if constexpr (std::is_same_v<T, uint32_t>) {
-                #ifdef DEBUG
-                std::wcout << L"Integer: " << arg << std::endl;
-                #endif
-                return true;
-            }   else if constexpr (std::is_same_v<T, float>) {
-                #ifdef DEBUG
-                std::wcout << L"Float: " << arg << std::endl;
-                #endif
-                return true;
-            }   else if constexpr (std::is_same_v<T, std::wstring>) {
-                #ifdef DEBUG
-                std::wcout << L"String: " << arg << std::endl;
-                #endif
-                return true;
-            }   else if constexpr (std::is_same_v<T, qvc::QChar*>) {
-                current_ptr = reinterpret_cast<uint64_t>(&arg);
-                return true;
-            }
-        }, value);
-        
-        return false;
-    }   else {
-        std::wstring part1 = L"Symbol not found: ";
-        std::wstring part2 = p_sname;
-        std::wstring title = L"Inforamtion";
-        
-        std::wstring&& part2_rvalue = std::move(part2);
-        std::wstring   result       = std::wstring(part1) + part2_rvalue;
-        
-        const wchar_t * input = result.c_str();
-        size_t size   = (wcslen(input) + 1) * sizeof(wchar_t);
-        char * buffer = new char[size];
-        
-        #ifdef FPC
-            std::wcstombs(buffer, input, size);
-            ErrorMessage(buffer);
-        #else
-            ErrorMessage(result.c_str());
-        #endif
-        
-        return false;
-    }   return false;
+    return false;
 }
 
 extern "C" {

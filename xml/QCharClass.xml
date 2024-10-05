@@ -1,19 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <namespace name="QCharClass" platform="Win64">
-  <struct name="ClassVHelper" size="68">
-    <field name="VType" type="Cardinal" visibility="public" size="4" offset="0" />
-    <field name="Value_u1" type="Byte" visibility="public" size="1" offset="4" />
-    <field name="Value_u2" type="Word" visibility="public" size="2" offset="6" />
-    <field name="Value_u3" type="Cardinal" visibility="public" size="4" offset="8" />
-    <field name="Value_u4" type="UInt64" visibility="public" size="8" offset="12" />
-    <field name="Value_s1" type="ShortInt" visibility="public" size="1" offset="20" />
-    <field name="Value_s2" type="SmallInt" visibility="public" size="2" offset="22" />
-    <field name="Value_s3" type="Integer" visibility="public" size="4" offset="24" />
-    <field name="Value_s4" type="Int64" visibility="public" size="8" offset="28" />
-    <field name="NLength" type="UInt64" visibility="public" size="8" offset="36" />
-    <field name="SLength" type="UInt64" visibility="public" size="8" offset="44" />
-    <field name="NName" type="PWideChar" visibility="public" size="8" offset="52" />
-    <field name="SName" type="PWideChar" visibility="public" size="8" offset="60" />
+  <struct name="ClassVHelper" size="60">
+    <field name="VPointer" type="Pointer" visibility="public" size="8" offset="0" />
+    <field name="VType" type="Cardinal" visibility="public" size="4" offset="8" />
+    <field name="Value_u1" type="Byte" visibility="public" size="1" offset="12" />
+    <field name="Value_u2" type="Word" visibility="public" size="2" offset="14" />
+    <field name="Value_u3" type="Cardinal" visibility="public" size="4" offset="16" />
+    <field name="Value_u4" type="UInt64" visibility="public" size="8" offset="20" />
+    <field name="Value_s1" type="ShortInt" visibility="public" size="1" offset="28" />
+    <field name="Value_s2" type="SmallInt" visibility="public" size="2" offset="30" />
+    <field name="Value_s3" type="Integer" visibility="public" size="4" offset="32" />
+    <field name="Value_s4" type="Int64" visibility="public" size="8" offset="36" />
+    <field name="Length" type="UInt64" visibility="public" size="8" offset="44" />
+    <field name="Name" type="PWideChar" visibility="public" size="8" offset="52" />
+  </struct>
+  <struct name="ResultVHelper" size="180">
+    <field name="VType1" type="ClassVHelper" visibility="public" size="60" offset="0" />
+    <field name="VType2" type="ClassVHelper" visibility="public" size="60" offset="60" />
+    <field name="VType3" type="ClassVHelper" visibility="public" size="60" offset="120" />
   </struct>
   <const name="stQChar" type="Integer">
     <devnotes>
@@ -312,12 +316,16 @@
         <element value="22" name="DirPDI" />
       </enum>
       <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" />
-      <field name="ptr_cc" type="Pointer" visibility="private" size="8" offset="16" />
-      <field name="ptr_val" type="ClassVHelper" visibility="private" size="68" offset="24" />
-      <field name="c_type" type="Word" visibility="private" size="2" offset="92" />
-      <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="94" />
-      <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="96" />
-      <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="98" />
+      <field name="ptr_val" type="ResultVHelper" visibility="private" size="180" offset="16" />
+      <field name="c_type" type="Word" visibility="private" size="2" offset="196" />
+      <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="198" />
+      <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="200" />
+      <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="202" />
+      <function name="getOrigin" visibility="protected">
+        <parameters>
+          <retval type="UInt64" />
+        </parameters>
+      </function>
       <constructor name="Create" visibility="public">
         <devnotes>
 <!-- Falsch strukturierter XML-Kommentar wird für Member 'Create' ignoriert -->
@@ -403,6 +411,11 @@
         </devnotes>
         <parameters>
           <parameter name="c" type="SmallInt" />
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="c" type="Pointer" />
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
@@ -497,6 +510,26 @@
           <parameter name="c">
             <array name="c">
               <element type="Cardinal" />
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <devnotes>
+           <summary>
+           Erstellt eine Instanz für einen WideChar als Parameter.
+           </summary>
+           <param name="c">
+           Ein WideChar für das Zeichen.
+           </param>
+           <remarks>
+           Dies ist der WideChar Konstruktor für QChar.
+           </remarks>
+        </devnotes>
+        <parameters>
+          <parameter name="c">
+            <array name="c">
+              <element type="Pointer" />
             </array>
           </parameter>
         </parameters>
@@ -597,7 +630,7 @@
       <function name="isNull" visibility="public">
         <devnotes>
            <summary>
-           testung
+           prüft, ob das gepeicherte QChar Zeichen null entspricht.
            </summary>
         </devnotes>
         <parameters>
@@ -662,11 +695,6 @@
       <function name="toUpper" visibility="public">
         <parameters>
           <retval type="Word" />
-        </parameters>
-      </function>
-      <function name="getOrigin" visibility="protected">
-        <parameters>
-          <retval type="UInt64" />
         </parameters>
       </function>
       <property name="Category" visibility="published" read="FCategory" type="QChar.QChar_Category" default="13" />

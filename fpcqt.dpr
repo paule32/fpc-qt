@@ -24,8 +24,8 @@ var
     myQChar: QChar;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create('7');
-    if myQChar.isDigit then
+    myQChar := QChar.Create(['2', '1']);
+    if myQChar.isPrint then
     begin
         WriteLn('ok');
         ReadLn;

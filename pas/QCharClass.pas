@@ -23,6 +23,7 @@ uses
 
 type
     ClassVHelper = record
+        VPointer: Pointer;
         VType  : uint32;
         //
         Value_u1  : uint8;
@@ -35,11 +36,14 @@ type
         Value_s3  : int32;
         Value_s4  : int64;
         //
-        NLength: uint64;
-        SLength: uint64;
-        //
-        NName  : PChar ;
-        SName  : PChar ;
+        Length: uint64;
+        Name  : PChar ;
+    end;
+type
+    ResultVHelper = record
+        VType1 : ClassVHelper;
+        VType2 : ClassVHelper;
+        VType3 : ClassVHelper;
     end;
 
 const
@@ -163,13 +167,14 @@ type
         );
     private
         ClassName: PChar;
-        ptr_cc: Pointer;
-        ptr_val: ClassVHelper;
+        ptr_val: ResultVHelper;
         c_type: uint16;
     private
         FCategory:      QChar_Category;
         FDecomposition: QChar_Decomposition;
         FDirection:     QChar_Direction;
+    protected
+        function getOrigin: uint64;
     public
         /// <summary>
         /// Erstellt eine Instanz von QChar ohne Parameter.
@@ -200,19 +205,6 @@ type
         /// Dies ist der AnsiChar Konstruktor für QChar.
         /// </remarks>
         constructor Create(c: Char); overload;
-
-        {$ifndef RADCE}
-        /// <summary>
-        /// Erstellt eine Instanz für einen WideChar als Parameter.
-        /// </summary>
-        /// <param name="c">
-        /// Ein WideChar für das Zeichen.
-        /// </param>
-        /// <remarks>
-        /// Dies ist der WideChar Konstruktor für QChar.
-        /// </remarks>
-        constructor Create(c: WideChar); overload;
-        {$endif}
 
         /// <summary>
         /// Erstellt eine Instanz für ein DWORD Zeichen mit DWORD als Parameter.
@@ -247,6 +239,8 @@ type
         /// </remarks>
         constructor Create(c: int16); overload;
 
+        constructor Create(c: Pointer); overload;
+
         /// <summary>
         /// Erstellt eine Instanz für zwei 8-Bit Array of Byte Zeichen, die im
         /// Parameter-Block angegeben sind.
@@ -260,7 +254,7 @@ type
         /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
         /// ersten zwei Werte werden hierbei berücksichtigt.
         /// </remarks>
-        constructor Create(c: Array of  Byte); overload;
+        constructor Create(c: Array of Byte); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für zwei 8-Bit Array of Char Zeichen, die im
@@ -275,7 +269,7 @@ type
         /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
         /// ersten zwei Werte werden hierbei berücksichtigt.
         /// </remarks>
-        constructor Create(c: Array of  Char); overload;
+        constructor Create(c: Array of Char); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für zwei 16-Bit Array of Word Zeichen, die im
@@ -290,7 +284,7 @@ type
         /// Es können mehr als zwei Einträge vorhanden sein, aber nur die
         /// ersten zwei Werte werden hierbei berücksichtigt.
         /// </remarks>
-        constructor Create(c: Array of  Word); overload;
+        constructor Create(c: Array of Word); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für zwei 32-Bit Array of DWord Zeichen, die im
@@ -306,6 +300,21 @@ type
         /// ersten zwei Werte werden hierbei berücksichtigt.
         /// </remarks>
         constructor Create(c: Array of DWord); overload;
+
+        /// <summary>
+        /// Erstellt eine Instanz für einen WideChar als Parameter.
+        /// </summary>
+        /// <param name="c">
+        /// Ein WideChar für das Zeichen.
+        /// </param>
+        /// <remarks>
+        /// Dies ist der WideChar Konstruktor für QChar.
+        /// </remarks>
+        {$ifndef RADCE}
+        constructor Create(c: Array of WideChar); overload;
+        {$endif}
+
+        constructor Create(c: Array of Pointer); overload;
 
         destructor Destroy; override;
 
@@ -363,8 +372,6 @@ type
         function toLower: uint16;
         function toTitleCase: uint16;
         function toUpper: uint16;
-    protected
-        function getOrigin: uint64;
 
     published
         property Category:      QChar_Category      read FCategory      default Other_NotAssigned;
@@ -402,7 +409,7 @@ begin
     WriteLn('create qchar');
     {$endif}
 
-    ptr_cc := ctor_QChar(PChar('ctor_QChar'), nil);
+    ptr_val.VType1.VPointer := ctor_QChar(PChar('ctor_QChar'), nil);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -429,7 +436,7 @@ begin
   WriteLn(Format('create byte: 0x%p', [ptr]));
   {$endif}
 
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Byte'), ptr);
+  ptr_val.VType1.VPointer := ctor_QChar(PChar('ctor_QChar_Byte'), ptr);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -450,62 +457,20 @@ begin
     inherited Create;
     pch_str          := 'char';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_u1 := Byte(c);
-    ptr_val.NLength  := strlen(pch_str);
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := Byte(c);
+    ptr_val.VType2.Length   := strlen(pch_str);
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_Char';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
 end;
-
-/// <summary>
-///  Erstellt eine Instanz der Klasse QChar mit einen WideChar als Parameter.
-/// </summary>
-/// <param name="c">
-///  Ein WideChar für das Zeichen.
-/// </param>
-{$ifndef RADCE}
-constructor QChar.Create(c: WideChar);
-var
-  memvar: WideChar;
-  ptr: Pointer;
-begin
-  inherited Create;
-ErrorMessage('kukuku  wwwwchar');
-  memvar := c;
-  ptr := @memvar;
-
-  {$ifdef DEBUG}
-  GetMem(str_debug, 2048);
-  str_debug := StrCopy(str_debug, PChar('->' + #13#10));
-  str_debug := StrCat (str_debug, PChar(Format('create widechar: 0x%p', [ptr])));
-  ErrorMessage(str_debug);
-  Dispose(str_debug);
-  {$endif}
-
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_WideChar'), ptr);
-
-  {$ifdef DEBUG}
-  GetMem(str_debug, 2048);
-  str_debug := StrCat(str_debug, PChar(#13#10 + 'created.' + #13#10));
-  str_debug := StrCat(str_debug, PChar(Format('wide char: 0x%p', [ptr_cc])));
-  ErrorMessage(str_debug);
-  Dispose(str_debug);
-  {$endif}
-
-  if not check_ptr(ClassName, getOrigin) then
-  begin Free; exit; end;
-
-  c_type := Ord(c);
-end;
-{$endif}
 
 /// <summary>
 ///  Erstellt eine Instanz der Klasse QChar mit einen DWORD als Parameter.
@@ -521,7 +486,7 @@ begin
   WriteLn('create dword');
   {$endif}
 
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_DWord'), nil);
+  ptr_val.VType1.VPointer := ctor_QChar(PChar('ctor_QChar_DWord'), @ptr_val);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -543,7 +508,7 @@ begin
   WriteLn('create word');
   {$endif}
 
-  ptr_cc := ctor_QChar(PChar('ctor_QChar_Word'), nil);
+  ptr_val.VType1.VPointer := ctor_QChar(PChar('ctor_QChar_Word'), @ptr_val);
 
   if not check_ptr(ClassName, getOrigin) then
   begin Free; exit; end;
@@ -569,16 +534,16 @@ begin
 
     pch_str          := 'smallint';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_s2 := c;
-    ptr_val.NLength  := strlen(pch_str);
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_s2 := c;
+    ptr_val.VType2.Length   := strlen(pch_str);
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_SmallInt';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -586,27 +551,46 @@ begin
     c_type := c;
 end;
 
+constructor QChar.Create(c: Pointer);
+var
+    pch_str: PChar;
+begin
+
+end;
+
 constructor QChar.Create(c: Array of Byte);
 var
     pch_str: PChar;
 begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of Byte not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
     {$ifdef DEBUG}
     writeln('array of byte ctor delp');
     {$endif}
 
     pch_str          := 'arraybyte';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_u1 := int8(c[0]);
-    ptr_val.Value_u2 := int8(c[1]);
-    ptr_val.NLength  := 2;
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int8(c[0]);
+    ptr_val.VType2.Value_u2 := int8(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_ArrayOfByte';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -616,23 +600,35 @@ constructor QChar.Create(c: Array of Char);
 var
     pch_str: PChar;
 begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of Char not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
     {$ifdef DEBUG}
     writeln('array of char ctor delp');
     {$endif}
 
     pch_str          := 'arraychar';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_u1 := int8(c[0]);
-    ptr_val.Value_u2 := int8(c[1]);
-    ptr_val.NLength  := 2;
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int8(c[0]);
+    ptr_val.VType2.Value_u2 := int8(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_ArrayOfChar';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -642,23 +638,35 @@ constructor QChar.Create(c: Array of Word);
 var
     pch_str: PChar;
 begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of Word not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
     {$ifdef DEBUG}
     writeln('array of word ctor delp');
     {$endif}
 
     pch_str          := 'arrayword';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_u1 := int8(c[0]);
-    ptr_val.Value_u2 := int8(c[1]);
-    ptr_val.NLength  := 2;
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int8(c[0]);
+    ptr_val.VType2.Value_u2 := int8(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_ArrayOfWord';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -668,23 +676,112 @@ constructor QChar.Create(c: Array of DWord);
 var
     pch_str: PChar;
 begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of DWORD not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
     {$ifdef DEBUG}
     writeln('array of DWord ctor delp');
     {$endif}
 
     pch_str          := 'arraydword';
     // ----------------------------
-    ptr_val.VType    := stQChar;
-    ptr_val.Value_u1 := int8(c[0]);
-    ptr_val.Value_u2 := int8(c[1]);
-    ptr_val.NLength  := 2;
-    ptr_val.NName    := pch_str;
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int8(c[0]);
+    ptr_val.VType2.Value_u2 := int8(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
     // ----------------------------
     pch_str := 'ctor_QChar_ArrayOfDWord';
-    ptr_val.SLength  := strlen(pch_str);
-    ptr_val.SName    := pch_str;
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
 
-    ptr_cc := ctor_QChar(pch_str, @ptr_val);
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
+end;
+
+{$ifndef RADCE}
+/// <summary>
+///  Erstellt eine Instanz der Klasse QChar mit einen Array of WideChar als
+//   Parameter.
+/// </summary>
+/// <param name="c">
+///  Ein WideChar für das Zeichen.
+/// </param>
+constructor QChar.Create(c: Array of WideChar);
+var
+    pch_str: PChar;
+begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of WideChar not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
+    pch_str          := 'arraywidechar';
+    // ----------------------------
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int16(c[0]);
+    ptr_val.VType2.Value_u2 := int16(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfWideChar';
+    ptr_val.VType3.Length  := strlen(pch_str);
+    ptr_val.VType3.Name    := pch_str;
+
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
+
+    if not check_ptr(ClassName, getOrigin) then
+    begin Free; exit; end;
+end;
+{$endif}
+
+constructor QChar.Create(c: Array of Pointer);
+var
+    pch_str: PChar;
+begin
+    inherited Create;
+    if @c = nil then
+    begin
+        ErrorMessage('Error: c: Array of Pointer not allocated.');
+        Destroy;
+    end;
+    if Length(c) < 2 then
+    begin
+        ErrorMessage('Error: QChar minimum array size == 2');
+        Destroy;
+    end;
+
+    pch_str          := 'arraypointer';
+    // ----------------------------
+    ptr_val.VType2.VType    := stQChar;
+    ptr_val.VType2.Value_u1 := int64(c[0]);
+    ptr_val.VType2.Value_u2 := int64(c[1]);
+    ptr_val.VType2.Length   := 2;
+    ptr_val.VType2.Name     := pch_str;
+    // ----------------------------
+    pch_str := 'ctor_QChar_ArrayOfPointer';
+    ptr_val.VType3.Length   := strlen(pch_str);
+    ptr_val.VType3.Name     := pch_str;
+
+    ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
@@ -696,14 +793,10 @@ end;
 destructor QChar.Destroy;
 begin
     {$ifdef DEBUG}
-    GetMem(str_debug, 2048);
-    str_debug := StrCat(str_debug, PChar(#13#10));
-    str_debug := StrCat(str_debug, PChar('delete...'));
-    ErrorMessage(str_debug);
-    Dispose(str_debug);
+    WriteLn('qchar delete');
     {$endif}
 
-    dtor_QChar(ptr_cc);
+    dtor_QChar(ptr_val.VType1.VPointer);
 
     inherited Destroy;
 end;
@@ -725,13 +818,12 @@ end;
 
 function QChar.getOrigin: uint64;
 begin
-  result := uint64(ptr_cc);
+  result := uint64(ptr_val.VType1.VPointer);
 end;
 
 function QChar.isAscii: Boolean;
 begin
-writeln('check if ascii');
-    result := isAscii_QChar(uint64(ptr_cc));
+    result := isAscii_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 /// <summary>
@@ -748,100 +840,97 @@ end;
 function QChar.isDigit: Boolean;
 begin
   WriteLn('isDigit');
-  result := isDigit_QChar(uint64(ptr_cc));
+  result := isDigit_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isLetter: Boolean;
 begin
-  result := isLetter_QChar(uint64(ptr_cc));
+  result := isLetter_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isLetterOrNumber: Boolean;  // done. getestet
+function QChar.isLetterOrNumber: Boolean;  // done. pass ok.
 begin
-  result := isLetterOrNumber_QChar(uint64(ptr_cc));
+  result := isLetterOrNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isLower: Boolean;
+function QChar.isLower: Boolean;  // done. pass ok.
 begin
-  result := isLower_QChar(uint64(ptr_cc));
+  result := isLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isMark: Boolean;
 begin
-    result := isLower_QChar(uint64(ptr_cc));
+    result := isLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isNonCharacter: Boolean;
 begin
-    result := isNonCharacter_QChar(uint64(ptr_cc));
+    result := isNonCharacter_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-/// <summary>
-/// testung
-/// </summary>
-function QChar.isNull: Boolean;
+function QChar.isNull: Boolean;  // done. pass ok.
 begin
-  result := isNull_QChar(uint64(ptr_cc));
+  result := isNull_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isNumber: Boolean;  // done. getestet
+function QChar.isNumber: Boolean;  // done. pass ok.
 begin
-    result := isNumber_QChar(uint64(ptr_cc));
+    result := isNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isPrint: Boolean;
+function QChar.isPrint: Boolean;  // done. pass ok.
 begin
-    result := isPrint_QChar(uint64(ptr_cc));
+    result := isPrint_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isPunct: Boolean;
 begin
-    result := isPunct_QChar(uint64(ptr_cc));
+    result := isPunct_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isSpace: Boolean;
+function QChar.isSpace: Boolean;  // done. pass ok.
 begin
-    result := isSpace_QChar(uint64(ptr_cc));
+    result := isSpace_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isSurrogate: Boolean;
 begin
-    result := isSurrogate_QChar(uint64(ptr_cc));
+    result := isSurrogate_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isSymbol: Boolean;
 begin
-    result := isSymbol_QChar(uint64(ptr_cc));
+    result := isSymbol_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isTitleCase: Boolean;
 begin
-    result := isTitleCase_QChar(uint64(ptr_cc));
+    result := isTitleCase_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isUpper: Boolean;
+function QChar.isUpper: Boolean;  // done. pass ok.
 begin
-    result := isUpper_QChar(uint64(ptr_cc));
+    result := isUpper_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.toLatin1: uint16;
 begin
-    result := toLatin1_QChar(uint64(ptr_cc));
+    result := toLatin1_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.toLower: uint16;
 begin
-    result := toLower_QChar(uint64(ptr_cc));
+    result := toLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.toTitleCase: uint16;
 begin
-    result := toTitleCase_QChar(uint64(ptr_cc));
+    result := toTitleCase_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.toUpper: uint16;
 begin
-    result := toUpper_QChar(uint64(ptr_cc));
+    result := toUpper_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 end.
