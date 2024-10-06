@@ -468,6 +468,11 @@
           </tr>
           <tr>
             <td>Create</td>
+            <td style="width:170px;">c: Pointer</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>Create</td>
             <td style="width:170px;">c: Array of
                         <span style="color:orange;">Byte</span></td>
             <td>
@@ -500,6 +505,14 @@
             <td>
            Erstellt eine Instanz f&#252;r zwei 32-Bit Array of DWord Zeichen, die im
            Parameter-Block angegeben sind.
+           <a class="more-link" href="#remarks-Create">Mehr...</a></td>
+          </tr>
+          <tr>
+            <td>Create</td>
+            <td style="width:170px;">c: Array of
+                        <span style="color:orange;">Pointer</span></td>
+            <td>
+           Erstellt eine Instanz f&#252;r einen WideChar als Parameter.
            <a class="more-link" href="#remarks-Create">Mehr...</a></td>
           </tr>
         </table>
@@ -657,6 +670,23 @@
             <div class="param_div">1.&#160;&#160;Parameter:<div class="para"><div style="width:100px;">
                                     Name:<br/>
                                     Typ:
+                                </div><div><span class="parameter">c<br/>Pointer</span></div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left">
+              <span class="ctor_l">constructor</span>
+              <span class="ctor_r">Create</span>
+            </div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">1.&#160;&#160;Parameter:<div class="para"><div style="width:100px;">
+                                    Name:<br/>
+                                    Typ:
                                 </div><div><span class="parameter">c<br/></span>Array of
                                     <span style="color:orange;">Byte</span></div></div></div>
           </div>
@@ -759,6 +789,32 @@
            ersten zwei Werte werden hierbei ber&#252;cksichtigt.
            </div>
         </p>
+        <div>
+          <div class="constructor_div">
+            <div class="ctor_left">
+              <span class="ctor_l">constructor</span>
+              <span class="ctor_r">Create</span>
+            </div>
+            <div class="ctor_right">
+                    Pascal
+                </div>
+          </div>
+          <div class="ctor_container">
+            <div class="param_div">1.&#160;&#160;Parameter:<div class="para"><div style="width:100px;">
+                                    Name:<br/>
+                                    Typ:
+                                </div><div><span class="parameter">c<br/></span>Array of
+                                    <span style="color:orange;">Pointer</span></div></div></div>
+          </div>
+        </div>
+        <a name="remarks-Create"/>
+        <p class="remarks">
+          <strong>Bemerkungen:</strong>
+          <br/>
+          <div style="width:40vw;">
+           Dies ist der WideChar Konstruktor f&#252;r QChar.
+           </div>
+        </p>
         <h3>Eigenschaften</h3>
         <table>
           <tr>
@@ -780,6 +836,38 @@
         </table>
         <h3>Funktionen</h3>
         <table>
+          <tr>
+            <td class="func">R&#252;ckgabetyp</td>
+            <td class="func">Funktion-Name</td>
+            <td class="func">Kurzbeschreibung</td>
+            <td class="func">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>UInt64</td>
+            <td>getOrigin</td>
+            <td/>
+            <td style="text-align:right;">protected</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" class="bggray">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="bgblack">
+              <span class="bgblack;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" class="bgblack"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
           <tr>
             <td class="func">R&#252;ckgabetyp</td>
             <td class="func">Funktion-Name</td>
@@ -888,6 +976,38 @@
           <tr>
             <td>Boolean</td>
             <td>isAscii</td>
+            <td/>
+            <td style="text-align:right;">public</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>Parameter:
+                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" class="bggray">
+              <strong>Bemerkungen:</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="bgblack">
+              <span class="bgblack;">keine Bemerkungen</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" class="bgblack"/>
+          </tr>
+          <tr>
+            <td colspan="4" style="background-color:orange;"/>
+          </tr>
+          <tr>
+            <td class="func">R&#252;ckgabetyp</td>
+            <td class="func">Funktion-Name</td>
+            <td class="func">Kurzbeschreibung</td>
+            <td class="func">Sichtbarkeit</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>isBlank</td>
             <td/>
             <td style="text-align:right;">public</td>
           </tr>
@@ -1131,7 +1251,7 @@
             <td>Boolean</td>
             <td>isNull</td>
             <td>
-           testung
+           pr&#252;ft, ob das gepeicherte QChar Zeichen null entspricht.
            <a class="more-link" href="#remarks-isNull">Mehr...</a></td>
             <td style="text-align:right;">public</td>
           </tr>
@@ -1539,38 +1659,6 @@
           <tr>
             <td colspan="4" style="background-color:orange;"/>
           </tr>
-          <tr>
-            <td class="func">R&#252;ckgabetyp</td>
-            <td class="func">Funktion-Name</td>
-            <td class="func">Kurzbeschreibung</td>
-            <td class="func">Sichtbarkeit</td>
-          </tr>
-          <tr>
-            <td>UInt64</td>
-            <td>getOrigin</td>
-            <td/>
-            <td style="text-align:right;">protected</td>
-          </tr>
-          <tr>
-            <td colspan="4"><strong>Parameter:
-                                &#160;&#160;&#160;&#160;</strong>&#160;&#160;&#160;&#160;<span class="no_params">keine</span></td>
-          </tr>
-          <tr>
-            <td colspan="4" class="bggray">
-              <strong>Bemerkungen:</strong>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3" class="bgblack">
-              <span class="bgblack;">keine Bemerkungen</span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4" class="bgblack"/>
-          </tr>
-          <tr>
-            <td colspan="4" style="background-color:orange;"/>
-          </tr>
         </table>
       </div>
       <span style="font-weight:bold;color:white;">interne wrapper-Funktionen:</span>
@@ -1599,6 +1687,21 @@
         <tr>
           <td>Boolean</td>
           <td>isAscii_QChar</td>
+          <td class="tarhs">external public</td>
+        </tr>
+        <tr>
+          <td>Bemerkungen</td>
+          <td style="color:orange;"> keine </td>
+          <td style="text-align:right;">cdecl</td>
+        </tr>
+        <tr>
+          <td class="func">R&#252;ckgabetyp</td>
+          <td class="func">Funktion-Name</td>
+          <td class="func tarhs">Sichtbarkeit</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>isBlank_QChar</td>
           <td class="tarhs">external public</td>
         </tr>
         <tr>

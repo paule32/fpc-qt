@@ -41,7 +41,13 @@
   </procedure>
   <function name="isAscii_QChar" visibility="external public" callconv="cdecl">
     <parameters>
-      <parameter name="v" type="Int64" />
+      <parameter name="v" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isBlank_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="v" type="UInt64" />
       <retval type="Boolean" />
     </parameters>
   </function>
@@ -562,6 +568,11 @@
         </parameters>
       </function>
       <function name="isAscii" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isBlank" visibility="public">
         <parameters>
           <retval type="Boolean" />
         </parameters>

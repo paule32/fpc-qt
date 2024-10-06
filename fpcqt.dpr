@@ -24,8 +24,8 @@ var
     myQChar: QChar;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create(['2', '1']);
-    if myQChar.isPrint then
+    myQChar := QChar.Create([' ', ' ']);
+    if myQChar.isBlank then
     begin
         WriteLn('ok');
         ReadLn;

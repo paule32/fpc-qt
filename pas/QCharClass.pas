@@ -56,7 +56,8 @@ const
 function  ctor_QChar(s: PChar; memvar: Pointer): Pointer; cdecl; external dllname;
 procedure dtor_QChar(v: Pointer); cdecl; external dllname;
 
-function isAscii_QChar(v: int64): Boolean; cdecl; external dllname;
+function isAscii_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isBlank_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isLetter_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isLetterOrNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
@@ -323,6 +324,7 @@ type
         function Gt(const B: QChar): Boolean;
 
         function isAscii: Boolean;
+        function isBlank: Boolean;
 
         /// <summary>
         /// prüft, ob das gepeicherte QChar Zeichen ein einzelnes, mathematisches
@@ -824,6 +826,11 @@ end;
 function QChar.isAscii: Boolean;
 begin
     result := isAscii_QChar(uint64(ptr_val.VType1.VPointer));
+end;
+
+function QChar.isBlank: Boolean;
+begin
+    result := isBlank_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 /// <summary>

@@ -25,6 +25,16 @@ FpcPath        := $(shell echo $$FPC_PATH)
 # If so, try to compile with Free Pascal Compiler (FPC) ...
 # todo: FPC_PATH must be set !
 # ---------------------------------------------------------------------------
+ifeq ($strip $(PascalCompiler)),)
+    PascalCompiler = FPC
+endif
+ifeq ($strip $(RadConfig)),)
+    RadConfig = Release
+endif
+ifeq ($strip $(FpcPath)),)
+    FPC_PATH = E:\FPCdeluxe
+endif
+
 ifeq ($(PascalCompiler),)
     PascalCompiler = FPC
 endif
@@ -87,7 +97,8 @@ ifeq ($(OS),Msys)
             GXX_FLAGS  = -D WINDOWS -D RELEASE
             GXX_FLAGS += -D WIN64
             #
-        else ifeq ($(RadConfig),Debug)
+        endif
+        ifeq ($(RadConfig),Debug)
             OUTPUT_PATH = ./win64/Debug
             GCC_FLAGS  = -D WINDOWS -D DEBUG
             GCC_FLAGS += -D WIN32
@@ -95,7 +106,8 @@ ifeq ($(OS),Msys)
             GXX_FLAGS  = -D WINDOWS -D DEBUG
             GXX_FLAGS += -D WIN64
         endif
-    else
+    endif
+    ifneq ($(ARCH),x86_64)
         ifeq ($(RadConfig),Release)
             OUTPUT_PATH = ./win32/Release
             GCC_FLAGS  = -D WINDOWS -D RELEASE
@@ -104,7 +116,8 @@ ifeq ($(OS),Msys)
             GXX_FLAGS  = -D WINDOWS -D RELEASE
             GXX_FLAGS #= -D WIN64
             #
-        else ifeq ($(RadConfig),Debug)
+        endif
+        ifeq ($(RadConfig),Debug)
             OUTPUT_PATH = ./win32/Debug
             GCC_FLAGS  = -D WINDOWS -D DEBUG
             GCC_FLAGS += -D WIN32
@@ -138,17 +151,20 @@ ifeq ($(OS),Msys)
     LD_LINUX_32 = $(FPC_PATH_Linux32)/i386-linux-gnu-ld.exe
     LD_LINUX_64 = $(FPC_PATH_Linux64)/x86_64-linux-gnu-ld.exe
     #
-else ifeq ($(OS),Linux)
+endif
+ifeq ($(OS),Linux)
     ifeq ($(ARCH),x86_64)
         ifeq ($(RadConfig),Release)
             OUTPUT_PATH = ./Linux64/Release
-        else ifeq ($(RadConfig),Debug)
+        endif
+        ifeq ($(RadConfig),Debug)
             OUTPUT_PATH = ./Linux64/Debug
         endif
     else
         ifeq ($(RadConfig),Release)
             OUTPUT_PATH = ./Linux32/Release
-        else ifeq ($(RadConfig),Debug)
+        endif
+        ifeq ($(RadConfig),Debug)
             OUTPUT_PATH = ./Linux32/Debug
         endif
     endif

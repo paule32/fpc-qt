@@ -38,6 +38,21 @@ qvc::QChar::isAscii() const {
     return false;
 }
 
+/**
+ * \brief This member function checks
+ */
+bool
+qvc::QChar::isBlank() const {
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        std::cout << "c++ isblank" << std::endl;
+        if ((std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u1)))
+        ||  (std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u2)))) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool
 qvc::QChar::isDigit() const {
     if (!strcmp(ptr_val->VType2.Name, "char")) {
@@ -245,6 +260,14 @@ check_origin(::QChar * addr)
     }   return false;
 }
 
+std::ostream& operator << (std::ostream& os, const QChar& c) {
+    return os;
+}
+
+std::istream& operator >> (std::istream& is, QChar& c) {
+    return is;
+}
+
 extern "C" {
 
 DLL_EXPORT uint64_t
@@ -330,8 +353,7 @@ dtor_QChar(uint64_t addr)
 
 // ok
 DLL_EXPORT bool
-isAscii_QChar(uint64_t addr)
-{
+isAscii_QChar(uint64_t addr) {
     bool   result = false;
     qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
 
@@ -339,6 +361,15 @@ isAscii_QChar(uint64_t addr)
     if (objptr->isAscii())
     result = true;
     return result;
+}
+
+DLL_EXPORT bool
+isBlank_QChar(uint64_t addr) {
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isBlank())
+    return true;
+    return false;
 }
 
 DLL_EXPORT bool

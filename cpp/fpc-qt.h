@@ -24,6 +24,7 @@
 # include <exception>
 # include <locale>
 # include <codecvt>
+# include <cctype>
 
 #ifndef WINDOWS
 typedef uint16_t WORD;
@@ -166,6 +167,7 @@ public:
     ~QChar(void);
     
     bool isAscii          () const;
+    bool isBlank          () const;
     bool isDigit          () const;
     bool isLetter         () const;
     bool isLetterOrNumber () const;
@@ -196,6 +198,10 @@ public:
     void setType(uint32_t t);
     void setType(wchar_t  t);
     void setType(short    t);
+    
+    friend std::ostream& operator << (std::ostream& os, const QChar c);
+    friend std::istream& operator >> (std::istream& is,       QChar c);
+    
     
     // getter
     symbolTypeEnum getType  (void) const;
