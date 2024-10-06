@@ -8,42 +8,48 @@ import lxml.etree as ET
 import os
 import sys
 
-# Liste der XML-Dateien, die verarbeitet werden sollen
-xml_files = ['QCharClass.xml']  # Füge hier weitere Dateien hinzu
-
-# Lade die Haupt-XSLT-Datei
-try:
-    xslt_main_doc  = ET.parse('qchar_enums.xslt')
+xml_files = [
+    [ 'QCharClass', 'QCharClass_all'             , 'all'              ],
     #
-    transform_main = ET.XSLT(xslt_main_doc)
+    [ 'QCharClass', 'QCharClass_class_enums'     , 'class_enums'      ],
+    [ 'QCharClass', 'QCharClass_class_functions' , 'class_functions'  ],
+    [ 'QCharClass', 'QCharClass_class_procedures', 'class_procedures' ],
     #
-except ET.XMLSyntaxError as e:
-    print(f"XSLT-Datei konnte nicht geladen werden: {e}")
-    exit()
+    [ 'QCharClass', 'QCharClass_enums'           , 'enums'            ],
+    [ 'QCharClass', 'QCharClass_functions'       , 'functions'        ],
+    [ 'QCharClass', 'QCharClass_procedures'      , 'procedures'       ]
+    #
+]
 
-# Verarbeite jede XML-Datei in der Liste
-for xml_file in xml_files:
+for filelist in xml_files:
     try:
-        # Lade die XML-Datei
-        xml_doc = ET.parse(xml_file)
+        xml_doc = filelist[0] + '.xml'
+        xslt_main_doc  = ET.parse(filelist[1] + '.xslt')
+        #
+        transform_main = ET.XSLT(xslt_main_doc)
+        #
     except ET.XMLSyntaxError as e:
-        print(f"XML-Datei '{xml_file}' konnte nicht geladen werden: {e}")
+        print(f"XSLT-Datei konnte nicht geladen werden: {e}")
+        exit()
+    
+    try:
+        xml_doc_transformer = ET.parse(xml_doc)
+    except ET.XMLSyntaxError as e:
+        print(f"XML-Datei '{xml_doc}' konnte nicht geladen werden: {e}")
         continue
     except FileNotFoundError:
-        print(f"Die XML-Datei '{xml_file}' wurde nicht gefunden.")
+        print(f"Die XML-Datei '{xml_doc}' wurde nicht gefunden.")
         continue
     
-    # Führe die Transformation für die Hauptdatei durch
     try:
-        result_main = transform_main(xml_doc)
+        result_main = transform_main(xml_doc_transformer)
         if result_main is None:
-            raise ValueError(f"Die Transformation der Datei '{xml_file}' hat kein Ergebnis zurückgegeben.")
+            raise ValueError(f"Die Transformation der Datei '{xml_doc}' hat kein Ergebnis zurückgegeben.")
     except (ET.XSLTApplyError, ValueError) as e:
-        print(f"Fehler bei der Transformation der Datei '{xml_file}': {e}")
+        print(f"Fehler bei der Transformation der Datei '{xml_doc}': {e}")
         continue
     
-    # Speichere die Haupt-HTML-Datei
-    output_file_path_main = os.path.splitext(xml_file)[0] + '_enum.html'
+    output_file_path_main = os.path.splitext(filelist[0])[0] + '_' + filelist[2] + '.html'
     with open(output_file_path_main, 'wb') as f:
         f.write(ET.tostring(result_main, pretty_print=True))
     

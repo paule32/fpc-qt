@@ -69,10 +69,48 @@
             </xsl:choose>
         </h2>
         <div class="platform">Platform: <xsl:value-of select="@platform"/></div>
-        
         <xsl:apply-templates select="enum" />
         <xsl:apply-templates select="class" />
     </div>
+    
+    <!-- wrapper Funktionen -->
+    <span style="font-weight:bold;color:white;">interne wrapper-Funktionen:</span>
+    <br/>
+    <xsl:if test="function">
+    <table>
+        <!-- Durchlaufe jede Funktion -->
+        <xsl:for-each select="function">
+        <tr>
+            <xsl:choose>
+            <xsl:when test="$lang = 'en'">
+                <td class="func">Return Type</td>
+                <td class="func">Function Name</td>
+                <td class="func tarhs">Visibility</td>
+            </xsl:when>
+            <xsl:otherwise>
+                <td class="func">Rückgabetyp</td>
+                <td class="func">Funktion-Name</td>
+                <td class="func tarhs">Sichtbarkeit</td>
+            </xsl:otherwise>
+            </xsl:choose>
+        </tr>
+        <tr>
+            <!-- Erste Zeile für Rückgabetyp, Funktionsname und Zusammenfassung -->
+            <td><xsl:value-of select="parameters/retval/@type"/></td>
+            <td><xsl:value-of select="@name"/></td>
+            <td class="tarhs">
+                <xsl:value-of select="@visibility"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Bemerkungen</td>
+            <td style="color:orange;"> keine </td>
+            <td style="text-align:right;"><xsl:value-of select="@callconv"/></td>
+        </tr>
+        </xsl:for-each>
+    </table>
+    </xsl:if>
+
 </xsl:template>
 
 <!-- Template für Contains -->
@@ -152,7 +190,9 @@
                 <h3>Inherited from</h3>
             </xsl:when>
             <xsl:otherwise>
-                <h3>Erbt von</h3>
+                <h3>
+                Erbt von: <xsl:value-of select="ancestor/@name"/>
+                </h3>
             </xsl:otherwise>
         </xsl:choose>
         <table>
@@ -169,13 +209,23 @@
                 </xsl:choose>
             </tr>
             <tr>
-                <td>
+                <td class="subclass1">
                     <xsl:value-of select="ancestor/@name"/>
                 </td>
-                <td>
+                <td class="subclass1">
                     <xsl:value-of select="ancestor/@namespace"/>
                 </td>
             </tr>
+            <xsl:for-each select="ancestor/methodref">
+            <tr>
+                <td>
+                    <xsl:value-of select="@name"/>
+                </td>
+                <td>
+                    <xsl:value-of select="@procflags"/>
+                </td>
+            </tr>
+            </xsl:for-each>
         </table>
     </xsl:if>
 
@@ -251,13 +301,13 @@
                     <td>Create</td>
                     <td style="width:170px;">
                         <xsl:for-each select="parameters/parameter">
-                            <xsl:value-of select="@name"/>: <xsl:value-of select="@type"/>
-                            <xsl:if test="array/element">Array of
-                                <span style="color:orange;">
-                                    <xsl:value-of select="array/element/@type"/>
-                                </span>
-                            </xsl:if>
-                            <xsl:if test="position() != last()">, </xsl:if>
+                        <xsl:value-of select="@name"/>: <xsl:value-of select="@type"/>
+                        <xsl:if test="array/element">Array of
+                        <span style="color:orange;">
+                            <xsl:value-of select="array/element/@type"/>
+                        </span>
+                        </xsl:if>
+                        <xsl:if test="position() != last()">, </xsl:if>
                         </xsl:for-each>
                     </td>
                     <td>
@@ -279,9 +329,8 @@
         <div>
             <div class="constructor_div">
                 <div class="ctor_left">
-                    <span style="color:white;font-wight:normal;">constructor</span>
-                    <xsl:text>&#160;</xsl:text>
-                    <span style="color:orange;font-weight:bold;">Create</span>
+                    <span class="ctor_l">constructor</span>
+                    <span class="ctor_r">Create</span>
                 </div>
                 <div class="ctor_right">
                     Pascal
@@ -294,41 +343,37 @@
                     <div class="ctor_container">
                     <xsl:for-each select="parameters/parameter">
                         <div class="param_div">
-                            <li>
-                                <!-- Zeige die aktuelle Position an -->
-                                <xsl:text>Parameter </xsl:text><xsl:value-of select="position()"/>
-                                
-                                <!-- Zeige den Namen und Typ des Parameters an -->
-                                <div style="display:flex;flex-direction:row;">
-                                    <div style="width:100px;">
-                                        Name:<br/>
-                                        Typ:
-                                    </div>
-                                    <div>
-                                        <span class="parameter">
-                                            <xsl:value-of select="@name"/><br/>
-                                            <xsl:value-of select="@type"/>
-                                        </span>
-                                        
-                                        <!-- wenn ARRAY OF ... -->
-                                        <xsl:if test="array/element">Array of
-                                            <span style="color:orange;">
-                                                <xsl:value-of select="array/element/@type"/>
-                                            </span>
-                                        </xsl:if>
-                                    </div>
+                            <!-- Zeige die aktuelle Position an -->
+                            <xsl:value-of select="position()"/>.<xsl:text>&#160;&#160;Parameter:</xsl:text>
+                            <!-- Zeige den Namen und Typ des Parameters an -->
+                            <div class="para">
+                                <div style="width:100px;">
+                                    Name:<br/>
+                                    Typ:
                                 </div>
-                                
-                                <xsl:if test="position() != last()">, <br/></xsl:if>
-                            </li>
+                                <div>
+                                    <span class="parameter">
+                                        <xsl:value-of select="@name"/><br/>
+                                        <xsl:value-of select="@type"/>
+                                    </span>
+                                    
+                                    <!-- wenn ARRAY OF ... -->
+                                    <xsl:if test="array/element">Array of
+                                    <span style="color:orange;">
+                                        <xsl:value-of select="array/element/@type"/>
+                                    </span>
+                                    </xsl:if>
+                                </div>
+                            </div>
                         </div>
+                    <xsl:if test="position() != last()">, <br/></xsl:if>
                     </xsl:for-each>
                     </div>
                 </xsl:when>
                 <!-- Falls keine Parameter vorhanden sind, zeige "no param" -->
                 <xsl:otherwise>
                     <div class="ctor_container">
-                        <div class="param_div">no param</div>
+                        <div class="param_div">keine Parameter</div>
                     </div>
                     <p> </p>
                 </xsl:otherwise>
@@ -353,7 +398,31 @@
             </p>
         </xsl:if>
     </xsl:for-each>
-            
+    
+    <!-- Tabelle für Eigenschaften (Properties) -->
+    <xsl:if test="members/property">
+        <xsl:choose>
+            <xsl:when test="$lang = 'en'">
+                <h3>Properties</h3>
+            </xsl:when>
+            <xsl:otherwise>
+                <h3>Eigenschaften</h3>
+            </xsl:otherwise>
+        </xsl:choose>
+        <table>
+            <tr>
+                <td style="background-color:gray;font-weight:bold;">Sichtbarkeit</td>
+                <td style="background-color:gray;font-weight:bold;">Name</td>
+            </tr>
+            <xsl:for-each select="members/property">
+            <tr>
+                <td><xsl:value-of select="@visibility"/></td>
+                <td><xsl:value-of select="@name"/></td>
+            </tr>
+            </xsl:for-each>
+        </table>
+    </xsl:if>
+        
     <!-- Tabelle für Funktionen -->
     <xsl:if test="members/function">
         <xsl:choose>
@@ -370,16 +439,16 @@
             <tr>
                 <xsl:choose>
                     <xsl:when test="$lang = 'en'">
-                        <td style="background-color:#555555;">Return Type</td>
-                        <td style="background-color:#555555;">Function Name</td>
-                        <td style="background-color:#555555;">Summary</td>
-                        <td style="background-color:#555555;">Visibility</td>
+                        <td class="func">Return Type</td>
+                        <td class="func">Function Name</td>
+                        <td class="func">Summary</td>
+                        <td class="func">Visibility</td>
                     </xsl:when>
                     <xsl:otherwise>
-                        <td style="background-color:#555555;">Rückgabetyp</td>
-                        <td style="background-color:#555555;">Funktion-Name</td>
-                        <td style="background-color:#555555;">Kurzbeschreibung</td>
-                        <td style="background-color:#555555;">Sichtbarkeit</td>
+                        <td class="func">Rückgabetyp</td>
+                        <td class="func">Funktion-Name</td>
+                        <td class="func">Kurzbeschreibung</td>
+                        <td class="func">Sichtbarkeit</td>
                     </xsl:otherwise>
                 </xsl:choose>
             </tr>
@@ -430,7 +499,7 @@
             </tr>
             <tr>
                 <!-- Zusätzliche Zeile nach den Parametern -->
-                <td colspan="4" style="background-color:gray;">
+                <td colspan="4" class="bggray">
                     <xsl:choose>
                         <xsl:when test="$lang = 'en'"><strong>Remarks:</strong></xsl:when>
                         <xsl:when test="$lang = 'de'"><strong>Bemerkungen:</strong></xsl:when>
@@ -445,10 +514,10 @@
             <tr>
             <!-- Remarks unter der Funktion anzeigen -->
             <xsl:if test="not(devnotes/remarks)">
-                <td colspan="3" style="background-color:black;">
+                <td colspan="3" class="bgblack">
                 <xsl:choose>
-                    <xsl:when test="$lang = 'en'"><span style="background-color:black;">no remarks</span></xsl:when>
-                    <xsl:when test="$lang = 'de'"><span style="background-color:black;">keine Bemerkungen</span></xsl:when>
+                    <xsl:when test="$lang = 'en'"><span class="bgblack;">no remarks</span></xsl:when>
+                    <xsl:when test="$lang = 'de'"><span class="bgblack;">keine Bemerkungen</span></xsl:when>
                     <xsl:otherwise></xsl:otherwise>
                 </xsl:choose>
                 </td>
@@ -463,7 +532,7 @@
             </xsl:if>
             </tr>
             <tr>
-                <td colspan="4" style="background-color:black;"></td>
+                <td colspan="4" class="bgblack"></td>
             </tr>
             <tr>
                 <td colspan="4" style="background-color:orange;"></td>
