@@ -166,6 +166,8 @@ public:
     // destructor
     ~QChar(void);
     
+    bool isAlpha          () const;
+    bool isAlphaNumber    () const;
     bool isAscii          () const;
     bool isBlank          () const;
     bool isDigit          () const;

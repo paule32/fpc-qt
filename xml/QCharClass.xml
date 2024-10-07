@@ -39,6 +39,18 @@
       <parameter name="v" type="Pointer" />
     </parameters>
   </procedure>
+  <function name="isAlpha_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="v" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isAlphaNumber_QChar" visibility="external public" callconv="cdecl">
+    <parameters>
+      <parameter name="v" type="UInt64" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
   <function name="isAscii_QChar" visibility="external public" callconv="cdecl">
     <parameters>
       <parameter name="v" type="UInt64" />
@@ -564,6 +576,26 @@
       <function name="Gt" visibility="public">
         <parameters>
           <parameter name="B" type="QChar" paramflags="const" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isAlpha" visibility="public">
+        <devnotes>
+           <summary>
+              <de>eine alpha Funktion</de>
+              <en>this is a alpha function</en>
+           </summary>
+           <returns>
+              <de>Boolean True, wenn alpha. sonst False.</de>
+              <en>Boolean True, if alpha. else False.</en>
+           </returns>
+        </devnotes>
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="isAlphaNumber" visibility="public">
+        <parameters>
           <retval type="Boolean" />
         </parameters>
       </function>

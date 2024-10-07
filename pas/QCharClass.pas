@@ -56,6 +56,8 @@ const
 function  ctor_QChar(s: PChar; memvar: Pointer): Pointer; cdecl; external dllname;
 procedure dtor_QChar(v: Pointer); cdecl; external dllname;
 
+function isAlpha_QChar(v: uint64): Boolean; cdecl; external dllname;
+function isAlphaNumber_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isAscii_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isBlank_QChar(v: uint64): Boolean; cdecl; external dllname;
 function isDigit_QChar(v: uint64): Boolean; cdecl; external dllname;
@@ -322,6 +324,17 @@ type
         function Lt(const B: QChar): Boolean;
         function Eq(const B: QChar): Boolean;
         function Gt(const B: QChar): Boolean;
+
+        /// <summary>
+        ///    <de>eine alpha Funktion</de>
+        ///    <en>this is a alpha function</en>
+        /// </summary>
+        /// <returns>
+        ///    <de>Boolean True, wenn alpha. sonst False.</de>
+        ///    <en>Boolean True, if alpha. else False.</en>
+        /// </returns>
+        function isAlpha: Boolean;
+        function isAlphaNumber: Boolean;
 
         function isAscii: Boolean;
         function isBlank: Boolean;
@@ -821,6 +834,16 @@ end;
 function QChar.getOrigin: uint64;
 begin
   result := uint64(ptr_val.VType1.VPointer);
+end;
+
+function QChar.isAlpha: Boolean;
+begin
+    result := isAlpha_QChar(uint64(ptr_val.VType1.VPointer));
+end;
+
+function QChar.isAlphaNumber: Boolean;
+begin
+    result := isAlphaNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
 function QChar.isAscii: Boolean;

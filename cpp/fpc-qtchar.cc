@@ -38,6 +38,25 @@ qvc::QChar::isAscii() const {
     return false;
 }
 
+bool
+qvc::QChar::isAlpha() const {
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        if (isalpha(ptr_val->VType2.Value_u1)) return true;
+        if (isalpha(ptr_val->VType2.Value_u2)) return true;
+    }
+    return false;
+}
+
+bool
+qvc::QChar::isAlphaNumber() const {
+    if (!strcmp(ptr_val->VType2.Name, "char")) {
+        if (isalnum(ptr_val->VType2.Value_u1)) return true;
+        if (isalnum(ptr_val->VType2.Value_u2)) return true;
+    }
+    return false;
+}
+
+
 /**
  * \brief This member function checks
  */
@@ -359,6 +378,28 @@ isAscii_QChar(uint64_t addr) {
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     if (objptr->isAscii())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isApha_QChar(uint64_t addr) {
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isAlpha())
+    result = true;
+    return result;
+}
+
+DLL_EXPORT bool
+isAlphaNumber_QChar(uint64_t addr) {
+    bool   result = false;
+    qvc::QChar* objptr = reinterpret_cast<qvc::QChar*>(addr);
+
+    check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
+    if (objptr->isAlphaNumber())
     result = true;
     return result;
 }
