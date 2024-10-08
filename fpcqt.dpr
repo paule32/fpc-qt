@@ -21,10 +21,10 @@ uses
 
 procedure EntryPoint(argc: Integer; argv: Array of String);
 var
-    myQChar: QChar;
+    myQChar: QChar<Char>;
 begin
     WriteLn('start...');
-    myQChar := QChar.Create([' ', ' ']);
+    myQChar := QChar<Char>.Create([' ', ' ']);
     if myQChar.isBlank then
     begin
         WriteLn('ok');

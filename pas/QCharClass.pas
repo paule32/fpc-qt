@@ -86,7 +86,7 @@ type
     /// <summary>
     ///  QChar ist eine Beispielklasse
     /// </summary>
-    QChar = class
+    QChar<T> = class
     public
         type
         /// <enum>
@@ -176,6 +176,8 @@ type
         FCategory:      QChar_Category;
         FDecomposition: QChar_Decomposition;
         FDirection:     QChar_Direction;
+    private
+        function check_ptr(name: PChar; ptr: uint64): Boolean;
     protected
         function getOrigin: uint64;
     public
@@ -321,9 +323,9 @@ type
 
         destructor Destroy; override;
 
-        function Lt(const B: QChar): Boolean;
-        function Eq(const B: QChar): Boolean;
-        function Gt(const B: QChar): Boolean;
+        function Lt(const B: QChar<T>): Boolean;
+        function Eq(const B: QChar<T>): Boolean;
+        function Gt(const B: QChar<T>): Boolean;
 
         /// <summary>
         ///    <de>eine alpha Funktion</de>
@@ -389,9 +391,9 @@ type
         function toUpper: uint16;
 
     published
-        property Category:      QChar_Category      read FCategory      default Other_NotAssigned;
-        property Decomposition: QChar_Decomposition read FDecomposition default NoDeComposition;
-        property Direction:     QChar_Direction     read FDirection     default DirEN;
+        property Category:      QChar_Category      read FCategory;
+        property Decomposition: QChar_Decomposition read FDecomposition;
+        property Direction:     QChar_Direction     read FDirection;
     end;
 
 implementation
@@ -400,7 +402,7 @@ implementation
 ///   prüft, ob eine Instanz mit dem im Parameter "name" stehende Symbol
 ///   initialisiert wurde.
 /// </summary>
-function check_ptr(name: PChar; ptr: uint64): Boolean;
+function QChar<T>.check_ptr(name: PChar; ptr: uint64): Boolean;
 begin
   result := false;
   if ptr = 0 then
@@ -416,7 +418,7 @@ end;
 /// <summary>
 ///  Erstellt eine Instanz von QChar ohne Parameter.
 /// </summary>
-constructor QChar.Create;
+constructor QChar<T>.Create;
 begin
     inherited Create;
 
@@ -438,7 +440,7 @@ end;
 /// <param name="c">
 ///  Ein Byte für das Zeichen.
 /// </param>
-constructor QChar.Create(c: Byte);
+constructor QChar<T>.Create(c: Byte);
 var
   memvar: SmallInt;
   ptr: Pointer;
@@ -465,7 +467,7 @@ end;
 /// <param name="c">
 ///  Ein AnsiChar für das Zeichen.
 /// </param>
-constructor QChar.Create(c: Char);
+constructor QChar<T>.Create(c: Char);
 var
     pch_str: PChar;
 begin
@@ -493,7 +495,7 @@ end;
 /// <param name="c">
 ///  Ein DWORD für das Zeichen.
 /// </param>
-constructor QChar.Create(c: DWORD);
+constructor QChar<T>.Create(c: DWORD);
 begin
   inherited Create;
 
@@ -515,7 +517,7 @@ end;
 /// <param name="c">
 ///  Ein Word für das Zeichen.
 /// </param>
-constructor QChar.Create(c: Word);
+constructor QChar<T>.Create(c: Word);
 begin
   inherited Create;
 
@@ -537,7 +539,7 @@ end;
 /// <param name="c">
 ///  Ein SmallInt für das Zeichen.
 /// </param>
-constructor QChar.Create(c: int16);
+constructor QChar<T>.Create(c: int16);
 var
     pch_str: PChar;
 begin
@@ -566,14 +568,14 @@ begin
     c_type := c;
 end;
 
-constructor QChar.Create(c: Pointer);
+constructor QChar<T>.Create(c: Pointer);
 var
     pch_str: PChar;
 begin
 
 end;
 
-constructor QChar.Create(c: Array of Byte);
+constructor QChar<T>.Create(c: Array of Byte);
 var
     pch_str: PChar;
 begin
@@ -611,7 +613,7 @@ begin
     begin Free; exit; end;
 end;
 
-constructor QChar.Create(c: Array of Char);
+constructor QChar<T>.Create(c: Array of Char);
 var
     pch_str: PChar;
 begin
@@ -649,7 +651,7 @@ begin
     begin Free; exit; end;
 end;
 
-constructor QChar.Create(c: Array of Word);
+constructor QChar<T>.Create(c: Array of Word);
 var
     pch_str: PChar;
 begin
@@ -687,7 +689,7 @@ begin
     begin Free; exit; end;
 end;
 
-constructor QChar.Create(c: Array of DWord);
+constructor QChar<T>.Create(c: Array of DWord);
 var
     pch_str: PChar;
 begin
@@ -768,7 +770,7 @@ begin
 end;
 {$endif}
 
-constructor QChar.Create(c: Array of Pointer);
+constructor QChar<T>.Create(c: Array of Pointer);
 var
     pch_str: PChar;
 begin
@@ -805,7 +807,7 @@ end;
 /// <summary>
 ///  Bereinigt eine Instanz der Klasse QChar.
 /// </summary>
-destructor QChar.Destroy;
+destructor QChar<T>.Destroy;
 begin
     {$ifdef DEBUG}
     WriteLn('qchar delete');
@@ -816,42 +818,42 @@ begin
     inherited Destroy;
 end;
 
-function QChar.Lt(const B: QChar): Boolean;
+function QChar<T>.Lt(const B: QChar<T>): Boolean;
 begin
   result := (c_type < B.c_type);
 end;
 
-function QChar.Eq(const B: QChar): Boolean;
+function QChar<T>.Eq(const B: QChar<T>): Boolean;
 begin
   result := (c_type = B.c_type);
 end;
 
-function QChar.Gt(const B: QChar): Boolean;
+function QChar<T>.Gt(const B: QChar<T>): Boolean;
 begin
   result := (c_type > B.c_type);
 end;
 
-function QChar.getOrigin: uint64;
+function QChar<T>.getOrigin: uint64;
 begin
   result := uint64(ptr_val.VType1.VPointer);
 end;
 
-function QChar.isAlpha: Boolean;
+function QChar<T>.isAlpha: Boolean;
 begin
     result := isAlpha_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isAlphaNumber: Boolean;
+function QChar<T>.isAlphaNumber: Boolean;
 begin
     result := isAlphaNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isAscii: Boolean;
+function QChar<T>.isAscii: Boolean;
 begin
     result := isAscii_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isBlank: Boolean;
+function QChar<T>.isBlank: Boolean;
 begin
     result := isBlank_QChar(uint64(ptr_val.VType1.VPointer));
 end;
@@ -867,98 +869,98 @@ end;
 /// Wurde die QChar Klasse mit einer Zahl initializiert wird die Funktion
 /// isDigit TRUE zurück geben, sonst FALSE.
 /// </remarks>
-function QChar.isDigit: Boolean;
+function QChar<T>.isDigit: Boolean;
 begin
   WriteLn('isDigit');
   result := isDigit_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isLetter: Boolean;
+function QChar<T>.isLetter: Boolean;
 begin
   result := isLetter_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isLetterOrNumber: Boolean;  // done. pass ok.
+function QChar<T>.isLetterOrNumber: Boolean;  // done. pass ok.
 begin
   result := isLetterOrNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isLower: Boolean;  // done. pass ok.
+function QChar<T>.isLower: Boolean;  // done. pass ok.
 begin
   result := isLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isMark: Boolean;
+function QChar<T>.isMark: Boolean;
 begin
     result := isLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isNonCharacter: Boolean;
+function QChar<T>.isNonCharacter: Boolean;
 begin
     result := isNonCharacter_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isNull: Boolean;  // done. pass ok.
+function QChar<T>.isNull: Boolean;  // done. pass ok.
 begin
   result := isNull_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isNumber: Boolean;  // done. pass ok.
+function QChar<T>.isNumber: Boolean;  // done. pass ok.
 begin
     result := isNumber_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isPrint: Boolean;  // done. pass ok.
+function QChar<T>.isPrint: Boolean;  // done. pass ok.
 begin
     result := isPrint_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isPunct: Boolean;
+function QChar<T>.isPunct: Boolean;
 begin
     result := isPunct_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isSpace: Boolean;  // done. pass ok.
+function QChar<T>.isSpace: Boolean;  // done. pass ok.
 begin
     result := isSpace_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isSurrogate: Boolean;
+function QChar<T>.isSurrogate: Boolean;
 begin
     result := isSurrogate_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isSymbol: Boolean;
+function QChar<T>.isSymbol: Boolean;
 begin
     result := isSymbol_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isTitleCase: Boolean;
+function QChar<T>.isTitleCase: Boolean;
 begin
     result := isTitleCase_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.isUpper: Boolean;  // done. pass ok.
+function QChar<T>.isUpper: Boolean;  // done. pass ok.
 begin
     result := isUpper_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.toLatin1: uint16;
+function QChar<T>.toLatin1: uint16;
 begin
     result := toLatin1_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.toLower: uint16;
+function QChar<T>.toLower: uint16;
 begin
     result := toLower_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.toTitleCase: uint16;
+function QChar<T>.toTitleCase: uint16;
 begin
     result := toTitleCase_QChar(uint64(ptr_val.VType1.VPointer));
 end;
 
-function QChar.toUpper: uint16;
+function QChar<T>.toUpper: uint16;
 begin
     result := toUpper_QChar(uint64(ptr_val.VType1.VPointer));
 end;

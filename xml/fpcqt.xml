@@ -32,7 +32,6 @@
   <contains name="Winapi.ActiveX" />
   <contains name="System.Variants" />
   <contains name="System.VarUtils" />
-  <contains name="System.SysUtils" />
   <contains name="System.Internal.ExcUtils" />
   <contains name="System.Character" />
   <contains name="System.RTLConsts" />
@@ -44,6 +43,7 @@
   <contains name="Winapi.Windows.PkgHelper" />
   <contains name="System.UITypes" />
   <contains name="System.Types" />
+  <contains name="System.SysUtils" />
   <contains name="QCharClass" />
   <contains name="fpcmain" />
   <contains name="misc" />
@@ -51,6 +51,281 @@
   <contains name="Winapi.Windows" />
   <contains name="SysInit" />
   <contains name="System" />
+  <const name="Mark_NonSpacing" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Mark_NonSpacing
+    </value>
+  </const>
+  <const name="Mark_SpacingCombining" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Mark_SpacingCombining
+    </value>
+  </const>
+  <const name="Mark_Enclosing" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Mark_Enclosing
+    </value>
+  </const>
+  <const name="Number_DecimalDigit" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Number_DecimalDigit
+    </value>
+  </const>
+  <const name="Number_Letter" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Number_Letter
+    </value>
+  </const>
+  <const name="Number_Other" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Number_Other
+    </value>
+  </const>
+  <const name="Separator_Space" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Separator_Space
+    </value>
+  </const>
+  <const name="Separator_Line" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Separator_Line
+    </value>
+  </const>
+  <const name="Separator_Paragraph" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Separator_Paragraph
+    </value>
+  </const>
+  <const name="Other_Control" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Other_Control
+    </value>
+  </const>
+  <const name="Other_Format" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Other_Format
+    </value>
+  </const>
+  <const name="Other_Surrogate" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Other_Surrogate
+    </value>
+  </const>
+  <const name="Other_PrivateUse" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Other_PrivateUse
+    </value>
+  </const>
+  <const name="Other_NotAssigned" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Category">
+    <value>
+      Other_NotAssigned
+    </value>
+  </const>
+  <const name="NoDecomposition" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      NoDecomposition
+    </value>
+  </const>
+  <const name="Canonical" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Canonical
+    </value>
+  </const>
+  <const name="Font" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Font
+    </value>
+  </const>
+  <const name="NoBreak" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      NoBreak
+    </value>
+  </const>
+  <const name="Initial" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Initial
+    </value>
+  </const>
+  <const name="Medial" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Medial
+    </value>
+  </const>
+  <const name="Final" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Final
+    </value>
+  </const>
+  <const name="Isolated" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Isolated
+    </value>
+  </const>
+  <const name="Circle" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Circle
+    </value>
+  </const>
+  <const name="Super" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Super
+    </value>
+  </const>
+  <const name="Sub" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Sub
+    </value>
+  </const>
+  <const name="Vertical" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Vertical
+    </value>
+  </const>
+  <const name="Wide" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Wide
+    </value>
+  </const>
+  <const name="Narrow" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Narrow
+    </value>
+  </const>
+  <const name="Small" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Small
+    </value>
+  </const>
+  <const name="Square" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Square
+    </value>
+  </const>
+  <const name="Compat" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Compat
+    </value>
+  </const>
+  <const name="Fraction" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Decomposition">
+    <value>
+      Fraction
+    </value>
+  </const>
+  <const name="DirL" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirL
+    </value>
+  </const>
+  <const name="DirR" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirR
+    </value>
+  </const>
+  <const name="DirEN" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirEN
+    </value>
+  </const>
+  <const name="DirES" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirES
+    </value>
+  </const>
+  <const name="DirET" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirET
+    </value>
+  </const>
+  <const name="DirAN" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirAN
+    </value>
+  </const>
+  <const name="DirCS" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirCS
+    </value>
+  </const>
+  <const name="DirB" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirB
+    </value>
+  </const>
+  <const name="DirS" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirS
+    </value>
+  </const>
+  <const name="DirWS" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirWS
+    </value>
+  </const>
+  <const name="DirON" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirON
+    </value>
+  </const>
+  <const name="DirLRE" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirLRE
+    </value>
+  </const>
+  <const name="DirLRO" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirLRO
+    </value>
+  </const>
+  <const name="DirAL" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirAL
+    </value>
+  </const>
+  <const name="DirRLE" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirRLE
+    </value>
+  </const>
+  <const name="DirRLO" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirRLO
+    </value>
+  </const>
+  <const name="DirPDF" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirPDF
+    </value>
+  </const>
+  <const name="DirNSM" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirNSM
+    </value>
+  </const>
+  <const name="DirBN" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirBN
+    </value>
+  </const>
+  <const name="DirLRI" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirLRI
+    </value>
+  </const>
+  <const name="DirRLI" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirRLI
+    </value>
+  </const>
+  <const name="DirFSI" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirFSI
+    </value>
+  </const>
+  <const name="DirPDI" visibility="private" type="QChar&lt;System.Char&gt;.QChar_Direction">
+    <value>
+      DirPDI
+    </value>
+  </const>
   <procedure name="EntryPoint" visibility="private">
     <parameters>
       <parameter name="argc" type="Integer" />

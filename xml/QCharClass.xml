@@ -183,7 +183,7 @@
       <retval type="Word" />
     </parameters>
   </function>
-  <class name="QChar">
+  <class name="QChar`1">
     <devnotes>
        <summary>
         QChar ist eine Beispielklasse
@@ -336,9 +336,25 @@
       <field name="ClassName" type="PWideChar" visibility="private" size="8" offset="8" />
       <field name="ptr_val" type="ResultVHelper" visibility="private" size="180" offset="16" />
       <field name="c_type" type="Word" visibility="private" size="2" offset="196" />
-      <field name="FCategory" type="QChar.QChar_Category" visibility="private" size="2" offset="198" />
-      <field name="FDecomposition" type="QChar.QChar_Decomposition" visibility="private" size="2" offset="200" />
-      <field name="FDirection" type="QChar.QChar_Direction" visibility="private" size="2" offset="202" />
+      <field name="FCategory" visibility="private" size="2" offset="200">
+      </field>
+      <field name="FDecomposition" visibility="private" size="2" offset="208">
+      </field>
+      <field name="FDirection" visibility="private" size="2" offset="216">
+      </field>
+      <function name="check_ptr" visibility="private">
+        <devnotes>
+           <summary>
+             prüft, ob eine Instanz mit dem im Parameter &quot;name&quot; stehende Symbol
+             initialisiert wurde.
+           </summary>
+        </devnotes>
+        <parameters>
+          <parameter name="name" type="PWideChar" />
+          <parameter name="ptr" type="UInt64" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
       <function name="getOrigin" visibility="protected">
         <parameters>
           <retval type="UInt64" />
@@ -563,19 +579,22 @@
       </destructor>
       <function name="Lt" visibility="public">
         <parameters>
-          <parameter name="B" type="QChar" paramflags="const" />
+          <parameter name="B" paramflags="const">
+          </parameter>
           <retval type="Boolean" />
         </parameters>
       </function>
       <function name="Eq" visibility="public">
         <parameters>
-          <parameter name="B" type="QChar" paramflags="const" />
+          <parameter name="B" paramflags="const">
+          </parameter>
           <retval type="Boolean" />
         </parameters>
       </function>
       <function name="Gt" visibility="public">
         <parameters>
-          <parameter name="B" type="QChar" paramflags="const" />
+          <parameter name="B" paramflags="const">
+          </parameter>
           <retval type="Boolean" />
         </parameters>
       </function>
@@ -740,9 +759,9 @@
           <retval type="Word" />
         </parameters>
       </function>
-      <property name="Category" visibility="published" read="FCategory" type="QChar.QChar_Category" default="13" />
-      <property name="Decomposition" visibility="published" read="FDecomposition" type="QChar.QChar_Decomposition" default="0" />
-      <property name="Direction" visibility="published" read="FDirection" type="QChar.QChar_Direction" default="2" />
+      <property name="Category" visibility="published" read="FCategory" type="QChar&lt;T&gt;.QChar_Category" hoisted="true" />
+      <property name="Decomposition" visibility="published" read="FDecomposition" type="QChar&lt;T&gt;.QChar_Decomposition" hoisted="true" />
+      <property name="Direction" visibility="published" read="FDirection" type="QChar&lt;T&gt;.QChar_Direction" hoisted="true" />
     </members>
   </class>
 </namespace>
