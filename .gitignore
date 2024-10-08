@@ -30,3 +30,5 @@ dox/project.chi
 /pas/__recovery
 /readme
 *.dcu
+win64/Release/fpcqt.exe.bak
+win64/Release/fpcqt.dll.bak

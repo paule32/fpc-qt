@@ -14,17 +14,19 @@
 # include <stdio.h>
 # include <wchar.h>         // wideChar: wscpy
 
-# include <iostream>
-# include <string>
+# include <iostream>        // basic input/output
+# include <string>          // std::string
+# include <sstream>         // std::stringstream
 # include <variant>
 # include <map>
 # include <vector>
 # include <memory>
 # include <cwchar>
-# include <exception>
+# include <exception>       // ausnahmen
 # include <locale>
 # include <codecvt>
-# include <cctype>
+# include <cctype>          // data types
+# include <typeinfo>        // run-time information
 
 #ifndef WINDOWS
 typedef uint16_t WORD;
@@ -152,19 +154,32 @@ enum symbolTypeEnum : uint32_t
     stQChar = 100,
 };
 
-class QChar {
+class TObject {
 public:
-    // constructor
-    QChar(void);
+    virtual std::string ClassName() const;
+    virtual ~TObject();
+};
+
+template <typename T>
+class QChar: public TObject {
+private:
+    T value;
+public:
+    // constructor's
+    QChar(): value(T()) { }
+    QChar(T val): value(val) { }
+
+    #if 0
     QChar(char      c);  // char
     QChar(uint8_t   c);  // byte/ansichar
     QChar(uint16_t  c);  // Word
     QChar(uint32_t  c);  // dword
     QChar(wchar_t   c);  // widechar
     QChar(short     c);  // short
+    #endif
     
     // destructor
-    ~QChar(void);
+    virtual ~QChar() { }
     
     bool isAlpha          () const;
     bool isAlphaNumber    () const;
@@ -193,28 +208,21 @@ public:
     ::QChar toTitleCase  () const;
     ::QChar toUpper      () const;
     
-    // setter
-    void setType(char     t);
-    void setType(uint8_t  t);
-    void setType(uint16_t t);
-    void setType(uint32_t t);
-    void setType(wchar_t  t);
-    void setType(short    t);
-    
-    friend std::ostream& operator << (std::ostream& os, const QChar c);
-    friend std::istream& operator >> (std::istream& is,       QChar c);
+    template <typename U> friend std::ostream& operator << (std::ostream& os, const qvc::QChar<U> c);
+    template <typename U> friend std::istream& operator >> (std::istream& is,       qvc::QChar<U> c);
     
     
     // getter
     symbolTypeEnum getType  (void) const;
     ::QChar *      getOrigin(void) const;
-    ::QChar *      origin;
+    //::QChar *      origin;
     
     struct ResultVHelper * ptr_val = nullptr;
 };
 
-extern uint64_t Iaddsymbol(const std::wstring&, struct ResultVHelper *addr);
+extern uint64_t Iaddsymbol(const std::wstring&, struct qvc::ResultVHelper *addr);
 extern uint64_t current_ptr;
+}   // namespace: qvc
 
 extern "C" {
 /**
@@ -256,5 +264,5 @@ bool ctor_QString(wchar_t* p_name);
 /** @} */  // Ende: internFunctions
 
 };      // ectern:    "C"
-}       // namespace: qvc
+
 #endif  // header:    __FPC_QT_H__

@@ -16,13 +16,13 @@ uint64_t current_ptr = 0;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 uint64_t
-Iaddsymbol(const std::wstring& p_sname, struct ResultVHelper *addr)
+Iaddsymbol(const std::wstring& p_sname, struct qvc::ResultVHelper *addr)
 {
     current_ptr = 0;
     if (addr->VType2.VType == symbolTypeEnum::stQChar) {
-        qvc::QChar* qc = new qvc::QChar();
-        qc->ptr_val    = addr;
-        current_ptr    = reinterpret_cast<uint64_t>((void*)qc);
+        auto   * qc = new qvc::QChar<char>();
+        qc->ptr_val = addr;
+        current_ptr = reinterpret_cast<uint64_t>((void*)qc);
     }
     
     return current_ptr;

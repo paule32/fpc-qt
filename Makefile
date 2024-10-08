@@ -327,10 +327,12 @@ windows_dll: $(OBJS)
 	@echo "create 'fpcso.dll':"
 	g++   $(GPP_64_REL_FLAGS) -o$(DLL_TARGET) $^ $(Qt5LIBS)
 	strip $(DLL_TARGET)
+	cp    $(DLL_TARGET) $(DLL_TARGET).bak
 	upx   $(DLL_TARGET)
 
 windows_app: $(TARGET_REL_64)
 	$(FPC_Win_64) $(FPC_REL_FLAGS_WINDOWS) -o$(EXE_TARGET) fpcqt.dpr
+	cp  $(EXE_TARGET) $(EXE_TARGET).bak
 	upx $(EXE_TARGET)
 
 # ---------------------------------------------------------------------------

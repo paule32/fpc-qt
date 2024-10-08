@@ -735,7 +735,7 @@ end;
 /// <param name="c">
 ///  Ein WideChar für das Zeichen.
 /// </param>
-constructor QChar.Create(c: Array of WideChar);
+constructor QChar<T>.Create(c: Array of WideChar);
 var
     pch_str: PChar;
 begin

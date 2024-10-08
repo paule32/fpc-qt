@@ -10,8 +10,8 @@ EditViewName=
 
 [ClosedView_RTpcUHJvamVrdGVcQXRoZW5zUHJvamVrdGVcMVxmcGNxdC5kcHI=]
 Module=E:\Projekte\AthensProjekte\1\fpcqt.dpr
-CursorX=23
-CursorY=1
+CursorX=38
+CursorY=10
 TopLine=1
 LeftCol=1
 Elisions=
@@ -30,9 +30,9 @@ EditViewName=E:\Projekte\AthensProjekte\1\pas\qchar.pas
 
 [ClosedView_RTpcUHJvamVrdGVcQXRoZW5zUHJvamVrdGVcMVxwYXNcUUNoYXJDbGFzcy5wYXM=]
 Module=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas
-CursorX=23
-CursorY=813
-TopLine=813
+CursorX=5
+CursorY=738
+TopLine=721
 LeftCol=1
 Elisions=
 Bookmarks=
