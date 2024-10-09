@@ -20,15 +20,13 @@ uses
 const CompilerFPC = 1;
 const CompilerDCC = 2;
 
-    {$if defined(Win64)}
+    {$ifdef Win64}
         const DLLname = 'fpcqt.dll';
-    {$elseif defined(Unix)}
-        const DLLname = 'fpcqt.so';
     {$else}
-        {$message fatal 'Compiler nicht unterstützt'}
+        const DLLname = 'fpcqt.so';
     {$endif}
 type
-    TMainCallback = procedure(argc: Integer; argv: Array of String);
+    TMainCallback = procedure(argc: Integer; argv: TArray<String>);
 
     function InitLibrary(Callback: TMainCallback): Boolean;
     function ErrorMessage(s: PChar): Boolean; cdecl; external dllname;
@@ -42,6 +40,8 @@ implementation
 uses fpcmain;
 
 function InitLibrary(Callback: TMainCallback): Boolean;
+var
+    astr: TArray<String>;
 begin
     result := False;
     try
@@ -54,7 +54,8 @@ begin
                 {$ENDIF}
             {$ENDIF}
         {$ENDIF}
-        Callback(ParamCount, ParamStr(1));
+        astr := TArray<String>(ParamStr(1));
+        Callback(ParamCount, astr);
     finally
         Halt(0);
     end;
