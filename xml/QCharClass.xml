@@ -368,19 +368,14 @@
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
-        <devnotes>
-           <summary>
-           Erstellt eine Instanz von QChar mit einen Byte als Parameter.
-           </summary>
-           <param name="c">
-           Ein Byte für das Zeichen.
-           </param>
-           <remarks>
-           Dies ist der Standardkonstruktors für QChar.
-           </remarks>
-        </devnotes>
         <parameters>
-          <parameter name="c" type="Byte" />
+          <parameter name="v" type="T" />
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="v">
+          </parameter>
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">

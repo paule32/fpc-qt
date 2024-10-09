@@ -19,7 +19,7 @@ uses
     {$ifdef win64}
     Windows,
     {$endif}
-    SysUtils, misc, fpcmain;
+    SysUtils, TypInfo, misc, fpcmain;
 
 type
     ClassVHelper = record
@@ -188,17 +188,8 @@ type
         /// Dies ist der Standardkonstruktor.
         /// </remarks>
         constructor Create; overload;
-
-        /// <summary>
-        /// Erstellt eine Instanz von QChar mit einen Byte als Parameter.
-        /// </summary>
-        /// <param name="c">
-        /// Ein Byte für das Zeichen.
-        /// </param>
-        /// <remarks>
-        /// Dies ist der Standardkonstruktors für QChar.
-        /// </remarks>
-        constructor Create(c: Byte); overload;
+        constructor Create(v: T); overload;
+        constructor Create(v: TArray<T>); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
@@ -434,31 +425,69 @@ begin
     c_type := Ord('A');
 end;
 
-/// <summary>
-///  Erstellt eine Instanz von QChar mit einen Byte als Parameter.
-/// </summary>
-/// <param name="c">
-///  Ein Byte für das Zeichen.
-/// </param>
-constructor QChar<T>.Create(c: Byte);
+constructor QChar<T>.Create(v: T);
 var
-  memvar: SmallInt;
-  ptr: Pointer;
+    typeInf: PTypeInfo;
+    memvar: T;
+    ptr: Pointer;
+    pch_str: String;
 begin
-  inherited Create;
-  memvar := c;
-  ptr := @memvar;
+    inherited Create;
+    typeInf := TypeInfo(T);
 
-  {$ifdef DEBUG}
-  WriteLn(Format('create byte: 0x%p', [ptr]));
-  {$endif}
+    memvar := v;
+    ptr := @memvar;
 
-  ptr_val.VType1.VPointer := ctor_QChar(PChar('ctor_QChar_Byte'), ptr);
+    pch_str := typeInf^.Name;
+    // ----------------------------
+    ptr_val.VType2.VType    := stQChar;
 
-  if not check_ptr(ClassName, getOrigin) then
-  begin Free; exit; end;
+    if pch_str = 'Char'    then ptr_val.VType2.Value_u1 := Byte   (ptr) else
+    if pch_str = 'Byte'    then ptr_val.VType2.Value_u1 := Byte   (ptr) else
+    if pch_str = 'Word'    then ptr_val.VType2.Value_u1 := Word   (ptr) else
+    if pch_str = 'DWord'   then ptr_val.VType2.Value_u1 := DWORD  (ptr);
 
-  c_type := c;
+    ptr_val.VType2.Length   := Length(pch_str);
+
+    GetMem (ptr_val.VType2.Name, sizeof(WideChar) * Length(pch_str) + 1);
+    StrCopy(ptr_val.VType2.Name, PChar(pch_str));
+    // ----------------------------
+    pch_str := 'ctor_QChar_' + typeInf^.Name;
+    ptr_val.VType3.Length  := Length(pch_str);
+
+    GetMem (ptr_val.VType3.Name, sizeof(WideChar) * Length(pch_str) + 1);
+    StrCopy(ptr_val.VType3.Name, PChar(pch_str));
+
+    WriteLn('der Typ von T ist: ', typeInf^.Name);
+
+    ptr_val.VType1.VPointer := ctor_QChar(PChar(
+    'ctor_QChar_' + typeInf^.Name), ptr);
+
+    if not check_ptr(ClassName, getOrigin) then
+    raise Exception.Create('T error.');
+end;
+
+constructor QChar<T>.Create(v: TArray<T>);
+var
+    typeInf: PTypeInfo;
+    memvar: T;
+    ptr: Pointer;
+    i: Integer;
+begin
+    inherited Create;
+    typeInf := TypeInfo(T);
+
+    for i := 0 to High(v) do
+    memvar := v[i];
+    ptr := @memvar;
+
+    WriteLn('der Typ von T ist: ', typeInf^.Name);
+
+    ptr_val.VType1.VPointer := ctor_QChar(PChar(
+    'ctor_QChar_' + typeInf^.Name), ptr);
+
+    if not check_ptr(ClassName, getOrigin) then
+    raise Exception.Create('T error.');
 end;
 
 /// <summary>
@@ -569,8 +598,8 @@ begin
 end;
 
 constructor QChar<T>.Create(c: Pointer);
-var
-    pch_str: PChar;
+//var
+//    pch_str: PChar;
 begin
 
 end;
@@ -810,8 +839,11 @@ end;
 destructor QChar<T>.Destroy;
 begin
     {$ifdef DEBUG}
-    WriteLn('qchar delete');
+    WriteLn('free memory qchar...');
     {$endif}
+
+    FreeMem(ptr_val.VType2.Name);
+    FreeMem(ptr_val.VType3.Name);
 
     dtor_QChar(ptr_val.VType1.VPointer);
 
