@@ -22,6 +22,14 @@ uses
 type
     QWORD = uint64;
 
+    TCharArray      = TArray<Char >;
+    TByteArray      = TArray<Byte >;
+    TWordArray      = TArray<Word >;
+    TInt16Array     = TArray<Int16>;
+    TInt32Array     = TArray<Int32>;
+    TDwordArray     = TArray<Dword>;
+    TQwordArray     = TArray<Qword>;
+    // ---------------------------------------
     QCharArrayChar  = QChar<TArray<Char >>;
     QCharArrayByte  = QChar<TArray<Byte >>;
     QCharArrayWord  = QChar<TArray<Word >>;
@@ -32,10 +40,10 @@ type
 
 procedure EntryPoint(argc: Integer; argv: TArray<String>);
 var
-    myQChar: QChar<TArray<Char>>;
+    myQChar: QChar<TCharArray>;
 begin
     WriteLn('start...');
-    myQChar := QCharArrayChar.Create([' ', ' ']);
+    myQChar := QChar<TCharArray>.Create([' ', ' ']);
     if myQChar.isBlank then
     begin
         WriteLn('ok');

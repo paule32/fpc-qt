@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.842,=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.801,=E:\Projekte\AthensProjekte\1\pas\misc.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.821,E:\Projekte\AthensProjekte\1\Project1.dproj=E:\Projekte\AthensProjekte\1\fpcqt.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.377,E:\Projekte\AthensProjekte\1\pas\appsettings.pas=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.022,=E:\Projekte\AthensProjekte\1\pas\fpcmain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.393,E:\Projekte\AthensProjekte\1\Unit1.pas=E:\Projekte\AthensProjekte\1\pas\qchar.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.499,=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.570,E:\Projekte\AthensProjekte\1\fpcmain.pas=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.151,C:\Users\Jens Kallup\Documents\Embarcadero\Studio\Projekte\Project1.dproj=E:\Projekte\AthensProjekte\1\Project1.dproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.443,=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.173,=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.801,=E:\Projekte\AthensProjekte\1\pas\misc.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.151,E:\Projekte\AthensProjekte\1\Project1.dproj=C:\Users\Jens Kallup\Documents\Embarcadero\Studio\Projekte\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.022,=E:\Projekte\AthensProjekte\1\pas\fpcmain.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.570,E:\Projekte\AthensProjekte\1\Unit1.pas=E:\Projekte\AthensProjekte\1\fpcmain.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.499,=E:\Projekte\AthensProjekte\1\pas\QCharClass.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.393,E:\Projekte\AthensProjekte\1\pas\qchar.pas=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.821,E:\Projekte\AthensProjekte\1\fpcqt.dproj=E:\Projekte\AthensProjekte\1\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.842,=E:\Projekte\AthensProjekte\1\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.377,E:\Projekte\AthensProjekte\1\Unit1.pas=E:\Projekte\AthensProjekte\1\pas\appsettings.pas</Transaction>
   </Transactions>
 </BorlandProject>
