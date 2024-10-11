@@ -15,6 +15,7 @@ xml_files = [
     [ 'QCharClass', 'QCharClass_class_functions' , 'class_functions'  ],
     [ 'QCharClass', 'QCharClass_class_procedures', 'class_procedures' ],
     #
+    [ 'QCharClass', 'QCharClass_ctors'           , 'ctors'            ],
     [ 'QCharClass', 'QCharClass_enums'           , 'enums'            ],
     [ 'QCharClass', 'QCharClass_functions'       , 'functions'        ],
     [ 'QCharClass', 'QCharClass_procedures'      , 'procedures'       ]
