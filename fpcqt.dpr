@@ -11,39 +11,21 @@
 {$endif}
 program fpcqt;
 uses
-    {$ifdef win64}
-    Windows,
-    {$endif }
-    appsettings in 'pas/appsettings.pas',
-    misc        in 'pas/misc.pas',
-    fpcmain     in 'pas/fpcmain.pas',
-    QCharClass  in 'pas/QCharClass.pas';
-
-type
-    QWORD = uint64;
-
-    TCharArray      = TArray<Char >;
-    TByteArray      = TArray<Byte >;
-    TWordArray      = TArray<Word >;
-    TInt16Array     = TArray<Int16>;
-    TInt32Array     = TArray<Int32>;
-    TDwordArray     = TArray<Dword>;
-    TQwordArray     = TArray<Qword>;
-    // ---------------------------------------
-    QCharArrayChar  = QChar<TArray<Char >>;
-    QCharArrayByte  = QChar<TArray<Byte >>;
-    QCharArrayWord  = QChar<TArray<Word >>;
-    QCharArrayInt16 = QChar<TArray<Int16>>;
-    QCharArrayInt32 = QChar<TArray<Int32>>;
-    QCharArrayDWORD = QChar<TArray<DWORD>>;
-    QCharArrayQWORD = QChar<TArray<QWORD>>;
+  {$ifdef win64}
+  Windows,
+  {$endif }
+  appsettings in 'pas\appsettings.pas',
+  misc        in 'pas\misc.pas',
+  fpcmain     in 'pas\fpcmain.pas',
+  QTypes      in 'pas\QTypes.pas',
+  QCharClass  in 'pas\QCharClass.pas';
 
 procedure EntryPoint(argc: Integer; argv: TArray<String>);
 var
-    myQChar: QChar<TCharArray>;
+    myQChar: QChar<Char>;
 begin
     WriteLn('start...');
-    myQChar := QChar<TCharArray>.Create([' ', ' ']);
+    myQChar := QChar<Char>.Create([' ', ' ']);
     if myQChar.isBlank then
     begin
         WriteLn('ok');

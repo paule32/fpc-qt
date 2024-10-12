@@ -122,7 +122,7 @@ struct ClassVHelper {
     int64_t  Value_s4;   // signed  :  64-bit
     //
     uint64_t Length;
-    char   * Name  ;
+    wchar_t* Name  ;
 };
 
 struct ResultVHelper {
@@ -156,7 +156,7 @@ enum symbolTypeEnum : uint32_t
 
 class TObject {
 public:
-    virtual std::string ClassName() const;
+    virtual std::wstring ClassName() const;
     virtual ~TObject();
 };
 
@@ -201,8 +201,8 @@ public:
     bool isTitleCase      () const;
     bool isUpper          () const;
     
-    char toAscii  () const;
-    char toLatin1 () const;
+    wchar_t toAscii  () const;
+    wchar_t toLatin1 () const;
        
     ::QChar toLower      () const;
     ::QChar toTitleCase  () const;
@@ -220,7 +220,7 @@ public:
     struct ResultVHelper * ptr_val = nullptr;
 };
 
-extern uint64_t Iaddsymbol(const std::wstring&, struct qvc::ResultVHelper *addr);
+extern uint64_t Iaddsymbol(char*, struct qvc::ResultVHelper *addr);
 extern uint64_t current_ptr;
 }   // namespace: qvc
 
@@ -249,7 +249,7 @@ extern uint8_t GetPascalCompiler(void);
  * \param    p_name - wchar_t* der Name der Klasse
  * \return   uint64_t - ein 64-Bit Type der die Adresse der erstellten Klasse zurückgibt.
  */
-uint64_t ctor_QChar(wchar_t* p_name, uint64_t addr);
+uint64_t ctor_QChar(char* p_name, uint64_t addr);
 
 /**
  * \defgroup qstringclass QString

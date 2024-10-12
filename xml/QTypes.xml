@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="QTypes" platform="Win64">
+  <type name="QWORD" type="Int64" file="System.pas" line="12" />
+</namespace>

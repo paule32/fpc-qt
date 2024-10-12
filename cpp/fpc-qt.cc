@@ -16,7 +16,7 @@ uint64_t current_ptr = 0;
  * \param  e_value - enum          => Der Aufzählungstyp für das Symbol.
  */
 uint64_t
-Iaddsymbol(const std::wstring& p_sname, struct qvc::ResultVHelper *addr)
+Iaddsymbol(char* p_sname, struct qvc::ResultVHelper *addr)
 {
     current_ptr = 0;
     if (addr->VType2.VType == symbolTypeEnum::stQChar) {

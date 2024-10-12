@@ -368,17 +368,6 @@
         </parameters>
       </constructor>
       <constructor name="Create" visibility="public">
-        <parameters>
-          <parameter name="v" type="T" />
-        </parameters>
-      </constructor>
-      <constructor name="Create" visibility="public">
-        <parameters>
-          <parameter name="v">
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="Create" visibility="public">
         <devnotes>
            <summary>
            Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.

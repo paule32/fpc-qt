@@ -188,8 +188,6 @@ type
         /// Dies ist der Standardkonstruktor.
         /// </remarks>
         constructor Create; overload;
-        constructor Create(v: T); overload;
-        constructor Create(v: TArray<T>); overload;
 
         /// <summary>
         /// Erstellt eine Instanz für ein AnsiChar mit einen Byte als Parameter.
@@ -306,7 +304,7 @@ type
         /// <remarks>
         /// Dies ist der WideChar Konstruktor für QChar.
         /// </remarks>
-        {$ifndef RADCE}
+        {$ifdef RADCE}
         constructor Create(c: Array of WideChar); overload;
         {$endif}
 
@@ -397,10 +395,8 @@ function QChar<T>.check_ptr(name: PChar; ptr: uint64): Boolean;
 begin
   result := false;
   if ptr = 0 then
-  begin
-    ErrorMessage(PChar(Format('Error: %s not constructed.',[name])));
-    exit;
-  end;
+  raise Exception.Create(PChar(Format('Error: %s not constructed.',[name])));
+
   result := true;
 end;
 
@@ -423,71 +419,6 @@ begin
     begin Free; exit; end;
 
     c_type := Ord('A');
-end;
-
-constructor QChar<T>.Create(v: T);
-var
-    typeInf: PTypeInfo;
-    memvar: T;
-    ptr: Pointer;
-    pch_str: String;
-begin
-    inherited Create;
-    typeInf := TypeInfo(T);
-
-    memvar := v;
-    ptr := @memvar;
-
-    pch_str := typeInf^.Name;
-    // ----------------------------
-    ptr_val.VType2.VType    := stQChar;
-
-    if pch_str = 'Char'    then ptr_val.VType2.Value_u1 := Byte   (ptr) else
-    if pch_str = 'Byte'    then ptr_val.VType2.Value_u1 := Byte   (ptr) else
-    if pch_str = 'Word'    then ptr_val.VType2.Value_u1 := Word   (ptr) else
-    if pch_str = 'DWord'   then ptr_val.VType2.Value_u1 := DWORD  (ptr);
-
-    ptr_val.VType2.Length   := Length(pch_str);
-
-    GetMem (ptr_val.VType2.Name, sizeof(WideChar) * Length(pch_str) + 1);
-    StrCopy(ptr_val.VType2.Name, PChar(pch_str));
-    // ----------------------------
-    pch_str := 'ctor_QChar_' + typeInf^.Name;
-    ptr_val.VType3.Length  := Length(pch_str);
-
-    GetMem (ptr_val.VType3.Name, sizeof(WideChar) * Length(pch_str) + 1);
-    StrCopy(ptr_val.VType3.Name, PChar(pch_str));
-
-    WriteLn('der Typ von T ist: ', typeInf^.Name);
-
-    ptr_val.VType1.VPointer := ctor_QChar(PChar(
-    'ctor_QChar_' + typeInf^.Name), ptr);
-
-    if not check_ptr(ClassName, getOrigin) then
-    raise Exception.Create('T error.');
-end;
-
-constructor QChar<T>.Create(v: TArray<T>);
-var
-    typeInf: PTypeInfo;
-    memvar: T;
-    ptr: Pointer;
-    i: Integer;
-begin
-    inherited Create;
-    typeInf := TypeInfo(T);
-
-    for i := 0 to High(v) do
-    memvar := v[i];
-    ptr := @memvar;
-
-    WriteLn('der Typ von T ist: ', typeInf^.Name);
-
-    ptr_val.VType1.VPointer := ctor_QChar(PChar(
-    'ctor_QChar_' + typeInf^.Name), ptr);
-
-    if not check_ptr(ClassName, getOrigin) then
-    raise Exception.Create('T error.');
 end;
 
 /// <summary>
@@ -648,15 +579,10 @@ var
 begin
     inherited Create;
     if @c = nil then
-    begin
-        ErrorMessage('Error: c: Array of Char not allocated.');
-        Destroy;
-    end;
+    raise Exception.Create('Error: c: Array of Char not allocated.');
+
     if Length(c) < 2 then
-    begin
-        ErrorMessage('Error: QChar minimum array size == 2');
-        Destroy;
-    end;
+    raise Exception.Create('Error: QChar minimum array size == 2');
 
     {$ifdef DEBUG}
     writeln('array of char ctor delp');
@@ -674,10 +600,11 @@ begin
     ptr_val.VType3.Length  := strlen(pch_str);
     ptr_val.VType3.Name    := pch_str;
 
+    writeln('xxxxxx');
     ptr_val.VType1.VPointer := ctor_QChar(pch_str, @ptr_val);
 
     if not check_ptr(ClassName, getOrigin) then
-    begin Free; exit; end;
+    raise Exception.Create('internal error.');
 end;
 
 constructor QChar<T>.Create(c: Array of Word);
@@ -756,7 +683,7 @@ begin
     begin Free; exit; end;
 end;
 
-{$ifndef RADCE}
+{
 /// <summary>
 ///  Erstellt eine Instanz der Klasse QChar mit einen Array of WideChar als
 //   Parameter.
@@ -765,8 +692,8 @@ end;
 ///  Ein WideChar für das Zeichen.
 /// </param>
 constructor QChar<T>.Create(c: Array of WideChar);
-var
-    pch_str: PChar;
+//var
+//    pch_str: PChar;
 begin
     inherited Create;
     if @c = nil then
@@ -797,7 +724,7 @@ begin
     if not check_ptr(ClassName, getOrigin) then
     begin Free; exit; end;
 end;
-{$endif}
+}
 
 constructor QChar<T>.Create(c: Array of Pointer);
 var

@@ -7,10 +7,14 @@
 #define DEBUG
 namespace qvc {
 
-std::string TObject::ClassName() const {
-    std::stringstream ss;
-    ss << typeid(*this).name();
-    return ss.str();
+std::wstring TObject::ClassName() const {
+    std::string   str = typeid(*this).name();
+    std::wstring wstr(str.begin(), str.end());
+    
+    wchar_t* wch = new wchar_t[wstr.size() + 1];
+    std::wcscpy(wch, wstr.c_str());
+    
+    return wch;
 }
 
 TObject::~TObject() {
@@ -26,7 +30,7 @@ TObject::~TObject() {
 template <typename T>
 bool
 qvc::QChar<T>::isAscii() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
         if (isascii(ptr_val->VType2.Value_u1)) return true;
         if (isascii(ptr_val->VType2.Value_u2)) return true;
     }
@@ -36,7 +40,7 @@ qvc::QChar<T>::isAscii() const {
 template <typename T>
 bool
 qvc::QChar<T>::isAlpha() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
         if (isalpha(ptr_val->VType2.Value_u1)) return true;
         if (isalpha(ptr_val->VType2.Value_u2)) return true;
     }
@@ -46,7 +50,7 @@ qvc::QChar<T>::isAlpha() const {
 template <typename T>
 bool
 qvc::QChar<T>::isAlphaNumber() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
         if (isalnum(ptr_val->VType2.Value_u1)) return true;
         if (isalnum(ptr_val->VType2.Value_u2)) return true;
     }
@@ -60,22 +64,22 @@ qvc::QChar<T>::isAlphaNumber() const {
 template <typename T>
 bool
 qvc::QChar<T>::isBlank() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
-        std::cout << "c++ isblank" << std::endl;
-        if ((static_cast<unsigned char>(ptr_val->VType2.Value_u1) == ' ')
-        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u1) == '\t')) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
+        std::wcout << L"c++ isblank" << std::endl;
+        if ((static_cast<unsigned char>(ptr_val->VType2.Value_u1) == L' ')
+        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u1) == L'\t')) {
             if ((std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u1)))
             ||  (std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u2)))) {
                 return true;
             }   return false;
         }
     }   else
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
         std::cout << "array c++ isblank" << std::endl;
-        if ((static_cast<unsigned char>(ptr_val->VType2.Value_u1) ==  ' ')
-        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u2) ==  ' ')
-        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u2) == '\t')
-        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u1) == '\t')) {
+        if ((static_cast<unsigned char>(ptr_val->VType2.Value_u1) ==  L' ')
+        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u2) ==  L' ')
+        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u2) == L'\t')
+        ||  (static_cast<unsigned char>(ptr_val->VType2.Value_u1) == L'\t')) {
             if ((std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u1)))
             ||  (std::isblank(static_cast<unsigned char>(ptr_val->VType2.Value_u2)))) {
                 return true;
@@ -88,9 +92,9 @@ qvc::QChar<T>::isBlank() const {
 template <typename T>
 bool
 qvc::QChar<T>::isDigit() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
-        std::cout << "c++ isdigi" << std::endl;
-        if ((ptr_val->VType2.Value_u1 >= '0') && (ptr_val->VType2.Value_u1 <= '9')) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
+        std::wcout << L"c++ isdigi" << std::endl;
+        if ((ptr_val->VType2.Value_u1 >= L'0') && (ptr_val->VType2.Value_u1 <= L'9')) {
             return true;
         }
     }
@@ -100,9 +104,9 @@ qvc::QChar<T>::isDigit() const {
 template <typename T>
 bool
 qvc::QChar<T>::isLetter() const {
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
-        if (((ptr_val->VType2.Value_u1 >= 'a') && (ptr_val->VType2.Value_u1 <= 'z'))
-        ||  ((ptr_val->VType2.Value_u1 >= 'A') && (ptr_val->VType2.Value_u1 <= 'Z'))) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
+        if (((ptr_val->VType2.Value_u1 >= L'a') && (ptr_val->VType2.Value_u1 <= L'z'))
+        ||  ((ptr_val->VType2.Value_u1 >= L'A') && (ptr_val->VType2.Value_u1 <= L'Z'))) {
             return true;
         }
     }
@@ -112,26 +116,26 @@ qvc::QChar<T>::isLetter() const {
 template <typename T>
 bool
 qvc::QChar<T>::isLetterOrNumber() const {
-    if (!strcmp(ptr_val->VType2.Name, "smallint")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"smallint")) {
         if (isascii(ptr_val->VType2.Value_u1))
         return true;
 
         if ((ptr_val->VType2.Value_s2 >= -32768) && (ptr_val->VType2.Value_s2 <= 32767))
         return true;
     }   else
-    if (!strcmp(ptr_val->VType2.Name, "char")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"char")) {
         if (isascii(ptr_val->VType2.Value_u1))
         return true;
     }   else
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
         if (isascii(ptr_val->VType2.Value_u1)) return true;
         if (isascii(ptr_val->VType2.Value_u2)) return true;
         
         if (isdigit(ptr_val->VType2.Value_u1)) return true;
         if (isdigit(ptr_val->VType2.Value_u2)) return true;
     }   else
-    if (!strcmp(ptr_val->VType2.Name, "arraybyte")) {
-        std::cout << "array c++ byte" << std::endl;
+    if (!wcscmp(ptr_val->VType2.Name, L"arraybyte")) {
+        std::wcout << L"array c++ byte" << std::endl;
         return true;
     }
     return false;
@@ -140,8 +144,8 @@ qvc::QChar<T>::isLetterOrNumber() const {
 template <typename T>
 bool
 qvc::QChar<T>::isLower() const {
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
-        std::cout << "c++ loweerrr" << std::endl;
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
+        std::wcout << L"c++ loweerrr" << std::endl;
         if (islower(ptr_val->VType2.Value_u1))
         return true;
     }   return false;
@@ -174,7 +178,7 @@ qvc::QChar<T>::isNull() const {
 template <typename T>
 bool
 qvc::QChar<T>::isNumber() const {
-    if (!strcmp(ptr_val->VType2.Name, "smallint")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"smallint")) {
         std::cout << ptr_val->VType2.Value_s2 << std::endl;
         if ((ptr_val->VType2.Value_s2 >= -32768) && (ptr_val->VType2.Value_s2 <= 32767)) {
             return true;
@@ -188,8 +192,8 @@ qvc::QChar<T>::isNumber() const {
 template <typename T>
 bool
 qvc::QChar<T>::isPrint() const {
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
-        std::cout << "c++ printerrr" << std::endl;
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
+        std::wcout << L"c++ printerrr" << std::endl;
         if (isprint(ptr_val->VType2.Value_u1))
         return true;
     }   return false;
@@ -206,7 +210,7 @@ qvc::QChar<T>::isPunct() const {
 template <typename T>
 bool
 qvc::QChar<T>::isSpace() const {
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
         if (isspace(ptr_val->VType2.Value_u1))
         return true;
     }   return false;
@@ -239,7 +243,7 @@ qvc::QChar<T>::isTitleCase() const {
 template <typename T>
 bool
 qvc::QChar<T>::isUpper() const {
-    if (!strcmp(ptr_val->VType2.Name, "arraychar")) {
+    if (!wcscmp(ptr_val->VType2.Name, L"arraychar")) {
         if (isupper(ptr_val->VType2.Value_u1))
         return true;
     }
@@ -251,17 +255,17 @@ template <typename T>
 qvc::QChar<T>::getOrigin(void) const { return /*origin*/ nullptr; }
 
 template <typename T>
-char
+wchar_t
 qvc::QChar<T>::toAscii() const {
     //return origin->toLatin1();
-    return '\0';
+    return L'\0';
 }
 
 template <typename T>
-char
+wchar_t
 qvc::QChar<T>::toLatin1() const {
     //return origin->toLatin1();
-    return '\0';
+    return L'\0';
 }
 
 template <typename T>
@@ -328,9 +332,12 @@ check_origin(::QChar * addr)
 extern "C" {
 
 DLL_EXPORT uint64_t
-ctor_QChar(wchar_t* p_name, uint64_t addr)
+ctor_QChar(char* p_name, uint64_t addr)
 {
-    qvc::ResultVHelper * vhelper = new qvc::ResultVHelper;
+    std::wcout << L"just fun" << std::endl;
+    std::wcout << reinterpret_cast<wchar_t*>(p_name) << std::endl;
+
+    auto * vhelper = new qvc::ResultVHelper;
     
     vhelper->VType1.VType = reinterpret_cast<qvc::ResultVHelper*>(addr)->VType1.VType;
     vhelper->VType2.VType = reinterpret_cast<qvc::ResultVHelper*>(addr)->VType2.VType;
@@ -370,14 +377,20 @@ ctor_QChar(wchar_t* p_name, uint64_t addr)
     vhelper->VType2.Length  = reinterpret_cast<qvc::ResultVHelper*>(addr)->VType2.Length;
     vhelper->VType3.Length  = reinterpret_cast<qvc::ResultVHelper*>(addr)->VType3.Length;
     
-    vhelper->VType1.Name  = new char[vhelper->VType1.Length + 1];
-    vhelper->VType2.Name  = new char[vhelper->VType2.Length + 1];
-    vhelper->VType3.Name  = new char[vhelper->VType3.Length + 1];
-
-    strcpy(vhelper->VType2.Name, reinterpret_cast<qvc::ResultVHelper*>(addr)->VType2.Name);
-    //strcpy(vhelper->VType2.Name, reinterpret_cast<ResultVHelper*>(addr)->VType2.Name);
-    //strcpy(vhelper->VType3.Name, reinterpret_cast<ResultVHelper*>(addr)->VType3.Name);
     
+    vhelper->VType1.Name  = new wchar_t[64]; //vhelper->VType1.Length + 1];
+    vhelper->VType2.Name  = new wchar_t[64]; //vhelper->VType2.Length + 1];
+    vhelper->VType3.Name  = new wchar_t[64]; //vhelper->VType3.Length + 1];
+    
+    // still there no problem
+    
+    wcscpy(vhelper->VType1.Name, reinterpret_cast<qvc::ResultVHelper*>(addr)->VType2.Name);
+    // error
+    
+    std::wcout << p_name << std::endl;
+    //wcscpy(vhelper->VType2.Name, reinterpret_cast<ResultVHelper*>(addr)->VType2.Name);
+    //wcscpy(vhelper->VType3.Name, reinterpret_cast<ResultVHelper*>(addr)->VType3.Name);
+std::wcout << L"p_name" << std::endl;    
     #ifdef DEBUG
     std::wcout << L"CTOR mem:  0x"
                << std::hex << addr
@@ -416,7 +429,7 @@ isAscii_QChar(uint64_t addr) {
     bool   result = false;
     auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
     
-    std::cout << "objptr = " << objptr->ClassName() << std::endl;
+    std::wcout << L"objptr = " << objptr->ClassName() << std::endl;
 
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     if (objptr->isAscii())
@@ -454,7 +467,7 @@ isBlank_QChar(uint64_t addr) {
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     
-    std::cout << "objptr = " << objptr->ClassName() << std::endl;
+    std::wcout << L"objptr = " << objptr->ClassName() << std::endl;
     
     if (objptr->isBlank())
     return true;
@@ -464,7 +477,7 @@ isBlank_QChar(uint64_t addr) {
 DLL_EXPORT bool
 isDigit_QChar(uint64_t addr)
 {
-    std::cout << "uint8_t value" << std::endl;
+    std::wcout << L"uint8_t value" << std::endl;
     bool result = false;
     auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
 
@@ -477,7 +490,7 @@ isDigit_QChar(uint64_t addr)
 DLL_EXPORT bool
 isLetter_QChar(uint64_t addr)
 {
-    std::cout << "letter or not" << std::endl;
+    std::wcout << L"letter or not" << std::endl;
     bool   result = false;
     auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
 
@@ -658,34 +671,43 @@ toLatin1_QChar(uint64_t addr)
 DLL_EXPORT uint16_t
 toLower_QChar(uint64_t addr)
 {
-    auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
+    #if 0
+    auto * objptr = reinterpret_cast<qvc::QChar<wchar_t>>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     objptr->toLower();
     
     return reinterpret_cast<uint64_t>(&objptr);
+    #endif
+    return 0;
 }
 
 DLL_EXPORT uint16_t
 toTitleCase_QChar(uint64_t addr)
 {
-    auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
+    #if 0
+    auto * objptr = reinterpret_cast<qvc::QChar<wchar_t>>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(objptr));
     objptr->toTitleCase();
     
     return reinterpret_cast<uint64_t>(&objptr);
+    #endif
+    return 0;
 }
 
 DLL_EXPORT uint16_t
 toUpper_QChar(uint64_t addr)
 {
-    auto * objptr = reinterpret_cast<qvc::QChar<char>*>(addr);
+    #if 0
+    auto * objptr = reinterpret_cast<qvc::QChar<wchar_t>>(addr);
     
     check_pointer(addr, reinterpret_cast<uint64_t>(&objptr));
     objptr->toUpper();
     
     return reinterpret_cast<uint64_t>(&objptr);
+    #endif
+    return 0;
 }
 
 };  // extern "C"

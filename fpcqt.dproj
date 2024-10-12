@@ -170,6 +170,7 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCCReference Include="pas\appsettings.pas"/>
         <DCCReference Include="pas\misc.pas"/>
         <DCCReference Include="pas\fpcmain.pas"/>
+        <DCCReference Include="pas\QTypes.pas"/>
         <DCCReference Include="pas\QCharClass.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
